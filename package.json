@@ -1,5 +1,6 @@
 {
   "name": "ramajs",
+  "version": "0.0.4",
   "author": {
     "name": ""
   },
@@ -45,7 +46,6 @@
     "release-patch": "node scripts/release.js patch",
     "test": "node scripts/test.js"
   },
-  "version": "0.0.2",
   "bugs": {
     "url": ""
   }
