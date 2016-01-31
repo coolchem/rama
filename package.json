@@ -1,4 +1,5 @@
 {
+  "name": "ramajs",
   "author": {
     "name": ""
   },
@@ -25,7 +26,6 @@
   "keywords": [],
   "licenses": [],
   "main": "dist/main.js",
-  "name": "rama",
   "optionalDependencies": {},
   "readme": "",
   "readmeFilename": "",
