@@ -7,7 +7,6 @@
   "dependencies": {},
   "description": "",
   "devDependencies": {
-    "chai": "^3.4.0",
     "coveralls": "^2.11.4",
     "cross-spawn-async": "^2.1.6",
     "del": "^2.0.2",
@@ -17,7 +16,6 @@
     "sinon": "^1.17.2",
     "sinon-as-promised": "^4.0.0",
     "sinon-chai": "^2.8.0",
-    "tsd": "^0.6.5",
     "typescript": "^1.7"
   },
   "engines": {
