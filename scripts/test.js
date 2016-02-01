@@ -2,7 +2,7 @@
 var util = require('./util');
 
 
-util.series(["npm run build","istanbul cover node_modules/mocha/bin/_mocha test/**/*.js --recursive"], function(err){
+util.series(["npm run build","karma start --single-run --no-auto-watch --browsers PhantomJS"], function(err){
 
     if(err)
     {
