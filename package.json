@@ -4,8 +4,12 @@
   "author": {
     "name": ""
   },
+  "files": [
+    "dist"
+  ],
   "typings": "./typings/browser.d.ts",
   "dependencies": {
+    "rama-webcomponents": "0.0.4",
     "steal": "^0.14.0-pre.5",
     "steal-tools": "^0.14.0-pre.2"
   },

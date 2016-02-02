@@ -1,5 +1,5 @@
 
-var webComponents = require("../js-lib/webcomponents-lite.min");
+var webComponents = require("rama-webcomponents");
 
 declare var document:any;
 
