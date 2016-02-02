@@ -1,5 +1,3 @@
-/// <reference path="../../../../typings/browser.d.ts" />
-
 
 import {REvent} from "../../../../src/core/base/REvent";
 class TestEvent extends REvent

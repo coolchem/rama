@@ -4,6 +4,7 @@ node_modules
 .DS_STORE
 src/**/*.js
 test/**/*.js
+!src/js-lib/**/*.js
 **/*.map
 coverage
 dist

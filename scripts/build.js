@@ -23,7 +23,7 @@ function build(isRelease){
     var cmd = "tsc";
 
     if(isRelease)
-        cmd = cmd + " -p src --outDir dist";
+        cmd = cmd + " -p src --outDir dist --declaration";
 
     util.series(["npm run clean",cmd], function (err) {
 

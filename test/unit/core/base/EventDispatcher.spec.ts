@@ -1,5 +1,3 @@
-/// <reference path="../../../../typings/browser.d.ts" />
-
 
 import {EventDispatcher} from "../../../../src/core/base/EventDispatcher";
 import {REvent} from "../../../../src/core/base/REvent";
