@@ -65,19 +65,9 @@ if(!DOMParser){
     };
 }(DOMParser));
 parser = new DOMParser();
-export default function parseHTML(html:string,strictChecking?:boolean):HTMLCollection{
+export default function parseHTML(html:string):HTMLCollection{
     var result = parser.parseFromString(html,'text/html');
 
     var el:HTMLElement = result.getElementsByTagName('body')[0] as HTMLElement;
-
-    var errors = el.getElementsByTagName('parsererror');
-    if(errors && errors.length > 0){
-        if(strictChecking === true){
-            throw new Error(errors[0].textContent);
-        }
-        for(var i = 0; i < errors.length; i++){
-            errors[i].parentElement.removeChild(errors[i]);
-        }
-    }
     return el.children;
 };

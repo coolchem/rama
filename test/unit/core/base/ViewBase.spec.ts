@@ -10,17 +10,12 @@ class TestComp extends ComponentBase
 {
     createdCallback() {
         testCompCreated = true;
-        console.log("I got Created");
     }
 
     attachedCallback() {
-        console.log("I got attached");
     }
 
     attributeChangedCallback(attrName, oldVal, newVal) {
-        console.log("my Attributes changed");
-        console.log(attrName);
-        console.log(newVal);
     }
 }
 class TestViewEmptyRender extends ViewBase

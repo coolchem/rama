@@ -1,34 +1,13 @@
 
 
 import {Group} from "./Group";
+import {ViewBase} from "./base/ViewBase";
 
-export class Skin
+export abstract class Skin extends ViewBase
 {
-
-    protected skin:string = '';
-
-    private _skinElement:HTMLElement;
-
-
-    constructor() {
-
-        this.parseSkin();
-    }
-
-    private parseSkin():void
-    {
-
-    }
-
-    getSkinElement():HTMLElement
-    {
-        return this._skinElement;
-    }
     getSkinPart(id:string):HTMLElement
     {
         return null;
     }
-
-
 
 }

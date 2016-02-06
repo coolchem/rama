@@ -21,7 +21,7 @@ export abstract class ViewBase
 {
 
 
-    private _element:HTMLElement;
+    protected _element:HTMLElement;
 
 
     get element():HTMLElement {
