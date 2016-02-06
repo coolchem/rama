@@ -2,8 +2,8 @@
 
 import {ComponentBase} from "./base/ComponentBase";
 import {Skin} from "./Skin";
-import {IComponent} from "./interfaces/IComponent";
-export class Component extends ComponentBase implements IComponent
+
+export class Component extends ComponentBase
 {
     private _skinClass:Function;
 
@@ -60,7 +60,7 @@ export class Component extends ComponentBase implements IComponent
         if(this.skinClass)
         {
             //this._skinElement = new this._skinClass().render();
-            this.addElement(this._skinElement);
+            this.appendChild(this._skinElement);
 
             this.findSkinParts();
             this.validateSkinState();
@@ -73,7 +73,7 @@ export class Component extends ComponentBase implements IComponent
 
     private detachSkin(){
         this.clearSkinParts();
-        this.removeElement(this._skinElement);
+        this.removeChild(this._skinElement);
     }
 
     findSkinParts() {

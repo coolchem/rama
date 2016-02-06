@@ -44,6 +44,14 @@ describe('dom Spec', () => {
             expect(vnode.children[0].attributes['my-attr']).toEqual("humm");
         });
 
+        it("should create attribute with empty string if attribute value is not present",()=>{
+
+            var els:HTMLCollection = parseHTML("<div my-attr ></div>");
+
+            var vnode:any = createVNode(els.item(0));
+            expect(vnode.attributes['my-attr']).toEqual("");
+        });
+
     });
 
     describe("createElement",()=>{
