@@ -1,10 +1,34 @@
 
 
 import {Group} from "./Group";
-import {element} from "./decorators";
 
-@element("r-skin")
-export class Skin extends Group
+export class Skin
 {
+
+    protected skin:string = '';
+
+    private _skinElement:HTMLElement;
+
+
+    constructor() {
+
+        this.parseSkin();
+    }
+
+    private parseSkin():void
+    {
+
+    }
+
+    getSkinElement():HTMLElement
+    {
+        return this._skinElement;
+    }
+    getSkinPart(id:string):HTMLElement
+    {
+        return null;
+    }
+
+
 
 }

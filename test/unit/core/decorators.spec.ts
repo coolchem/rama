@@ -1,10 +1,24 @@
 
 import {element} from "../../../src/core/decorators";
 
-
+var testCompCreated:boolean = false;
+@element("x-test")
 class TesComp extends HTMLElement
 {
+    createdCallback() {
+        testCompCreated = true;
+        console.log("I got Created");
+    }
 
+    attachedCallback() {
+        console.log("I got attached");
+    }
+
+    attributeChangedCallback(attrName, oldVal, newVal) {
+        console.log("my Attributes changed");
+        console.log(attrName);
+        console.log(newVal);
+    }
 }
 
 describe('decorators Spec', () => {
@@ -15,13 +29,11 @@ describe('decorators Spec', () => {
 
         it("should register the constructor",()=>{
 
-            var cb = element("x-test");
-
-            cb(TesComp);
-
             var isUNKnownElement:boolean = document.createElement("x-test") instanceof HTMLUnknownElement;
 
             expect(isUNKnownElement).toBe(false);
+
+            expect(testCompCreated).toBe(true);
         });
 
 

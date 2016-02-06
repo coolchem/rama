@@ -1,7 +1,6 @@
 
 
-import {EventDispatcher} from "./EventDispatcher";
-import {IElement} from "../interfaces/IComponent";
+import {IElement} from "../interfaces/IElement";
 
 export abstract class ComponentBase extends HTMLElement implements IElement
 {
