@@ -22,8 +22,12 @@ var viewCache:Dictionary<string,VNode[]> = new Dictionary<string,VNode[]>();
 
 export abstract class ViewBase extends ComponentBase
 {
+
+    protected refs:any;
+
     createdCallback():void {
         super.createdCallback();
+        this.refs = {};
         this.parse();
     }
 
@@ -57,7 +61,7 @@ export abstract class ViewBase extends ComponentBase
         for(var i=0; i<vnodes.length; i++)
         {
             var vnode:VNode = vnodes[i];
-            var el:Element = createElement(vnode) as Element;
+            var el:Element = createElement(vnode,this.refs) as Element;
             this.appendChild(el);
         }
     }

@@ -102,10 +102,12 @@ describe('dom Spec', () => {
 
             var els:HTMLCollection = parseHTML("<div id='what1' my-attr='humm'><div id='what2' my-attr='humm'></div></div>");
 
-            var refs:Array<{id:string,element:HTMLElement}> = [];
+            var refs:any = {};
             var vnode:any = createVNode(els.item(0));
             var node:Node = createElement(vnode,refs);
-            expect(refs.length).toEqual(2);
+            console.log(refs);
+            expect(refs["what1"]).toBeDefined();
+            expect(refs["what2"]).toBeDefined()
         });
 
     });

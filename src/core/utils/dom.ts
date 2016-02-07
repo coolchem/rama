@@ -46,7 +46,7 @@ export function createVNode(el:Element):VNode
     return output;
 }
 
-export function createElement(vnode:VNode,refs?:{id:string,element:HTMLElement}[]):Node
+export function createElement(vnode:VNode,refs?:any):Node
 {
     if(vnode.tagName =="text")
         return document.createTextNode(vnode.text);
@@ -74,8 +74,8 @@ export function createElement(vnode:VNode,refs?:{id:string,element:HTMLElement}[
     }
 
 
-    if(vnode.attributes.id){
-        refs.push({id:vnode.attributes.id,element:(node as HTMLElement)})
+    if(refs && vnode.attributes.id){
+        refs[vnode.attributes.id] = node;
     }
 
     return node;
