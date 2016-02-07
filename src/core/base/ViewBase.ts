@@ -26,9 +26,9 @@ export abstract class ViewBase extends ComponentBase
     protected refs:any;
 
     createdCallback():void {
-        super.createdCallback();
         this.refs = {};
         this.parse();
+        super.createdCallback();
     }
 
     private parse():void

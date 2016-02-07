@@ -7,37 +7,29 @@ export class Component extends ComponentBase
 {
 
 
-    attachedCallback():void {
-        super.attachedCallback();
-    }
-
-    private _skinClass:Function;
+    private _skinElementName:string;
 
     private _skinClassSet:boolean = false;
 
-    private _skinElement:HTMLElement;
+    private _skinElement:Skin;
 
-    private _skinParts:Array<{id:string,required:boolean}> = [];
+    skinParts:any = {};
 
-
-    get skinParts():any {
-        return this._skinParts;
+    createdCallback():void {
+        super.createdCallback();
+        this.validateSkinChange();
     }
 
-    set skinParts(value:any) {
-        this._skinParts = value;
+    get skinElementName():string {
+        return this._skinElementName;
     }
 
-    get skinClass():Function {
-        return this._skinClass;
-    }
+    set skinElementName(value:string) {
 
-    set skinClass(value:Function) {
-
-        if(this._skinClass !== value)
+        if(this._skinElementName !== value)
         {
-            this._skinClass = value;
-            if(this._skinClassSet)
+            this._skinElementName = value;
+            if(this._skinClassSet && this.created)
                 this.validateSkinChange();
         }
 
@@ -63,11 +55,10 @@ export class Component extends ComponentBase
 
     private attachSkin() {
 
-        if(this.skinClass)
+        if(this.skinElementName && this.skinElementName !== "")
         {
-            //this._skinElement = new this._skinClass().render();
+            this._skinElement = document.createElement(this.skinElementName) as Skin;
             this.appendChild(this._skinElement);
-
             this.findSkinParts();
             this.validateSkinState();
         }
@@ -84,20 +75,20 @@ export class Component extends ComponentBase
 
     protected findSkinParts() {
         if (this._skinElement) {
-            for (var j = 0; j < this.skinParts.length; j++) {
-                var skinPart = this.skinParts[j];
+            for (var id in this.skinParts) {
+                var skinPart = this.skinParts[id];
                 var skinPartFound = false;
 
-                var skinPartElement:HTMLElement;
+                var skinPartElement:HTMLElement = this._skinElement.getSkinPartByID(id);
 
                 if (skinPartElement) {
                     skinPartFound = true;
-                    this[skinPart.id] = skinPartElement;
-                    this.partAdded(skinPart.id, skinPartElement)
+                    this[skinPart.key] = skinPartElement;
+                    this.partAdded(id, skinPartElement)
                 }
 
                 if (skinPart.required === true && !skinPartFound) {
-                    throw new ReferenceError("Required Skin part not found: " + skinPart.id + " in the Attached skin");
+                    throw new ReferenceError("Required Skin part not found: " + id + " in the Attached skin");
                 }
             }
         }
@@ -106,11 +97,11 @@ export class Component extends ComponentBase
     protected clearSkinParts(){
 
         if (this._skinElement) {
-            for (var j = 0; j < this.skinParts.length; j++) {
-                var skinPart = this.skinParts[j];
-                if(this[skinPart.id] !== null)
+            for (var id in this.skinParts) {
+                var skinPart = this.skinParts[id];
+                if(this[skinPart.key] !== null)
                 {
-                    this.partRemoved(skinPart.id, this[skinPart.id])
+                    this.partRemoved(id, this[skinPart.key]);
                 }
             }
         }

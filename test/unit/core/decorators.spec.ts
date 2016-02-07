@@ -1,5 +1,6 @@
 
 import {element} from "../../../src/core/decorators";
+import {skinPart} from "../../../src/core/decorators";
 
 var testCompCreated:boolean = false;
 @element("x-test")
@@ -35,6 +36,32 @@ describe('decorators Spec', () => {
             };
 
             expect(throws).toThrowError();
+        });
+
+
+    });
+
+    describe("skinPart decorator",()=>{
+
+
+        it("should add skinpart",()=>{
+
+
+            @element("skin-part-test")
+            class TesComp2 extends HTMLElement{
+
+                @skinPart("humm")
+                part1:HTMLElement;
+
+                @skinPart("humm2")
+                part2:HTMLElement;
+            }
+
+
+            var testComp:any = document.createElement("skin-part-test");
+
+            expect(testComp.skinParts["humm"]).toBeDefined();
+            expect(testComp.skinParts["humm2"]).toBeDefined();
         });
 
 

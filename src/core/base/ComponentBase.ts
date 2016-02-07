@@ -2,6 +2,7 @@
 export abstract class ComponentBase extends HTMLElement
 {
 
+    created = false;
     /*
         LIFECYCLE Functions
     * */
@@ -9,6 +10,7 @@ export abstract class ComponentBase extends HTMLElement
     // Fires when an instance of the element is created.
     createdCallback():void {
 
+        this.created = true;
     };
     // Fires when an instance was inserted into the document.
     attachedCallback():void {
