@@ -11,7 +11,7 @@ module.exports = function(config) {
           testFiles:['test/**/*.js']
         },
 
-        reporters: ['kjhtml','coverage'],
+        reporters: ['coverage','mocha'],
         preprocessors: {
             // source files, that you wanna generate coverage for
             // do not include tests or libraries

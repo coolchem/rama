@@ -2,6 +2,7 @@
 import parseHTML from "../../../../src/core/utils/html-parser";
 import {createVNode} from "../../../../src/core/utils/dom";
 import {createElement} from "../../../../src/core/utils/dom";
+import {VNode} from "../../../../src/core/utils/dom";
 
 
 describe('dom Spec', () => {
@@ -95,6 +96,16 @@ describe('dom Spec', () => {
             expect((node as HTMLElement).getAttribute("my-attr")).toBe("humm");
 
             expect((node.firstChild as HTMLElement).getAttribute("my-attr")).toBe("humm");
+        });
+
+        it("should update refs array if provided",()=>{
+
+            var els:HTMLCollection = parseHTML("<div id='what1' my-attr='humm'><div id='what2' my-attr='humm'></div></div>");
+
+            var refs:Array<{id:string,element:HTMLElement}> = [];
+            var vnode:any = createVNode(els.item(0));
+            var node:Node = createElement(vnode,refs);
+            expect(refs.length).toEqual(2);
         });
 
     });

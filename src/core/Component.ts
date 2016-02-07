@@ -5,6 +5,12 @@ import {Skin} from "./Skin";
 
 export class Component extends ComponentBase
 {
+
+
+    attachedCallback():void {
+        super.attachedCallback();
+    }
+
     private _skinClass:Function;
 
     private _skinClassSet:boolean = false;
@@ -67,7 +73,7 @@ export class Component extends ComponentBase
         }
     }
 
-    validateSkinState(){
+    protected validateSkinState(){
 
     }
 
@@ -76,7 +82,7 @@ export class Component extends ComponentBase
         this.removeChild(this._skinElement);
     }
 
-    findSkinParts() {
+    protected findSkinParts() {
         if (this._skinElement) {
             for (var j = 0; j < this.skinParts.length; j++) {
                 var skinPart = this.skinParts[j];
@@ -97,7 +103,7 @@ export class Component extends ComponentBase
         }
     }
 
-    clearSkinParts(){
+    protected clearSkinParts(){
 
         if (this._skinElement) {
             for (var j = 0; j < this.skinParts.length; j++) {

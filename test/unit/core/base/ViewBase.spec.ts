@@ -18,51 +18,16 @@ class TestComp extends ComponentBase
     attributeChangedCallback(attrName, oldVal, newVal) {
     }
 }
-class TestViewEmptyRender extends ViewBase
-{
 
 
-    protected render():string {
-        return ``;
-    }
-}
-
-class TestViewNullRender extends ViewBase
-{
-
-
-    protected render():string {
-        return null;
-    }
-}
-
-class TestViewUndefinedRender extends ViewBase
-{
-
-
-    protected render():string {
-        return undefined;
-    }
-}
-
-
-class TestViewMultipleNodesInRender extends ViewBase
-{
-
-
-    protected render():string {
-        return `<div>
-
-                </div>
-                <div>
-
-                </div>`;
-    }
-}
-
+@element("x-comp-correct-renderer")
 class TestViewCorrectImplementation extends ViewBase
 {
 
+
+    createdCallback():void {
+        super.createdCallback();
+    }
 
     protected render():string {
         return `<div>
@@ -76,100 +41,58 @@ describe('ViewBase Spec', () => {
 
     describe("instance Creation",()=>{
 
-        it("should throw error if render function returns empty string",()=>{
-
-            var throws = function() {
-                new TestViewEmptyRender()
-            };
-
-            expect(throws).toThrowError();
+        it("should not render anything if render returns null",()=>{
 
 
-        });
+            @element("x-comp-null-renderer")
+            class TestViewEmptyRender extends ViewBase
+            {
 
-        it("should throw error if render function returns null",()=>{
 
-            var throws = function() {
-                new TestViewNullRender()
-            };
-
-            expect(throws).toThrowError();
+                protected render():string {
+                    return null;
+                }
+            }
+            var view:ViewBase = document.createElement("x-comp-null-renderer") as ViewBase;
+            expect(view.children.length).toEqual(0);
         });
 
         it("should throw error if render function returns undefined",()=>{
 
-            var throws = function() {
-                new TestViewUndefinedRender()
-            };
 
-            expect(throws).toThrowError();
+            @element("x-comp-undefined-renderer")
+            class TestViewNullRender extends ViewBase
+            {
+
+                protected render():string {
+                    return null;
+                }
+            }
+            var view:ViewBase = document.createElement("x-comp-undefined-renderer") as ViewBase;
+            expect(view.children.length).toEqual(0);
         });
 
-        it("should throw error if render returns multiple nodes",()=>{
 
-            var throws = function() {
-                new TestViewMultipleNodesInRender()
-            };
+        it("should create child elements",()=>{
 
-            expect(throws).toThrowError();
-        });
-
-        it("should not throw error if everything is good",()=>{
-
-            var throws = function() {
-                new TestViewCorrectImplementation()
-            };
-
-            expect(throws).not.toThrowError();
-        });
-
-    });
-
-    describe("get element",()=>{
-
-        beforeEach(()=>{
-            testCompCreated = false;
-        });
-
-        it("should not be null or undefined",()=>{
-
-            var view:ViewBase = new TestViewCorrectImplementation();
-
-            expect(view.element).toBeDefined();
-            expect(view.element).not.toBeNaN();
+            var view:ViewBase = document.createElement("x-comp-correct-renderer") as ViewBase;
+            expect(view.children).toBeDefined();
+            expect(view.children.length).toEqual(1);
 
         });
 
-        it("should be instance of HTMLElement",()=>{
+        it("should create child elements which are instances of HTMLElement",()=>{
 
-            var view:ViewBase = new TestViewCorrectImplementation();
-
-            var instanceOfHtmlElement:boolean = view.element instanceof HTMLElement;
-
+            var view:ViewBase = document.createElement("x-comp-correct-renderer") as ViewBase;
+            var instanceOfHtmlElement:boolean = view.children.item(0) instanceof HTMLElement;
             expect(instanceOfHtmlElement).toBe(true);
 
         });
 
-        it("should give an instance which can be appended to other element without error",()=>{
-
-            var view:ViewBase = new TestViewCorrectImplementation();
-
-            var throws = function() {
-
-                var div:HTMLDivElement = document.createElement("div");
-                div.appendChild(view.element);
-
-            };
-
-            expect(throws).not.toThrowError();
-
-        });
 
         it("should create the custom element",()=>{
 
-            var view:ViewBase = new TestViewCorrectImplementation();
-
-            document.body.appendChild(view.element);
+            var view:ViewBase = document.createElement("x-comp-correct-renderer") as ViewBase;
             expect(testCompCreated).toBe(true);
 
         });

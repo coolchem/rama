@@ -1,6 +1,14 @@
 
 
-export function createVNode(el:Element):any
+export declare interface VNode
+{
+    tagName:string;
+    children?:any[];
+    attributes?:any;
+    text?:string;
+
+}
+export function createVNode(el:Element):VNode
 {
     if(!el.tagName && el.nodeType === Node.TEXT_NODE){
 
@@ -8,9 +16,10 @@ export function createVNode(el:Element):any
     }
 
 
-    var attributes = {};
+    var attributes:any = {};
 
     if(el.attributes){
+
         for(var i = 0; i < el.attributes.length; i++){
             var attr = el.attributes[i];
             if(attr.name){
@@ -25,12 +34,10 @@ export function createVNode(el:Element):any
     }
 
 
-    var output:any = {};
-
-    output.tagName = el.tagName;
-    output.attributes = attributes;
-
-    output.children = [];
+    var output:VNode= {
+        tagName:el.tagName,
+        attributes:attributes,
+        children:[]};
 
     for(var i = 0; i < el.childNodes.length; i++){
         output.children.push(createVNode(el.childNodes[i] as HTMLElement));
@@ -39,25 +46,37 @@ export function createVNode(el:Element):any
     return output;
 }
 
-export function createElement(vnode:{tagName:string,children:any[],attributes:any,text:string}):Node
+export function createElement(vnode:VNode,refs?:{id:string,element:HTMLElement}[]):Node
 {
     if(vnode.tagName =="text")
         return document.createTextNode(vnode.text);
 
 
-    var node:Node = document.createElement(vnode.tagName);
+    var node:Element = document.createElement(vnode.tagName);
 
-    for (var attrName in vnode.attributes) {
-        (node as Element).setAttribute(attrName, vnode.attributes[attrName])
+    if(vnode.attributes)
+    {
+        for (var attrName in vnode.attributes) {
+            (node as Element).setAttribute(attrName, vnode.attributes[attrName])
+        }
     }
 
     var children = vnode.children;
 
-    for (var i = 0; i < children.length; i++) {
-        var childNode = createElement(children[i])
-        if (childNode) {
-            node.appendChild(childNode)
+    if(children)
+    {
+        for (var i = 0; i < children.length; i++) {
+            var childNode = createElement(children[i],refs);
+            if (childNode) {
+                node.appendChild(childNode)
+            }
         }
     }
+
+
+    if(vnode.attributes.id){
+        refs.push({id:vnode.attributes.id,element:(node as HTMLElement)})
+    }
+
     return node;
 }

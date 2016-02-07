@@ -2,8 +2,9 @@
 import parseHTML from "../utils/html-parser";
 import {createElement} from "../utils/dom";
 import {createVNode} from "../utils/dom";
-
-var webComponents = require("document-register-element");
+import {Dictionary} from "../../../test/unit/core/utils/Dictionary";
+import {ComponentBase} from "./ComponentBase";
+import {VNode} from "../utils/dom";
 
 export const ViewBaseErrors = {
     ERROR_INVALID_RENDER_STRING:
@@ -17,42 +18,48 @@ export const ViewBaseErrors = {
          Please make sure your view has implemented the 'render' function properly. `,
 };
 
-export abstract class ViewBase
+var viewCache:Dictionary<string,VNode[]> = new Dictionary<string,VNode[]>();
+
+export abstract class ViewBase extends ComponentBase
 {
-
-
-    protected _element:HTMLElement;
-
-
-    get element():HTMLElement {
-        return this._element;
-    }
-
-    constructor(){
-
+    createdCallback():void {
+        super.createdCallback();
         this.parse();
     }
 
     private parse():void
     {
-
-        var renderString:string = this.render();
-
-        if(renderString === "" || renderString === null || renderString === undefined)
+        var vnodes:VNode[] = viewCache.get(this.tagName);
+        if(!vnodes)
         {
-            throw new Error(ViewBaseErrors.ERROR_INVALID_RENDER_STRING);
+            vnodes = [];
+            viewCache.set(this.tagName,vnodes);
+            var renderString:string = this.render();
+
+            if(renderString === null || renderString === undefined)
+            {
+                renderString = "";
+            }
+
+            var elements:HTMLCollection = parseHTML(renderString);
+
+            if(elements && elements.length > 0)
+            {
+                for(var i=0; i<elements.length; i++)
+                {
+                    var el:Element = elements.item(i);
+                    var vnode:VNode = createVNode(el);
+                    vnodes.push(vnode);
+                }
+            }
         }
 
-        var elements:HTMLCollection = parseHTML(renderString);
-
-        if(elements.length > 1)
+        for(var i=0; i<vnodes.length; i++)
         {
-            throw new Error(ViewBaseErrors.ERROR_MULTIPLE_NODES_FOUND);
+            var vnode:VNode = vnodes[i];
+            var el:Element = createElement(vnode) as Element;
+            this.appendChild(el);
         }
-        var el:Element = elements.item(0);
-        var vnode:any = createVNode(el);
-        this._element = createElement(vnode) as HTMLElement;
-
     }
 
     protected abstract render():string;
