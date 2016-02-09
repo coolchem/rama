@@ -105,7 +105,6 @@ describe('dom Spec', () => {
             var refs:any = {};
             var vnode:any = createVNode(els.item(0));
             var node:Node = createElement(vnode,refs);
-            console.log(refs);
             expect(refs["what1"]).toBeDefined();
             expect(refs["what2"]).toBeDefined()
         });

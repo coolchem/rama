@@ -2,7 +2,7 @@
 import parseHTML from "../utils/html-parser";
 import {createElement} from "../utils/dom";
 import {createVNode} from "../utils/dom";
-import {Dictionary} from "../../../test/unit/core/utils/Dictionary";
+import {Dictionary} from "../utils/Dictionary";
 import {ComponentBase} from "./ComponentBase";
 import {VNode} from "../utils/dom";
 
