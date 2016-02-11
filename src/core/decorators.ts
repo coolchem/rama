@@ -12,7 +12,7 @@ export function element(name: string):ClassDecorator {
 
 export function skinPart(id:string,required:boolean = false):PropertyDecorator{
 
-    return function (target: any, key: string) {
+    return function (target: any, key: string):void {
         if(!target.skinParts)
             target.skinParts = {};
 

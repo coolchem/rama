@@ -1,9 +1,9 @@
 
 
 import {Group} from "./Group";
-import {ViewBase} from "./base/ViewBase";
+import {View} from "./View";
 
-export abstract class Skin extends ViewBase
+export abstract class Skin extends View
 {
 
     getSkinPartByID(id:string):HTMLElement

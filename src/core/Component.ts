@@ -2,6 +2,7 @@
 
 import {ComponentBase} from "./base/ComponentBase";
 import {Skin} from "./Skin";
+import {createElement} from "./utils/dom";
 
 export class Component extends ComponentBase
 {
@@ -29,7 +30,7 @@ export class Component extends ComponentBase
         if(this._skinElementName !== value)
         {
             this._skinElementName = value;
-            if(this._skinClassSet && this.created)
+            if(this._skinClassSet && this.initialized)
                 this.validateSkinChange();
         }
 
@@ -57,7 +58,7 @@ export class Component extends ComponentBase
 
         if(this.skinElementName && this.skinElementName !== "")
         {
-            this._skinElement = document.createElement(this.skinElementName) as Skin;
+            this._skinElement = createElement(this.skinElementName) as Skin;
             this.appendChild(this._skinElement);
             this.findSkinParts();
             this.validateSkinState();

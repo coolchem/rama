@@ -1,7 +1,9 @@
 
-import {element} from "../../../../src/core/decorators";
-import {ViewBase} from "../../../../src/core/base/ViewBase";
-import {ComponentBase} from "../../../../src/core/base/ComponentBase";
+import {element} from "../../../src/core/decorators";
+import {ComponentBase} from "../../../src/core/base/ComponentBase";
+import {createElement} from "../../../src/core/utils/dom";
+import {View} from "../../../src/core/View";
+
 
 
 var testCompCreated:boolean = false;
@@ -21,7 +23,7 @@ class TestComp extends ComponentBase
 
 
 @element("x-comp-correct-renderer")
-class TestViewCorrectImplementation extends ViewBase
+class TestViewCorrectImplementation extends View
 {
 
 
@@ -36,7 +38,7 @@ class TestViewCorrectImplementation extends ViewBase
     }
 }
 
-describe('ViewBase Spec', () => {
+describe('View Spec', () => {
 
 
     describe("instance Creation",()=>{
@@ -45,7 +47,7 @@ describe('ViewBase Spec', () => {
 
 
             @element("x-comp-null-renderer")
-            class TestViewEmptyRender extends ViewBase
+            class TestViewEmptyRender extends View
             {
 
 
@@ -53,29 +55,29 @@ describe('ViewBase Spec', () => {
                     return null;
                 }
             }
-            var view:ViewBase = document.createElement("x-comp-null-renderer") as ViewBase;
+            var view:View = createElement("x-comp-null-renderer") as View;
             expect(view.children.length).toEqual(0);
         });
 
-        it("should throw error if render function returns undefined",()=>{
+        it("should not render anything if render function returns undefined",()=>{
 
 
             @element("x-comp-undefined-renderer")
-            class TestViewNullRender extends ViewBase
+            class TestViewNullRender extends View
             {
 
                 protected render():string {
                     return null;
                 }
             }
-            var view:ViewBase = document.createElement("x-comp-undefined-renderer") as ViewBase;
+            var view:View = createElement("x-comp-undefined-renderer") as View;
             expect(view.children.length).toEqual(0);
         });
 
 
         it("should create child elements",()=>{
 
-            var view:ViewBase = document.createElement("x-comp-correct-renderer") as ViewBase;
+            var view:View = createElement("x-comp-correct-renderer") as View;
             expect(view.children).toBeDefined();
             expect(view.children.length).toEqual(1);
 
@@ -83,7 +85,7 @@ describe('ViewBase Spec', () => {
 
         it("should create child elements which are instances of HTMLElement",()=>{
 
-            var view:ViewBase = document.createElement("x-comp-correct-renderer") as ViewBase;
+            var view:View = createElement("x-comp-correct-renderer") as View;
             var instanceOfHtmlElement:boolean = view.children.item(0) instanceof HTMLElement;
             expect(instanceOfHtmlElement).toBe(true);
 
@@ -92,7 +94,7 @@ describe('ViewBase Spec', () => {
 
         it("should create the custom element",()=>{
 
-            var view:ViewBase = document.createElement("x-comp-correct-renderer") as ViewBase;
+            var view:View = createElement("x-comp-correct-renderer") as View;
             expect(testCompCreated).toBe(true);
 
         });

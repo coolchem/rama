@@ -1,10 +1,11 @@
 
-import parseHTML from "../utils/html-parser";
-import {createElement} from "../utils/dom";
-import {createVNode} from "../utils/dom";
-import {Dictionary} from "../utils/Dictionary";
-import {ComponentBase} from "./ComponentBase";
-import {VNode} from "../utils/dom";
+import parseHTML from "./utils/html-parser";
+import {createElement} from "./utils/dom";
+import {createVNode} from "./utils/dom";
+import {Dictionary} from "./utils/Dictionary";
+import {ComponentBase} from "./base/ComponentBase";
+import {VNode} from "./utils/dom";
+import {GroupBase} from "./base/GroupBase";
 
 export const ViewBaseErrors = {
     ERROR_INVALID_RENDER_STRING:
@@ -20,15 +21,15 @@ export const ViewBaseErrors = {
 
 var viewCache:Dictionary<string,VNode[]> = new Dictionary<string,VNode[]>();
 
-export abstract class ViewBase extends ComponentBase
+export abstract class View extends GroupBase
 {
 
     protected refs:any;
 
-    createdCallback():void {
+    __initializedCallback__():void {
+        super.__initializedCallback__();
         this.refs = {};
         this.parse();
-        super.createdCallback();
     }
 
     private parse():void

@@ -1,5 +1,7 @@
 
 
+import {ComponentBase} from "../base/ComponentBase";
+import {UIElement} from "../base/UIElement";
 export declare interface VNode
 {
     tagName:string;
@@ -46,8 +48,18 @@ export function createVNode(el:Element):VNode
     return output;
 }
 
-export function createElement(vnode:VNode,refs?:any):Node
+export function createElement(tag:VNode|string,refs?:any):Node
 {
+    var vnode:VNode;
+    if(typeof tag == "string")
+    {
+        vnode = {tagName:(tag as string)}
+    }
+    else
+    {
+        vnode = tag as VNode;
+    }
+
     if(vnode.tagName =="text")
         return document.createTextNode(vnode.text);
 
@@ -76,6 +88,11 @@ export function createElement(vnode:VNode,refs?:any):Node
 
     if(refs && vnode.attributes.id){
         refs[vnode.attributes.id] = node;
+    }
+
+    if(node instanceof UIElement)
+    {
+        (node as UIElement).__initializedCallback__();
     }
 
     return node;

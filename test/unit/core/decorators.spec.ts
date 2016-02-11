@@ -1,6 +1,7 @@
 
 import {element} from "../../../src/core/decorators";
 import {skinPart} from "../../../src/core/decorators";
+import {createElement} from "../../../src/core/utils/dom";
 
 var testCompCreated:boolean = false;
 @element("x-test")
@@ -19,7 +20,7 @@ describe('decorators Spec', () => {
 
         it("should register the constructor",()=>{
 
-            var isUNKnownElement:boolean = document.createElement("x-test") instanceof HTMLUnknownElement;
+            var isUNKnownElement:boolean = createElement("x-test") instanceof HTMLUnknownElement;
 
             expect(isUNKnownElement).toBe(false);
 
@@ -58,7 +59,7 @@ describe('decorators Spec', () => {
             }
 
 
-            var testComp:any = document.createElement("skin-part-test");
+            var testComp:any = createElement("skin-part-test");
 
             expect(testComp.skinParts["humm"]).toBeDefined();
             expect(testComp.skinParts["humm2"]).toBeDefined();
