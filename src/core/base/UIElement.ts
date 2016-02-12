@@ -3,22 +3,29 @@ export abstract class UIElement extends HTMLElement
 {
 
 
-    protected initialized = false;
+    protected initialized:boolean;
+
+    //do not override
+    __initializedCallback__():void
+    {
+        if (this.initialized)
+            return;
+        this.createChildren();
+        this.childrenCreated();
+
+        this.initialized = true;
+
+    }
+
     /*
-        LIFECYCLE Functions
-    * */
+     LIFECYCLE Functions
+     * */
 
     // Fires when an instance of the element is created. treat it as constructor
     createdCallback():void {
 
     };
 
-    // Fires when an instance of the element is created. and all its atrributes are set
-    //do not override without calling super.__initializedCallback__
-    __initializedCallback__():void
-    {
-        this.initialized = true;
-    }
     // Fires when an instance was inserted into the document.
     attachedCallback():void {
 
@@ -31,6 +38,17 @@ export abstract class UIElement extends HTMLElement
     attributeChangedCallback(attrName:string, oldVal:string, newVal:string):void {
 
     };
+
+
+    protected createChildren():void
+    {
+
+    }
+
+    protected childrenCreated():void
+    {
+
+    }
 
     replaceChild(newChild:Node, oldChild:Node):Node {
         this.checkAndInitializeUIElement(newChild);
@@ -70,6 +88,12 @@ export abstract class UIElement extends HTMLElement
         this.checkAndInitializeUIElement(newChild);
         return super.appendChild(newChild);
     }
+
+    removeAllChildren() {
+        while (this.firstChild) {
+            this.removeChild(this.firstChild);
+        }
+    };
 
     private checkAndInitializeUIElement(node:Node):void
     {

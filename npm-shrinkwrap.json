@@ -639,6 +639,23 @@
         }
       }
     },
+    "cp-file": {
+      "version": "3.1.0",
+      "from": "cp-file@>=3.1.0 <4.0.0",
+      "resolved": "https://registry.npmjs.org/cp-file/-/cp-file-3.1.0.tgz",
+      "dependencies": {
+        "graceful-fs": {
+          "version": "4.1.3",
+          "from": "graceful-fs@>=4.1.2 <5.0.0",
+          "resolved": "https://registry.npmjs.org/graceful-fs/-/graceful-fs-4.1.3.tgz"
+        }
+      }
+    },
+    "cpy": {
+      "version": "4.0.0",
+      "from": "cpy@latest",
+      "resolved": "https://registry.npmjs.org/cpy/-/cpy-4.0.0.tgz"
+    },
     "create-error-class": {
       "version": "2.0.1",
       "from": "create-error-class@>=2.0.0 <3.0.0",
@@ -2765,7 +2782,14 @@
     "mkdirp": {
       "version": "0.5.1",
       "from": "mkdirp@>=0.5.0 <0.6.0",
-      "resolved": "https://registry.npmjs.org/mkdirp/-/mkdirp-0.5.1.tgz"
+      "resolved": "https://registry.npmjs.org/mkdirp/-/mkdirp-0.5.1.tgz",
+      "dependencies": {
+        "minimist": {
+          "version": "0.0.8",
+          "from": "minimist@0.0.8",
+          "resolved": "https://registry.npmjs.org/minimist/-/minimist-0.0.8.tgz"
+        }
+      }
     },
     "moment": {
       "version": "2.11.2",
@@ -2791,6 +2815,11 @@
       "version": "0.4.9",
       "from": "negotiator@0.4.9",
       "resolved": "https://registry.npmjs.org/negotiator/-/negotiator-0.4.9.tgz"
+    },
+    "nested-error-stacks": {
+      "version": "1.0.2",
+      "from": "nested-error-stacks@>=1.0.0 <2.0.0",
+      "resolved": "https://registry.npmjs.org/nested-error-stacks/-/nested-error-stacks-1.0.2.tgz"
     },
     "node-status-codes": {
       "version": "1.0.0",

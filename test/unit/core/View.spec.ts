@@ -1,14 +1,14 @@
 
 import {element} from "../../../src/core/decorators";
-import {ComponentBase} from "../../../src/core/base/ComponentBase";
 import {createElement} from "../../../src/core/utils/dom";
 import {View} from "../../../src/core/View";
+import {UIElement} from "../../../src/core/base/UIElement";
 
 
 
 var testCompCreated:boolean = false;
 @element("x-comp")
-class TestComp extends ComponentBase
+class TestComp extends UIElement
 {
     createdCallback() {
         testCompCreated = true;

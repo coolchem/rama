@@ -1,6 +1,5 @@
 
 
-import {ComponentBase} from "../base/ComponentBase";
 import {UIElement} from "../base/UIElement";
 export declare interface VNode
 {

@@ -1,6 +1,5 @@
 
 import {element} from "../../../../src/core/decorators";
-import {ComponentBase} from "../../../../src/core/base/ComponentBase";
 
 import parseHTML from "../../../../src/core/utils/html-parser";
 

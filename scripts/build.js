@@ -2,6 +2,7 @@
 
 var util = require('./util');
 var argv = require('minimist')(process.argv.slice(2));
+var cpy = require("cpy");
 
 
 if(argv._ && argv._.length > 0) //look release build
@@ -23,7 +24,9 @@ function build(isRelease){
     var cmd = "tsc";
 
     if(isRelease)
-        cmd = cmd + " -p src --outDir dist --declaration";
+        cmd = cmd + " --declaration";
+    else
+        cmd = cmd + " --sourceMap";
 
     util.series(["npm run clean",cmd], function (err) {
 
@@ -32,8 +35,22 @@ function build(isRelease){
             console.log(err);
             process.exit(1);
         }
+        else
+        {
+            if(isRelease)
+            {
+                cpy(["**/*.js","**/*.d.ts"],"../dist",{cwd:process.cwd()+"/src",parents: true, nodir: true}).then(function(){
 
-        process.exit(0);
+                    process.exit(0);
+
+                },function(err){
+
+                    console.log(err);
+                    process.exit(1);
+                })
+            }
+
+        }
     });
 
 }

@@ -16,6 +16,7 @@
   "description": "",
   "devDependencies": {
     "coveralls": "^2.11.6",
+    "cpy": "^4.0.0",
     "cross-spawn-async": "^2.1.8",
     "del": "^2.2.0",
     "jasmine": "^2.4.1",

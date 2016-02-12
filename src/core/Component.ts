@@ -1,12 +1,10 @@
 
-
-import {ComponentBase} from "./base/ComponentBase";
 import {Skin} from "./Skin";
 import {createElement} from "./utils/dom";
+import {UIElement} from "./base/UIElement";
 
-export class Component extends ComponentBase
+export class Component extends UIElement
 {
-
 
     private _skinElementName:string;
 
@@ -14,18 +12,19 @@ export class Component extends ComponentBase
 
     private _skinElement:Skin;
 
-    skinParts:any = {};
+    skinParts:any;
 
     createdCallback():void {
         super.createdCallback();
-        this.validateSkinChange();
+        this.skinParts = {};
+        this._skinClassSet = false;
     }
 
-    get skinElementName():string {
+    getSkinElement():string {
         return this._skinElementName;
     }
 
-    set skinElementName(value:string) {
+    setSkinElement(value:string) {
 
         if(this._skinElementName !== value)
         {
@@ -46,6 +45,11 @@ export class Component extends ComponentBase
         //Override this method to add functionality to various skin component
     };
 
+
+    protected createChildren():void {
+        this.validateSkinChange();
+    }
+
     protected validateSkinChange(){
 
         if (this._skinElement)
@@ -56,9 +60,9 @@ export class Component extends ComponentBase
 
     private attachSkin() {
 
-        if(this.skinElementName && this.skinElementName !== "")
+        if(this._skinElementName && this._skinElementName !== "")
         {
-            this._skinElement = createElement(this.skinElementName) as Skin;
+            this._skinElement = createElement(this._skinElementName) as Skin;
             this.appendChild(this._skinElement);
             this.findSkinParts();
             this.validateSkinState();

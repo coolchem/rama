@@ -3,11 +3,10 @@ import parseHTML from "./utils/html-parser";
 import {createElement} from "./utils/dom";
 import {createVNode} from "./utils/dom";
 import {Dictionary} from "./utils/Dictionary";
-import {ComponentBase} from "./base/ComponentBase";
 import {VNode} from "./utils/dom";
 import {GroupBase} from "./base/GroupBase";
 
-export const ViewBaseErrors = {
+export const ViewErrors = {
     ERROR_INVALID_RENDER_STRING:
         `Error: 'render' function returned invalid string,'render' function must not return empty string, null or undefined value
 
@@ -24,11 +23,8 @@ var viewCache:Dictionary<string,VNode[]> = new Dictionary<string,VNode[]>();
 export abstract class View extends GroupBase
 {
 
-    protected refs:any;
-
-    __initializedCallback__():void {
-        super.__initializedCallback__();
-        this.refs = {};
+    createdCallback():void {
+        super.createdCallback();
         this.parse();
     }
 
@@ -59,12 +55,7 @@ export abstract class View extends GroupBase
             }
         }
 
-        for(var i=0; i<vnodes.length; i++)
-        {
-            var vnode:VNode = vnodes[i];
-            var el:Element = createElement(vnode,this.refs) as Element;
-            this.appendChild(el);
-        }
+        this.setHTMLContent(vnodes);
     }
 
     protected abstract render():string;
