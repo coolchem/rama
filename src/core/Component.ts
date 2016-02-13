@@ -3,7 +3,7 @@ import {Skin} from "./Skin";
 import {createElement} from "./utils/dom";
 import {UIElement} from "./base/UIElement";
 
-export class Component extends UIElement
+export abstract class Component extends UIElement
 {
 
     private _skinElementName:string;

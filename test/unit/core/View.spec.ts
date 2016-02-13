@@ -83,15 +83,6 @@ describe('View Spec', () => {
 
         });
 
-        it("should create child elements which are instances of HTMLElement",()=>{
-
-            var view:View = createElement("x-comp-correct-renderer") as View;
-            var instanceOfHtmlElement:boolean = view.children.item(0) instanceof HTMLElement;
-            expect(instanceOfHtmlElement).toBe(true);
-
-        });
-
-
         it("should create the custom element",()=>{
 
             var view:View = createElement("x-comp-correct-renderer") as View;
