@@ -1,5 +1,19 @@
 
 
 export function titleCase(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
+
+    var names:string[] = string.split("-");
+
+    var propName:string = "";
+
+    if(names.length > 0)
+    {
+        names.forEach((name)=>{
+            name = name.charAt(0).toUpperCase() + name.slice(1);
+            propName = propName + name;
+        })
+    }
+
+    return propName;
 }
+

@@ -55,17 +55,7 @@ export abstract class UIElement extends HTMLElement
     setAttribute(name?:string, value?:string):void {
 
         //finding and calling set function which matches attribute-name
-        var names:string[] = name.split("-");
-
-        var propName:string = "";
-
-        if(names.length > 0)
-        {
-            names.forEach((name)=>{
-                propName = propName + titleCase(name);
-            })
-        }
-        var functionName = "set" + propName;
+        var functionName = "set" + titleCase(name);
 
         if(this[functionName])
         {

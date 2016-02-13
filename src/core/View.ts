@@ -23,8 +23,13 @@ var viewCache:Dictionary<string,VNode[]> = new Dictionary<string,VNode[]>();
 export abstract class View extends GroupBase
 {
 
+    private _vnodes:VNode[];
+
+    protected refs:any = {};
+
     createdCallback():void {
         super.createdCallback();
+        this.refs = {};
         this.parse();
     }
 
@@ -55,7 +60,18 @@ export abstract class View extends GroupBase
             }
         }
 
-        this.setHTMLContent(vnodes);
+        this._vnodes = vnodes;
+    }
+
+
+    protected createChildren():void {
+
+        for(var i=0; i<this._vnodes.length; i++)
+        {
+            var vnode:VNode = this._vnodes[i];
+            var el:Element = createElement(vnode,this.refs) as Element;
+            this.appendChild(el);
+        }
     }
 
     protected abstract render():string;

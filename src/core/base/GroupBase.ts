@@ -6,18 +6,14 @@ import {createElement} from "../utils/dom";
 export abstract class GroupBase extends UIElement
 {
 
-    protected refs:any;
-
-    private _htmlContent:VNode[];
+    private _htmlContent:Node[];
 
     createdCallback():void {
         super.createdCallback();
-        this.refs = {};
     }
-
-    setHTMLContent(vnodes:VNode[]):void
+    setHTMLContent(nodes:Node[]):void
     {
-        this._htmlContent = vnodes;
+        this._htmlContent = nodes;
 
         if (this.initialized) {
             this.removeAllChildren();
@@ -32,9 +28,8 @@ export abstract class GroupBase extends UIElement
         {
             for(var i=0; i<this._htmlContent.length; i++)
             {
-                var vnode:VNode = this._htmlContent[i];
-                var el:Element = createElement(vnode,this.refs) as Element;
-                this.appendChild(el);
+                var node:Node = this._htmlContent[i];
+                this.appendChild(node);
             }
         }
     }

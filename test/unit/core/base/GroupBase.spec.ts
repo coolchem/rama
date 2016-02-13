@@ -17,8 +17,7 @@ describe('GroupBase Spec', () => {
         it("should not create the children from HTMLContent if component is not initialized",()=>{
 
             var groupBase:TestGroupBase = document.createElement("test-group-base") as TestGroupBase;
-
-            groupBase.setHTMLContent([{tagName:"div",attributes:{id:"div1"}},{tagName:"div",attributes:{id:"div2"}}])
+            groupBase.setHTMLContent([document.createElement("div"),document.createElement("div")])
 
             expect(this.children).toBeUndefined()
         });
@@ -27,7 +26,13 @@ describe('GroupBase Spec', () => {
 
             var groupBase:TestGroupBase = createElement("test-group-base") as TestGroupBase;
 
-            groupBase.setHTMLContent([{tagName:"div",attributes:{id:"div1"}},{tagName:"div",attributes:{id:"div2"}}])
+            var div1 = document.createElement("div");
+            var div2 = document.createElement("div");
+
+            div1.id = "div1";
+            div2.id = "div2";
+
+            groupBase.setHTMLContent([div1,div2]);
 
             expect(groupBase.children.length).toEqual(2);
         });
@@ -40,7 +45,13 @@ describe('GroupBase Spec', () => {
 
             var groupBase:TestGroupBase = document.createElement("test-group-base") as TestGroupBase;
 
-            groupBase.setHTMLContent([{tagName:"div",attributes:{id:"div1"}},{tagName:"div",attributes:{id:"div2"}}])
+            var div1 = document.createElement("div");
+            var div2 = document.createElement("div");
+
+            div1.id = "div1";
+            div2.id = "div2";
+
+            groupBase.setHTMLContent([div1,div2]);
 
             groupBase.__initializedCallback__();
             expect(groupBase.children.length).toEqual(2);
@@ -52,15 +63,21 @@ describe('GroupBase Spec', () => {
 
             var groupBase:TestGroupBase = document.createElement("test-group-base") as TestGroupBase;
 
-            groupBase.setHTMLContent([{tagName:"div",attributes:{id:"div1"}},{tagName:"div",attributes:{id:"div2"}}])
+            var div1 = document.createElement("div");
+            var div2 = document.createElement("div");
+
+            div1.id = "div1";
+            div2.id = "div2";
+
+            groupBase.setHTMLContent([div1,div2]);
 
             groupBase.__initializedCallback__();
 
-            var div1 = groupBase.children.item(0);
+            var div11 = groupBase.children.item(0);
 
             groupBase.__initializedCallback__();
 
-            var isSameReference:boolean = div1 === groupBase.children.item(0);
+            var isSameReference:boolean = div11 === groupBase.children.item(0);
 
             expect(isSameReference).toEqual(true);
 
