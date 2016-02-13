@@ -8,20 +8,17 @@ export abstract class Component extends UIElement
 
     private _skinElementName:string;
 
-    private _skinClassSet:boolean = false;
-
     private _skinElement:Skin;
 
     skinParts:any;
 
     createdCallback():void {
         super.createdCallback();
-        this.skinParts = {};
-        this._skinClassSet = false;
     }
 
-    getSkinElement():string {
-        return this._skinElementName;
+
+    detachedCallback():void {
+        this.detachSkin();
     }
 
     setSkinElement(value:string) {
@@ -29,19 +26,17 @@ export abstract class Component extends UIElement
         if(this._skinElementName !== value)
         {
             this._skinElementName = value;
-            if(this._skinClassSet && this.initialized)
+
+            if(this.initialized)
                 this.validateSkinChange();
         }
-
-        if(!this._skinClassSet)
-            this._skinClassSet = true;
     }
 
-    partAdded(partName, instance) {
+    partAdded(id:string, instance:any):void {
         //Override this method to add functionality to various skin component
     };
 
-    partRemoved(partName, instance) {
+    partRemoved(id:string, instance:any):void {
         //Override this method to add functionality to various skin component
     };
 
@@ -53,12 +48,12 @@ export abstract class Component extends UIElement
     protected validateSkinChange(){
 
         if (this._skinElement)
-            this.detachSkin();
+             this.detachSkin();
 
         this.attachSkin();
     }
 
-    private attachSkin() {
+    private attachSkin():void {
 
         if(this._skinElementName && this._skinElementName !== "")
         {
@@ -73,9 +68,12 @@ export abstract class Component extends UIElement
 
     }
 
-    private detachSkin(){
-        this.clearSkinParts();
-        this.removeChild(this._skinElement);
+    private detachSkin():void {
+        if(this._skinElement)
+        {
+            this.clearSkinParts();
+            this.removeChild(this._skinElement);
+        }
     }
 
     protected findSkinParts() {
