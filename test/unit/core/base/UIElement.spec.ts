@@ -29,6 +29,27 @@ describe('UIElement Spec', () => {
         });
     });
 
+
+    describe("setAttribute",()=>{
+
+        it("should call function with setAttributeProperty if the method is found on the UIElement",(done)=>{
+
+            @element("my-test-comp-set-attr")
+            class TestComp extends UIElement
+            {
+                setAttrProp(value:string):void
+                {
+                    expect(value).toEqual("humm");
+                    done()
+                }
+            }
+
+            var testComp = document.createElement("my-test-comp-set-attr") as UIElement;
+            testComp.setAttribute("attr-prop","humm");
+
+        });
+    });
+
     describe("attachedCallback",()=>{
 
         it("should be called when component is attached",(done)=>{
