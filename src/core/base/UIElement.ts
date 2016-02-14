@@ -74,7 +74,7 @@ export abstract class UIElement extends HTMLElement
         return super.insertAdjacentElement(position, insertedElement);
     }
 
-    appendChildAt(element:Node, index:number) {
+    appendChildAt(element:Node, index:number):void {
 
         if(index === -1)
         {
@@ -103,7 +103,7 @@ export abstract class UIElement extends HTMLElement
         return super.appendChild(newChild);
     }
 
-    removeAllChildren() {
+    removeAllChildren():void {
         while (this.firstChild) {
             this.removeChild(this.firstChild);
         }

@@ -58,7 +58,7 @@ export abstract class Component extends UIElement
         if(this._skinElementName && this._skinElementName !== "")
         {
             this._skinElement = createElement(this._skinElementName) as Skin;
-            this.appendChild(this._skinElement);
+            super.appendChild(this._skinElement);
             this.findSkinParts();
             this.validateSkinState();
         }
@@ -109,5 +109,10 @@ export abstract class Component extends UIElement
             }
         }
 
+    }
+
+
+    appendChild(newChild:Node):Node {
+        return null;
     }
 }

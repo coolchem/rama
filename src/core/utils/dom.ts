@@ -4,6 +4,8 @@ import {UIElement} from "../base/UIElement";
 import {camelCase} from "./string-utils";
 import {PropertySetter} from "../support_classes/PropertySetter";
 import {trim} from "./string-utils";
+import {GroupBase} from "../base/GroupBase";
+import {Container} from "../Container";
 export declare interface VNode
 {
     tagName:string;
@@ -103,7 +105,7 @@ export function createElement(tag:VNode|string,refs?:any,stateManagedProperties?
     if(vnode.attributes)
     {
         for (var attrName in vnode.attributes) {
-            (node as Element).setAttribute(attrName, vnode.attributes[attrName])
+            node.setAttribute(attrName, vnode.attributes[attrName])
         }
     }
 
@@ -112,39 +114,34 @@ export function createElement(tag:VNode|string,refs?:any,stateManagedProperties?
     if(children)
     {
         for (var i = 0; i < children.length; i++) {
-            var childNode = createElement(children[i],refs,stateManagedProperties);
+            var childNode:Element = createElement(children[i],refs,stateManagedProperties) as Element;
             if (childNode) {
-                node.appendChild(childNode)
+
+                if(node instanceof GroupBase || node instanceof Container)
+                {
+                    var _htmlContent = (node as GroupBase).getHTMLContent();
+
+                    if(!_htmlContent)
+                    {
+                        _htmlContent = [];
+                        (node as GroupBase).setHTMLContent(_htmlContent);
+                    }
+
+                    _htmlContent.push(childNode);
+                }
+                else
+                {
+                    node.appendChild(childNode)
+                }
+
             }
         }
     }
 
+    registerRefs(refs,vnode,node);
 
-    if(refs && vnode.attributes.id){
-        refs[vnode.attributes.id] = node;
-    }
+    registerStateManagedComponent(node,stateManagedProperties,vnode.stateManagedAttributes);
 
-    if(stateManagedProperties && vnode.stateManagedAttributes)
-    {
-        for (var stateName in vnode.stateManagedAttributes) {
-
-            if(stateManagedProperties[stateName] === undefined)
-            {
-                stateManagedProperties[stateName] = [];
-            }
-
-            var attributes:any = vnode.stateManagedAttributes[stateName];
-
-            for (var attrName in attributes) {
-
-
-                var propertySetter = new PropertySetter(node,attrName,attributes[attrName])
-
-                stateManagedProperties[stateName].push(propertySetter);
-            }
-
-        }
-    }
 
     if(node instanceof UIElement)
     {
@@ -152,4 +149,41 @@ export function createElement(tag:VNode|string,refs?:any,stateManagedProperties?
     }
 
     return node;
+}
+
+function registerRefs(refs:any,vnode:VNode,element:Element)
+{
+    if(refs && vnode.attributes.id){
+        refs[vnode.attributes.id] = element;
+    }
+}
+
+function registerStateManagedComponent(element:Element,stateManagedProperties:any,stateManagedAttributes:any)
+{
+    if(stateManagedProperties && stateManagedAttributes)
+    {
+        for (var stateName in stateManagedAttributes) {
+
+            if(stateManagedProperties[stateName] === undefined)
+            {
+                stateManagedProperties[stateName] = [];
+            }
+
+            var attributes:any = stateManagedAttributes[stateName];
+
+            for (var attrName in attributes) {
+
+
+                var propertySetter = new PropertySetter(element,attrName,attributes[attrName])
+
+                stateManagedProperties[stateName].push(propertySetter);
+            }
+
+        }
+    }
+}
+
+function appendChildren(element:Element,childNode:Element)
+{
+
 }

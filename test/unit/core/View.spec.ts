@@ -6,6 +6,8 @@ import {UIElement} from "../../../src/core/base/UIElement";
 import {Component} from "../../../src/core/Component";
 
 
+import "../../../src/core/Group";
+import {Container} from "../../../src/core/Container";
 
 var testCompCreated:boolean = false;
 @element("x-comp")
@@ -22,6 +24,12 @@ class TestComp extends UIElement
     }
 }
 
+@element("x-container")
+class TestContainer extends Container
+{
+
+}
+
 
 @element("x-comp-correct-renderer")
 class TestViewCorrectImplementation extends View
@@ -33,11 +41,11 @@ class TestViewCorrectImplementation extends View
     }
 
     protected render():string {
-        return `<div>
+        return `<x-container>
 
                 <x-comp my-attr="what"></x-comp>
 
-                </div>`;
+                </x-container>`;
     }
 }
 
@@ -113,9 +121,9 @@ describe('View Spec', () => {
                 <x-comp id="1" my-attr="what" my-attr.state1="what1"></x-comp>
                 <div id="2" class.state2="humm"></div>
                 <div id="3" class="group" class.group1="group1"></div>
-                <div>
+                <r-group>
                     <div id="4" class="group" class.group2="group2"></div>
-                </div>
+                </r-group>
 
                 `;
             }

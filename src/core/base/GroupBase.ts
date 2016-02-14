@@ -8,9 +8,11 @@ export abstract class GroupBase extends UIElement
 
     private _htmlContent:Node[];
 
-    createdCallback():void {
-        super.createdCallback();
+    getHTMLContent():Node[]
+    {
+        return this._htmlContent;
     }
+
     setHTMLContent(nodes:Node[]):void
     {
         this._htmlContent = nodes;
