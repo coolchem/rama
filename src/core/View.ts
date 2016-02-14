@@ -60,6 +60,12 @@ export abstract class View extends GroupBase
         })
     }
 
+
+    __initializedCallback__():void {
+        super.__initializedCallback__();
+        this.setCurrentState(this._currentState);
+    }
+
     private parse():void
     {
         var vnodes:{vnodes:VNode[],states:VNode} = viewCache.get(this.tagName);
