@@ -3,6 +3,7 @@
 import {UIElement} from "../base/UIElement";
 import {camelCase} from "./string-utils";
 import {PropertySetter} from "../support_classes/PropertySetter";
+import {trim} from "./string-utils";
 export declare interface VNode
 {
     tagName:string;
@@ -63,7 +64,19 @@ export function createVNode(el:Element):VNode
         children:[]};
 
     for(var i = 0; i < el.childNodes.length; i++){
-        output.children.push(createVNode(el.childNodes[i] as HTMLElement));
+        var childNode:VNode = createVNode(el.childNodes[i] as HTMLElement);
+        if(childNode.tagName === "text")
+        {
+            if(childNode.text && trim(childNode.text) !== "")
+            {
+                output.children.push(childNode);
+            }
+        }
+        else
+        {
+            output.children.push(childNode);
+        }
+
     }
 
     return output;
