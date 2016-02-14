@@ -4,6 +4,9 @@ import {createElement} from "./utils/dom";
 import {createVNode} from "./utils/dom";
 import {Dictionary} from "./utils/Dictionary";
 import {VNode} from "./utils/dom";
+import {State} from "./support_classes/State";
+import {camelCase} from "./utils/string-utils";
+import {PropertySetter} from "./support_classes/PropertySetter";
 import {GroupBase} from "./base/GroupBase";
 
 export const ViewErrors = {
@@ -18,28 +21,51 @@ export const ViewErrors = {
          Please make sure your view has implemented the 'render' function properly. `,
 };
 
-var viewCache:Dictionary<string,VNode[]> = new Dictionary<string,VNode[]>();
+var viewCache:Dictionary<string,{vnodes:VNode[],states:VNode}> = new Dictionary<string,{vnodes:VNode[],states:VNode}>();
 
 export abstract class View extends GroupBase
 {
 
-    private _vnodes:VNode[];
+    private _vnodes:{vnodes:VNode[],states:VNode};
 
-    protected refs:any = {};
+    private _viewStates:State[];
+
+    private _stateManagedProperties;
+
+    protected refs:any;
 
     createdCallback():void {
         super.createdCallback();
         this.refs = {};
+        this._viewStates = [];
+        this._stateManagedProperties = {};
         this.parse();
+
+        this._viewStates.forEach((state:State)=>{
+            if (this._stateManagedProperties.hasOwnProperty(state.name)) {
+
+                state.propertySetters.push.apply(state.propertySetters, this._stateManagedProperties[state.name]);
+            }
+
+            state.stateGroups.forEach((stateGroup)=>{
+                if (this._stateManagedProperties.hasOwnProperty(stateGroup)) {
+
+                    state.propertySetters.push.apply(state.propertySetters, this._stateManagedProperties[stateGroup]);
+                }
+            })
+
+        })
     }
 
     private parse():void
     {
-        var vnodes:VNode[] = viewCache.get(this.tagName);
+        var vnodes:{vnodes:VNode[],states:VNode} = viewCache.get(this.tagName);
         if(!vnodes)
         {
-            vnodes = [];
+            vnodes = {vnodes:[],states:null};
+
             viewCache.set(this.tagName,vnodes);
+
             var renderString:string = this.render();
 
             if(renderString === null || renderString === undefined)
@@ -55,23 +81,46 @@ export abstract class View extends GroupBase
                 {
                     var el:Element = elements.item(i);
                     var vnode:VNode = createVNode(el);
-                    vnodes.push(vnode);
+
+                    if(vnode.tagName.toLowerCase() === "states")
+                    {
+                        vnodes.states = vnode;
+                    }
+                    else
+                    {
+                        vnodes.vnodes.push(vnode);
+                    }
+
                 }
             }
         }
 
         this._vnodes = vnodes;
-    }
 
-
-    protected createChildren():void {
-
-        for(var i=0; i<this._vnodes.length; i++)
+        if(this._vnodes.states && this._vnodes.states.children)
         {
-            var vnode:VNode = this._vnodes[i];
-            var el:Element = createElement(vnode,this.refs) as Element;
-            this.appendChild(el);
+            for (var j = 0; j < this._vnodes.states.children.length; j++)
+            {
+                var stateNode:VNode = this._vnodes.states.children[j];
+                if(stateNode.attributes && stateNode.attributes["name"] !== null && stateNode.attributes["name"] !== undefined)
+                {
+                    var state:State = new State(stateNode.attributes["name"], stateNode.attributes["state-groups"]);
+                    this._viewStates.push(state);
+                }
+            }
         }
+
+        var _htmlContent:Node[] = [];
+        for(var i=0; i<this._vnodes.vnodes.length; i++)
+        {
+            var vnode:VNode = this._vnodes.vnodes[i];
+
+            var el:Element = createElement(vnode,this.refs,this._stateManagedProperties) as Element;
+
+            _htmlContent.push(el);
+        }
+
+        this.setHTMLContent(_htmlContent);
     }
 
     protected abstract render():string;

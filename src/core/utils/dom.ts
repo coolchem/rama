@@ -1,11 +1,14 @@
 
 
 import {UIElement} from "../base/UIElement";
+import {camelCase} from "./string-utils";
+import {PropertySetter} from "../support_classes/PropertySetter";
 export declare interface VNode
 {
     tagName:string;
     children?:any[];
     attributes?:any;
+    stateManagedAttributes?:any;
     text?:string;
 
 }
@@ -19,17 +22,35 @@ export function createVNode(el:Element):VNode
 
     var attributes:any = {};
 
+    var stateManagedAttributes:any= {};
+
     if(el.attributes){
 
         for(var i = 0; i < el.attributes.length; i++){
             var attr = el.attributes[i];
             if(attr.name){
 
-                var value = attr.value;
-                if(!value)
-                    value = "";
+                var nameAndState = attr.name.split('.');
 
-                attributes[attr.name] = attr.value;
+                if(nameAndState.length == 2)
+                {
+                    var stateName:string = nameAndState[1].toLowerCase();
+                    if(stateManagedAttributes[stateName] === undefined)
+                    {
+                        stateManagedAttributes[stateName] = {};
+                    }
+
+                    stateManagedAttributes[stateName][nameAndState[0]] = attr.value;
+                }
+                else
+                {
+                    var value = attr.value;
+                    if(!value)
+                        value = "";
+
+                    attributes[attr.name] = attr.value;
+                }
+
             }
         }
     }
@@ -38,6 +59,7 @@ export function createVNode(el:Element):VNode
     var output:VNode= {
         tagName:el.tagName,
         attributes:attributes,
+        stateManagedAttributes:stateManagedAttributes,
         children:[]};
 
     for(var i = 0; i < el.childNodes.length; i++){
@@ -47,7 +69,7 @@ export function createVNode(el:Element):VNode
     return output;
 }
 
-export function createElement(tag:VNode|string,refs?:any):Node
+export function createElement(tag:VNode|string,refs?:any,stateManagedProperties?:any):Node
 {
     var vnode:VNode;
     if(typeof tag == "string")
@@ -87,6 +109,28 @@ export function createElement(tag:VNode|string,refs?:any):Node
 
     if(refs && vnode.attributes.id){
         refs[vnode.attributes.id] = node;
+    }
+
+    if(stateManagedProperties && vnode.stateManagedAttributes)
+    {
+        for (var stateName in vnode.stateManagedAttributes) {
+
+            if(stateManagedProperties[stateName] === undefined)
+            {
+                stateManagedProperties[stateName] = [];
+            }
+
+            var attributes:any = vnode.stateManagedAttributes[stateName];
+
+            for (var attrName in attributes) {
+
+
+                var propertySetter = new PropertySetter(node,attrName,attributes[attrName])
+
+                stateManagedProperties[stateName].push(propertySetter);
+            }
+
+        }
     }
 
     if(node instanceof UIElement)
