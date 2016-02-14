@@ -43,7 +43,11 @@ class TestViewCorrectImplementation extends View
     protected render():string {
         return `<x-container>
 
-                <x-comp my-attr="what"></x-comp>
+                    <x-comp my-attr="what">
+                        <control-bar-content>
+                            <button id="controlButton"></button>
+                        </control-bar-content>
+                    </x-comp>
 
                 </x-container>`;
     }
@@ -99,6 +103,44 @@ describe('View Spec', () => {
             var view:View = createElement("x-comp-correct-renderer") as View;
             expect(testCompCreated).toBe(true);
 
+        });
+
+        it("should transclude content",(done)=>{
+
+            @element("x-comp-transclude")
+            class TestCompTransclude extends UIElement
+            {
+                setControlBarContent(nodes:Node[])
+                {
+                    expect(nodes.length).toBe(1);
+                    expect(nodes[0] instanceof HTMLButtonElement).toBe(true);
+                    done()
+                }
+            }
+
+            @element("x-view-transclude")
+            class TestViewTransclude extends View
+            {
+
+
+                createdCallback():void {
+                    super.createdCallback();
+                }
+
+                protected render():string {
+                    return `<div>
+
+                                <x-comp-transclude my-attr="what">
+                                    <control-bar-content>
+                                        <button id="controlButton"></button>
+                                    </control-bar-content>
+                                </x-comp-transclude>
+
+                            </div>`;
+                }
+            }
+
+            createElement("x-view-transclude")
         });
 
     });

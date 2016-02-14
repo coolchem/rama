@@ -6,6 +6,7 @@ import {PropertySetter} from "../support_classes/PropertySetter";
 import {trim} from "./string-utils";
 import {GroupBase} from "../base/GroupBase";
 import {Container} from "../Container";
+import {titleCase} from "./string-utils";
 export declare interface VNode
 {
     tagName:string;
@@ -117,17 +118,26 @@ export function createElement(tag:VNode|string,refs?:any,stateManagedProperties?
             var childNode:Element = createElement(children[i],refs,stateManagedProperties) as Element;
             if (childNode) {
 
-                if(node instanceof GroupBase || node instanceof Container)
+                if(node instanceof UIElement)
                 {
-                    var _htmlContent = (node as GroupBase).getHTMLContent();
+                    var functionName:string = "set" + titleCase(childNode.tagName.toLowerCase());
 
-                    if(!_htmlContent)
+                    if(node[functionName]) //checking if we need to transclude content
                     {
-                        _htmlContent = [];
-                        (node as GroupBase).setHTMLContent(_htmlContent);
+                        node[functionName]((childNode as HTMLElement).children);
                     }
+                    else if(node instanceof GroupBase || node instanceof Container) //check if need to put to htmlContent
+                    {
+                        var _htmlContent = (node as GroupBase).getHTMLContent();
 
-                    _htmlContent.push(childNode);
+                        if(!_htmlContent)
+                        {
+                            _htmlContent = [];
+                            (node as GroupBase).setHTMLContent(_htmlContent);
+                        }
+
+                        _htmlContent.push(childNode);
+                    }
                 }
                 else
                 {
@@ -181,9 +191,4 @@ function registerStateManagedComponent(element:Element,stateManagedProperties:an
 
         }
     }
-}
-
-function appendChildren(element:Element,childNode:Element)
-{
-
 }
