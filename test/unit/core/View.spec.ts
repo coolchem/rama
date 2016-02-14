@@ -8,6 +8,7 @@ import {Component} from "../../../src/core/Component";
 
 import "../../../src/core/Group";
 import {Container} from "../../../src/core/Container";
+import "../../../src/core/skins/ContainerSkin";
 
 var testCompCreated:boolean = false;
 @element("x-comp")
@@ -28,6 +29,10 @@ class TestComp extends UIElement
 class TestContainer extends Container
 {
 
+    createdCallback():void {
+        super.createdCallback();
+        this.setSkinElement("r-container-skin");
+    }
 }
 
 

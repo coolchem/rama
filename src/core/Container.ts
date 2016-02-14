@@ -5,8 +5,6 @@ import {skinPart} from "./decorators";
 import {Group} from "./Group";
 import {GroupBase} from "./base/GroupBase";
 
-import "../core/skins/ContainerSkin";
-
 export abstract class Container extends Component
 {
 
@@ -18,7 +16,6 @@ export abstract class Container extends Component
 
     createdCallback():void {
         super.createdCallback();
-        this.setSkinElement("r-container-skin");
     }
 
     getHTMLContent():Node[]
