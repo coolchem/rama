@@ -34,7 +34,8 @@ export abstract class View extends GroupBase
 
     protected refs:any;
 
-    protected _currentState:string;
+    private _currentState:string;
+    protected _tempCurrentState:string;
 
     createdCallback():void {
         super.createdCallback();
@@ -63,7 +64,7 @@ export abstract class View extends GroupBase
 
     __initializedCallback__():void {
         super.__initializedCallback__();
-        this.setCurrentState(this._currentState);
+        this.setCurrentState(this._tempCurrentState);
     }
 
     private parse():void
@@ -145,9 +146,12 @@ export abstract class View extends GroupBase
 
     getCurrentState():string
     {
+        if(!this.initialized)
+            return this._tempCurrentState;
+
         return this._currentState;
     }
-    setCurrentState(stateName) {
+    setCurrentState(stateName:string):void {
 
         var oldState = this.getState(this._currentState);
 
@@ -173,6 +177,10 @@ export abstract class View extends GroupBase
                 this.applyState(destination);
             }
 
+        }
+        else
+        {
+            this._tempCurrentState = stateName;
         }
     }
 
