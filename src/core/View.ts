@@ -34,12 +34,15 @@ export abstract class View extends GroupBase
 
     protected refs:any;
 
+    protected _currentState:string;
+
     createdCallback():void {
         super.createdCallback();
         this.refs = {};
         this._viewStates = [];
         this._stateManagedProperties = {};
         this.parse();
+        this._currentState = "";
 
         this._viewStates.forEach((state:State)=>{
             if (this._stateManagedProperties.hasOwnProperty(state.name)) {
@@ -121,6 +124,103 @@ export abstract class View extends GroupBase
         }
 
         this.setHTMLContent(_htmlContent);
+    }
+
+    hasState(stateName):boolean
+    {
+        for (var i = 0; i < this._viewStates.length; i++)
+        {
+            if (this._viewStates[i].name == stateName)
+                return true;
+        }
+        return false;
+
+    };
+
+    getCurrentState():string
+    {
+        return this._currentState;
+    }
+    setCurrentState(stateName) {
+
+        var oldState = this.getState(this._currentState);
+
+        if (this.initialized) {
+
+            if(this.isBaseState(stateName))
+            {
+                this.removeState(oldState);
+                this._currentState = stateName;
+
+            }
+            else
+            {
+
+                var destination = this.getState(stateName);
+
+                this.initializeState(stateName);
+
+                // Remove the existing state
+                this.removeState(oldState);
+                this._currentState = stateName;
+
+                this.applyState(destination);
+            }
+
+        }
+    }
+
+    protected isBaseState(stateName):boolean {
+        return !stateName || stateName == "";
+    }
+
+    protected initializeState(stateName):void
+    {
+        var state = this.getState(stateName);
+
+        if (state)
+        {
+            state.initialize();
+        }
+    }
+
+    protected removeState(state){
+
+        if(state)
+        {
+            for(var i = 0; i< state.propertySetters.length; i++)
+            {
+                state.propertySetters[i].remove();
+            }
+        }
+
+    }
+
+    protected applyState(state){
+
+        if(state)
+        {
+            for(var i = 0; i< state.propertySetters.length; i++)
+            {
+                state.propertySetters[i].apply();
+            }
+        }
+
+    }
+
+    getState(stateName:string):State
+    {
+        if (!this._viewStates || this.isBaseState(stateName))
+            return null;
+
+        for (var i = 0; i < this._viewStates.length; i++)
+        {
+            if (this._viewStates[i].name == stateName)
+                return this._viewStates[i];
+        }
+
+        throw new ReferenceError("State not Found Exception: The state '" + stateName +
+            "' being set on the component is not found in the skin");
     }
 
     protected abstract render():string;

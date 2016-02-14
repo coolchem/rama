@@ -6,7 +6,7 @@ export class PropertySetter
     private _name:string = null;
     private _value:string = null;
 
-    private  oldValue;
+    private  oldValue = null;
 
 
     get target():any {
@@ -34,6 +34,10 @@ export class PropertySetter
         {
             this.oldValue = this._target.getAttribute(this._name);
 
+            if(!this.oldValue)
+            {
+                this.oldValue = ""
+            }
             this._target.setAttribute(this._name,this._value);
         }
 

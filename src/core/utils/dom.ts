@@ -99,7 +99,7 @@ export function createElement(tag:VNode|string,refs?:any,stateManagedProperties?
     if(children)
     {
         for (var i = 0; i < children.length; i++) {
-            var childNode = createElement(children[i],refs);
+            var childNode = createElement(children[i],refs,stateManagedProperties);
             if (childNode) {
                 node.appendChild(childNode)
             }
