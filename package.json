@@ -5,12 +5,11 @@
     "name": ""
   },
   "files": [
-    "dist",
-    "npm-shrinkwrap.json"
+    "dist"
   ],
   "typings": "./typings/browser.d.ts",
   "dependencies": {
-    "document-register-element": "^0.5.4"
+    "document-register-element": "0.5.4"
   },
   "description": "",
   "devDependencies": {
