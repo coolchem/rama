@@ -65,7 +65,7 @@ describe('Component Spec', () => {
 
             var testComp:Component = document.createElement("comp-spec-test-comp") as Component;
             testComp.setSkinElement("comp-spec-test-skin");
-            testComp.__initializedCallback__();
+            testComp.initialize();
 
             expect(testComp.children.length).toBe(1);
             expect(testComp.children.item(0) instanceof Skin).toBe(true);
@@ -79,7 +79,7 @@ describe('Component Spec', () => {
 
         it("should attachSkin if component is initialized",()=>{
             var testComp:Component = document.createElement("comp-spec-test-comp") as Component;
-            testComp.__initializedCallback__();
+            testComp.initialize();
             testComp.setSkinElement("comp-spec-test-skin");
 
             expect(testComp.children.length).toBe(1);
@@ -105,7 +105,7 @@ describe('Component Spec', () => {
 
             var testComp:Component = document.createElement("comp-spec-test-detached") as Component;
             testComp.setSkinElement("comp-spec-test-skin");
-            testComp.__initializedCallback__();
+            testComp.initialize();
 
             var div:HTMLDivElement = document.createElement("div");
             div.appendChild(testComp);
@@ -121,9 +121,10 @@ describe('Component Spec', () => {
 
         it("should detachSkin if skin is already created",()=>{
 
-            var testComp:Component = createElement("comp-spec-test-comp") as Component;
+            var testComp:Component = document.createElement("comp-spec-test-comp") as Component;
             testComp.setSkinElement("comp-spec-test-skin");
 
+            testComp.initialize();
 
             testComp.setSkinElement('comp-spec-test-skin2');
 
@@ -133,8 +134,9 @@ describe('Component Spec', () => {
 
 
         it("should attach new Skin",()=>{
-            var testComp:Component = createElement("comp-spec-test-comp") as Component;
+            var testComp:Component = document.createElement("comp-spec-test-comp") as Component;
             testComp.setSkinElement("comp-spec-test-skin");
+            testComp.initialize();
 
             expect(testComp.children.item(0) instanceof TestSkin).toBe(true);
         });
@@ -144,8 +146,9 @@ describe('Component Spec', () => {
 
         it("should throw error if required skin parts not found",()=>{
             var throws = function(){
-                var testComp:Component = createElement("comp-spec-test-required-parts") as Component;
+                var testComp:Component = document.createElement("comp-spec-test-required-parts") as Component;
                 testComp.setSkinElement("comp-spec-test-skin");
+                testComp.initialize();
             };
 
             expect(throws).toThrowError();
@@ -172,8 +175,9 @@ describe('Component Spec', () => {
                 }
             }
 
-            var testComp:Component = createElement("comp-spec-test-parts-added") as Component;
+            var testComp:Component = document.createElement("comp-spec-test-parts-added") as Component;
             testComp.setSkinElement("comp-spec-test-skin2");
+            testComp.initialize();
         });
     });
 
@@ -199,9 +203,9 @@ describe('Component Spec', () => {
                 }
             }
 
-            var testComp:Component = createElement("comp-spec-test-parts-removed") as Component;
+            var testComp:Component = document.createElement("comp-spec-test-parts-removed") as Component;
             testComp.setSkinElement("comp-spec-test-skin2");
-
+            testComp.initialize();
             var div:HTMLDivElement = document.createElement("div");
             div.appendChild(testComp);
 

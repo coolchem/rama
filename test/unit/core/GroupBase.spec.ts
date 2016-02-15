@@ -1,7 +1,7 @@
 
-import {element} from "../../../../src/core/decorators";
-import {GroupBase} from "../../../../src/core/base/GroupBase";
-import {createElement} from "../../../../src/core/utils/dom";
+import {element} from "../../../src/core/decorators";
+import {GroupBase} from "../../../src/core/GroupBase";
+import {createElement} from "../../../src/core/utils/dom";
 
 
 @element("test-group-base")
@@ -24,7 +24,8 @@ describe('GroupBase Spec', () => {
 
         it("should create the children from HTMLContent if component is initialized",()=>{
 
-            var groupBase:TestGroupBase = createElement("test-group-base") as TestGroupBase;
+            var groupBase:TestGroupBase = document.createElement("test-group-base") as TestGroupBase;
+            groupBase.initialize();
 
             var div1 = document.createElement("div");
             var div2 = document.createElement("div");
@@ -53,7 +54,7 @@ describe('GroupBase Spec', () => {
 
             groupBase.setHTMLContent([div1,div2]);
 
-            groupBase.__initializedCallback__();
+            groupBase.initialize();
             expect(groupBase.children.length).toEqual(2);
 
         });
@@ -71,11 +72,11 @@ describe('GroupBase Spec', () => {
 
             groupBase.setHTMLContent([div1,div2]);
 
-            groupBase.__initializedCallback__();
+            groupBase.initialize();
 
             var div11 = groupBase.children.item(0);
 
-            groupBase.__initializedCallback__();
+            groupBase.initialize();
 
             var isSameReference:boolean = div11 === groupBase.children.item(0);
 

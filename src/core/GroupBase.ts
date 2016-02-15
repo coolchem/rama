@@ -1,7 +1,6 @@
 
 import {UIElement} from "./UIElement";
-import {VNode} from "../utils/dom";
-import {createElement} from "../utils/dom";
+import {VNode,createElement} from "./utils/dom";
 
 export abstract class GroupBase extends UIElement
 {

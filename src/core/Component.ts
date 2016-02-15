@@ -1,7 +1,7 @@
 
 import {Skin} from "./Skin";
 import {createElement} from "./utils/dom";
-import {UIElement} from "./base/UIElement";
+import {UIElement} from "./UIElement";
 
 export abstract class Component extends UIElement
 {

@@ -1,12 +1,13 @@
 
 
-import {UIElement} from "../base/UIElement";
+import {UIElement} from "../UIElement";
 import {camelCase} from "./string-utils";
 import {PropertySetter} from "../support_classes/PropertySetter";
 import {trim} from "./string-utils";
-import {GroupBase} from "../base/GroupBase";
-import {Container} from "../Container";
+import {GroupBase} from "../GroupBase";
 import {titleCase} from "./string-utils";
+import {ContainerBase} from "../ContainerBase";
+
 export declare interface VNode
 {
     tagName:string;
@@ -126,7 +127,7 @@ export function createElement(tag:VNode|string,refs?:any,stateManagedProperties?
                     {
                         node[functionName]((childNode as HTMLElement).children);
                     }
-                    else if(node instanceof GroupBase || node instanceof Container) //check if need to put to htmlContent
+                    else if(node instanceof GroupBase || node instanceof ContainerBase) //check if need to put to htmlContent
                     {
                         var _htmlContent = (node as GroupBase).getHTMLContent();
 
@@ -138,9 +139,18 @@ export function createElement(tag:VNode|string,refs?:any,stateManagedProperties?
 
                         _htmlContent.push(childNode);
                     }
+                    else
+                    {
+                        node.appendChild(childNode);
+                    }
                 }
                 else
                 {
+                    if(!(node instanceof UIElement) && childNode instanceof UIElement)
+                    {
+
+                        (childNode as UIElement).initialize();
+                    }
                     node.appendChild(childNode)
                 }
 
@@ -151,12 +161,6 @@ export function createElement(tag:VNode|string,refs?:any,stateManagedProperties?
     registerRefs(refs,vnode,node);
 
     registerStateManagedComponent(node,stateManagedProperties,vnode.stateManagedAttributes);
-
-
-    if(node instanceof UIElement)
-    {
-        (node as UIElement).__initializedCallback__();
-    }
 
     return node;
 }

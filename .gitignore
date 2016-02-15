@@ -1,7 +1,7 @@
 node_modules
 .idea
 **/*.iml
-**/*.d.ts
+src/**/*.d.ts
 .DS_STORE
 src/**/*.js
 test/**/*.js

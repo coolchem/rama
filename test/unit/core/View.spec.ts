@@ -1,14 +1,12 @@
 
 import {element} from "../../../src/core/decorators";
-import {createElement} from "../../../src/core/utils/dom";
 import {View} from "../../../src/core/View";
-import {UIElement} from "../../../src/core/base/UIElement";
+import {UIElement} from "../../../src/core/UIElement";
 import {Component} from "../../../src/core/Component";
 
 
 import "../../../src/core/Group";
 import {Container} from "../../../src/core/Container";
-import "../../../src/core/skins/ContainerSkin";
 
 var testCompCreated:boolean = false;
 @element("x-comp")
@@ -31,7 +29,6 @@ class TestContainer extends Container
 
     createdCallback():void {
         super.createdCallback();
-        this.setSkinElement("r-container-skin");
     }
 }
 
@@ -75,7 +72,8 @@ describe('View Spec', () => {
                     return null;
                 }
             }
-            var view:View = createElement("x-comp-null-renderer") as View;
+            var view:View = document.createElement("x-comp-null-renderer") as View;
+            view.initialize();
             expect(view.children.length).toEqual(0);
         });
 
@@ -90,14 +88,16 @@ describe('View Spec', () => {
                     return null;
                 }
             }
-            var view:View = createElement("x-comp-undefined-renderer") as View;
+            var view:View = document.createElement("x-comp-undefined-renderer") as View;
+            view.initialize();
             expect(view.children.length).toEqual(0);
         });
 
 
         it("should create child elements",()=>{
 
-            var view:View = createElement("x-comp-correct-renderer") as View;
+            var view:View = document.createElement("x-comp-correct-renderer") as View;
+            view.initialize();
             expect(view.children).toBeDefined();
             expect(view.children.length).toEqual(1);
 
@@ -105,7 +105,8 @@ describe('View Spec', () => {
 
         it("should create the custom element",()=>{
 
-            var view:View = createElement("x-comp-correct-renderer") as View;
+            var view:View = document.createElement("x-comp-correct-renderer") as View;
+            view.initialize();
             expect(testCompCreated).toBe(true);
 
         });
@@ -145,7 +146,8 @@ describe('View Spec', () => {
                 }
             }
 
-            createElement("x-view-transclude")
+            var view:View = document.createElement("x-view-transclude") as View;
+            view.initialize();
         });
 
     });
@@ -180,7 +182,8 @@ describe('View Spec', () => {
 
         it("should  apply state change to properties successfully",()=>{
 
-            var testView:View = createElement("test-view-with-states") as View;
+            var testView:View = document.createElement("test-view-with-states") as View;
+            testView.initialize();
 
             testView.setCurrentState("state1");
 
@@ -202,7 +205,8 @@ describe('View Spec', () => {
 
         it("should apply state change to state groups successfully",()=>{
 
-            var testView:View = createElement("test-view-with-states") as View;
+            var testView:View = document.createElement("test-view-with-states") as View;
+            testView.initialize();
 
             testView.setCurrentState("state2");
 

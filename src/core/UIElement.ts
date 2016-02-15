@@ -1,5 +1,5 @@
 
-import {titleCase} from "../utils/string-utils";
+import {titleCase} from "./utils/string-utils";
 export abstract class UIElement extends HTMLElement
 {
 
@@ -7,7 +7,7 @@ export abstract class UIElement extends HTMLElement
     protected initialized:boolean;
 
     //do not override
-    __initializedCallback__():void
+    initialize():void
     {
         if (this.initialized)
             return;
@@ -113,7 +113,7 @@ export abstract class UIElement extends HTMLElement
     {
         if(node instanceof UIElement)
         {
-            (node as UIElement).__initializedCallback__();
+            (node as UIElement).initialize();
         }
     }
 }

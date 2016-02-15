@@ -1,6 +1,6 @@
 
-import {element} from "../../../../src/core/decorators";
-import {UIElement} from "../../../../src/core/base/UIElement";
+import {element} from "../../../src/core/decorators";
+import {UIElement} from "../../../src/core/UIElement";
 
 describe('UIElement Spec', () => {
 
