@@ -1,12 +1,12 @@
 
 import {element} from "../../../src/core/decorators";
-import {View} from "../../../src/core/View";
 import {UIElement} from "../../../src/core/UIElement";
 import {Component} from "../../../src/core/Component";
 
 
 import "../../../src/core/Group";
 import {Container} from "../../../src/core/Container";
+import {ViewBase} from "../../../src/core/ViewBase";
 
 var testCompCreated:boolean = false;
 @element("x-comp")
@@ -34,7 +34,7 @@ class TestContainer extends Container
 
 
 @element("x-comp-correct-renderer")
-class TestViewCorrectImplementation extends View
+class TestViewCorrectImplementation extends ViewBase
 {
 
 
@@ -55,7 +55,7 @@ class TestViewCorrectImplementation extends View
     }
 }
 
-describe('View Spec', () => {
+describe('ViewBase Spec', () => {
 
 
     describe("instance Creation and Initialization",()=>{
@@ -64,7 +64,7 @@ describe('View Spec', () => {
 
 
             @element("x-comp-null-renderer")
-            class TestViewEmptyRender extends View
+            class TestViewEmptyRender extends ViewBase
             {
 
 
@@ -72,7 +72,7 @@ describe('View Spec', () => {
                     return null;
                 }
             }
-            var view:View = document.createElement("x-comp-null-renderer") as View;
+            var view:ViewBase = document.createElement("x-comp-null-renderer") as ViewBase;
             view.initialize();
             expect(view.children.length).toEqual(0);
         });
@@ -81,14 +81,14 @@ describe('View Spec', () => {
 
 
             @element("x-comp-undefined-renderer")
-            class TestViewNullRender extends View
+            class TestViewNullRender extends ViewBase
             {
 
                 protected render():string {
                     return null;
                 }
             }
-            var view:View = document.createElement("x-comp-undefined-renderer") as View;
+            var view:ViewBase = document.createElement("x-comp-undefined-renderer") as ViewBase;
             view.initialize();
             expect(view.children.length).toEqual(0);
         });
@@ -96,7 +96,7 @@ describe('View Spec', () => {
 
         it("should create child elements",()=>{
 
-            var view:View = document.createElement("x-comp-correct-renderer") as View;
+            var view:ViewBase = document.createElement("x-comp-correct-renderer") as ViewBase;
             view.initialize();
             expect(view.children).toBeDefined();
             expect(view.children.length).toEqual(1);
@@ -105,7 +105,7 @@ describe('View Spec', () => {
 
         it("should create the custom element",()=>{
 
-            var view:View = document.createElement("x-comp-correct-renderer") as View;
+            var view:ViewBase = document.createElement("x-comp-correct-renderer") as ViewBase;
             view.initialize();
             expect(testCompCreated).toBe(true);
 
@@ -125,7 +125,7 @@ describe('View Spec', () => {
             }
 
             @element("x-view-transclude")
-            class TestViewTransclude extends View
+            class TestViewTransclude extends ViewBase
             {
 
 
@@ -146,7 +146,7 @@ describe('View Spec', () => {
                 }
             }
 
-            var view:View = document.createElement("x-view-transclude") as View;
+            var view:ViewBase = document.createElement("x-view-transclude") as ViewBase;
             view.initialize();
         });
 
@@ -155,7 +155,7 @@ describe('View Spec', () => {
     describe("setCurrentState",()=>{
 
         @element("test-view-with-states")
-        class TestViewWithStates extends View
+        class TestViewWithStates extends ViewBase
         {
 
             protected render():string {
@@ -182,7 +182,7 @@ describe('View Spec', () => {
 
         it("should  apply state change to properties successfully",()=>{
 
-            var testView:View = document.createElement("test-view-with-states") as View;
+            var testView:ViewBase = document.createElement("test-view-with-states") as ViewBase;
             testView.initialize();
 
             testView.setCurrentState("state1");
@@ -205,7 +205,7 @@ describe('View Spec', () => {
 
         it("should apply state change to state groups successfully",()=>{
 
-            var testView:View = document.createElement("test-view-with-states") as View;
+            var testView:ViewBase = document.createElement("test-view-with-states") as ViewBase;
             testView.initialize();
 
             testView.setCurrentState("state2");
