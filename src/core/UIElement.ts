@@ -15,6 +15,7 @@ export abstract class UIElement extends HTMLElement
         this.childrenCreated();
 
         this.initialized = true;
+        this.initializedCallback();
 
     }
 
@@ -24,6 +25,11 @@ export abstract class UIElement extends HTMLElement
 
     // Fires when an instance of the element is created. treat it as constructor
     createdCallback():void {
+
+    };
+
+    // Fires when an instance of the element is created. treat it as constructor
+    initializedCallback():void {
 
     };
 

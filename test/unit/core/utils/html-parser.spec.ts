@@ -1,6 +1,4 @@
 
-import {element} from "../../../../src/core/decorators";
-
 import parseHTML from "../../../../src/core/utils/html-parser";
 
 describe('html-parser Spec', () => {

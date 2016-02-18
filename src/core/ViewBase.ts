@@ -32,14 +32,11 @@ export abstract class ViewBase extends GroupBase
 
     private _stateManagedProperties;
 
-    protected refs:any;
-
     private _currentState:string;
     protected _tempCurrentState:string;
 
     createdCallback():void {
         super.createdCallback();
-        this.refs = {};
         this._viewStates = [];
         this._stateManagedProperties = {};
         this.parse();
@@ -62,8 +59,8 @@ export abstract class ViewBase extends GroupBase
     }
 
 
-    initialize():void {
-        super.initialize();
+    initializedCallback():void {
+        super.initializedCallback();
         this.setCurrentState(this._tempCurrentState);
     }
 
@@ -125,7 +122,7 @@ export abstract class ViewBase extends GroupBase
         {
             var vnode:VNode = this._vnodes.vnodes[i];
 
-            var el:Element = createElement(vnode,this.refs,this._stateManagedProperties) as Element;
+            var el:Element = createElement(vnode,this,this._stateManagedProperties) as Element;
 
             _htmlContent.push(el);
         }

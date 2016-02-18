@@ -1,5 +1,5 @@
 
-import {element} from "../../../src/core/decorators";
+import {element} from "../../../src/decorators";
 import {GroupBase} from "../../../src/core/GroupBase";
 import {createElement} from "../../../src/core/utils/dom";
 

@@ -1,12 +1,12 @@
 
-import {element} from "../../../src/core/decorators";
+import {element} from "../../../src/decorators";
 import {UIElement} from "../../../src/core/UIElement";
-import {Component} from "../../../src/core/Component";
 
 
-import "../../../src/core/Group";
-import {Container} from "../../../src/core/Container";
+import "../../../src/Group";
 import {ViewBase} from "../../../src/core/ViewBase";
+import {Container} from "../../../src/Container";
+import {Component} from "../../../src/Component";
 
 var testCompCreated:boolean = false;
 @element("x-comp")

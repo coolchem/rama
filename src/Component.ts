@@ -1,7 +1,7 @@
 
 import {Skin} from "./Skin";
-import {createElement} from "./utils/dom";
-import {UIElement} from "./UIElement";
+import {createElement} from "./core/utils/dom";
+import {UIElement} from "./core/UIElement";
 
 export abstract class Component extends UIElement
 {
@@ -86,7 +86,7 @@ export abstract class Component extends UIElement
 
                 if (skinPartElement) {
                     skinPartFound = true;
-                    this[skinPart.key] = skinPartElement;
+                    this[id] = skinPartElement;
                     this.partAdded(id, skinPartElement)
                 }
 
@@ -102,9 +102,9 @@ export abstract class Component extends UIElement
         if (this._skinElement) {
             for (var id in this.skinParts) {
                 var skinPart = this.skinParts[id];
-                if(this[skinPart.key] !== null)
+                if(this[id] !== null)
                 {
-                    this.partRemoved(id, this[skinPart.key]);
+                    this.partRemoved(id, this[id]);
                 }
             }
         }

@@ -2,14 +2,14 @@
 
 import {Component} from "./Component";
 import {skinPart} from "./decorators";
-import {GroupBase} from "./GroupBase";
+import {GroupBase} from "./core/GroupBase";
 
 export abstract class ContainerBase extends Component
 {
 
     private _htmlContent:Node[];
 
-    @skinPart("contentGroup",false)
+    @skinPart(false)
     contentGroup:GroupBase;
 
 

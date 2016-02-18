@@ -6,7 +6,7 @@ import {PropertySetter} from "../support_classes/PropertySetter";
 import {trim} from "./string-utils";
 import {GroupBase} from "../GroupBase";
 import {titleCase} from "./string-utils";
-import {ContainerBase} from "../ContainerBase";
+import {ContainerBase} from "../../ContainerBase";
 
 export declare interface VNode
 {

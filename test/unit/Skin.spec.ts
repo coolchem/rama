@@ -1,7 +1,7 @@
 
-import {Skin} from "../../../src/core/Skin";
-import {element} from "../../../src/core/decorators";
-import {createElement} from "../../../src/core/utils/dom";
+import {Skin} from "../../src/Skin";
+import {element} from "../../src/decorators";
+import {createElement} from "../../src/core/utils/dom";
 
 @element("test-skin")
 class TestSkin extends Skin

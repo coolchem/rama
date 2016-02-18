@@ -10,12 +10,12 @@ export function element(name: string):ClassDecorator {
     }
 }
 
-export function skinPart(id:string,required:boolean = false):PropertyDecorator{
+export function skinPart(required:boolean = false):PropertyDecorator{
 
     return function (target: any, key: string):void {
         if(!target.skinParts)
             target.skinParts = {};
 
-        target.skinParts[id] = {required:true,key:key};
+        target.skinParts[key] = {required:true};
     }
 }

@@ -1,7 +1,7 @@
 
-import {element} from "../../../src/core/decorators";
-import {skinPart} from "../../../src/core/decorators";
-import {createElement} from "../../../src/core/utils/dom";
+import {element} from "../../src/decorators";
+import {skinPart} from "../../src/decorators";
+import {createElement} from "../../src/core/utils/dom";
 
 var testCompCreated:boolean = false;
 @element("x-test")
@@ -51,18 +51,18 @@ describe('decorators Spec', () => {
             @element("skin-part-test")
             class TesComp2 extends HTMLElement{
 
-                @skinPart("humm")
+                @skinPart(false)
                 part1:HTMLElement;
 
-                @skinPart("humm2")
+                @skinPart()
                 part2:HTMLElement;
             }
 
 
             var testComp:any = createElement("skin-part-test");
 
-            expect(testComp.skinParts["humm"]).toBeDefined();
-            expect(testComp.skinParts["humm2"]).toBeDefined();
+            expect(testComp.skinParts["part2"]).toBeDefined();
+            expect(testComp.skinParts["part1"]).toBeDefined();
         });
 
 

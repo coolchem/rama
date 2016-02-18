@@ -1,11 +1,10 @@
 
 
-import {Component} from "../../../src/core/Component";
-import {element} from "../../../src/core/decorators";
-import {Skin} from "../../../src/core/Skin";
-import {skinPart} from "../../../src/core/decorators";
-import {createElement} from "../../../src/core/utils/dom";
-import {throws} from "assert";
+import {Skin} from "../../src/Skin";
+import {createElement} from "../../src/core/utils/dom";
+import {Component} from "../../src/Component";
+import {element} from "../../src/decorators";
+import {skinPart} from "../../src/decorators";
 
 @element("comp-spec-test-comp")
 class TestComp extends Component
@@ -17,7 +16,7 @@ class TestComp extends Component
 class TestCompRequiredSkinParts extends Component
 {
 
-    @skinPart("humm",true)
+    @skinPart(true)
     testComp:HTMLDivElement
 }
 
@@ -50,7 +49,7 @@ class TestSkin2 extends Skin
 
                 </states>
 
-                <div id="humm">
+                <div id="testComp">
 
                 </div>
                 `;
@@ -161,7 +160,7 @@ describe('Component Spec', () => {
             class TestPartAdded extends Component
             {
 
-                @skinPart("humm",true)
+                @skinPart(true)
                 testComp:HTMLDivElement;
 
 
@@ -169,7 +168,7 @@ describe('Component Spec', () => {
                     super.partAdded(id, instance);
 
                     expect(this.testComp === instance).toBe(true);
-                    expect(id).toEqual("humm");
+                    expect(id).toEqual("testComp");
 
                     done()
                 }
@@ -188,7 +187,7 @@ describe('Component Spec', () => {
             class TestPartRemoved extends Component
             {
 
-                @skinPart("humm",true)
+                @skinPart(true)
                 testComp:HTMLDivElement;
 
 
@@ -197,7 +196,7 @@ describe('Component Spec', () => {
 
 
                     expect(this.testComp === instance).toBe(true);
-                    expect(id).toEqual("humm");
+                    expect(id).toEqual("testComp");
 
                     done()
                 }

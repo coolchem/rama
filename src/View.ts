@@ -1,5 +1,5 @@
 
-import {ViewBase} from "./ViewBase";
+import {ViewBase} from "./core/ViewBase";
 
 export abstract class View extends ViewBase
 {
