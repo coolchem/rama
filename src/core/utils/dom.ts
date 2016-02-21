@@ -4,9 +4,7 @@ import {UIElement} from "../UIElement";
 import {camelCase} from "./string-utils";
 import {PropertySetter} from "../support_classes/PropertySetter";
 import {trim} from "./string-utils";
-import {GroupBase} from "../GroupBase";
 import {titleCase} from "./string-utils";
-import {ContainerBase} from "../../ContainerBase";
 
 export declare interface VNode
 {
@@ -126,18 +124,6 @@ export function createElement(tag:VNode|string,refs?:any,stateManagedProperties?
                     if(node[functionName]) //checking if we need to transclude content
                     {
                         node[functionName]((childNode as HTMLElement).children);
-                    }
-                    else if(node instanceof GroupBase || node instanceof ContainerBase) //check if need to put to htmlContent
-                    {
-                        var _htmlContent = (node as GroupBase).getHTMLContent();
-
-                        if(!_htmlContent)
-                        {
-                            _htmlContent = [];
-                            (node as GroupBase).setHTMLContent(_htmlContent);
-                        }
-
-                        _htmlContent.push(childNode);
                     }
                     else
                     {
