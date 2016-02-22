@@ -1,7 +1,5 @@
 
-import {element} from "../../src/decorators";
 import {skinPart} from "../../src/decorators";
-import {createElement} from "../../src/core/utils/dom";
 
 var testCompCreated:boolean = false;
 

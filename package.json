@@ -7,7 +7,7 @@
   "files": [
     "dist"
   ],
-  "typings": "./typings/browser.d.ts",
+  "typings": "./dist/rama.d.ts",
   "dependencies": {},
   "description": "",
   "devDependencies": {
