@@ -4,11 +4,20 @@ export abstract class EventDispatcher implements EventTarget
 {
     private eventListenersDictionary = {};
 
-    protected element:HTMLElement;
+    protected _element:Node;
+
+    constructor(element?:Node)
+    {
+        this._element = element;
+        if(!element || !(element instanceof Node))
+        {
+            this._element = document.createElement("event-dispatcher");
+        }
+    }
 
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void
     {
-        this.element.addEventListener(type,listener,useCapture);
+        this._element.addEventListener(type,listener,useCapture);
 
         if(this.eventListenersDictionary[type] === undefined || this.eventListenersDictionary[type] === null)
         {
@@ -21,13 +30,13 @@ export abstract class EventDispatcher implements EventTarget
     }
     dispatchEvent(evt: Event): boolean{
 
-        this.element.dispatchEvent(evt);
+        this._element.dispatchEvent(evt);
 
         return !evt.defaultPrevented;
     }
     removeEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void
     {
-        this.element.removeEventListener(type, listener,useCapture);
+        this._element.removeEventListener(type, listener,useCapture);
 
         if(this.eventListenersDictionary[type] !== undefined && this.eventListenersDictionary[type] !== null)
         {
