@@ -5,6 +5,9 @@ import {EventDispatcher} from "../../../src/core/EventDispatcher";
 class TestEventDispatcher extends EventDispatcher
 {
 
+    constructor() {
+        super(document.createElement("event-dispatcher"));
+    }
 }
 describe('EventDispatcher Spec', () => {
 

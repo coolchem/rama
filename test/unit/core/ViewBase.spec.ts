@@ -1,11 +1,11 @@
 
 import {UIElement} from "../../../src/core/UIElement";
 
-
-import "../../../src/Group";
 import {ViewBase} from "../../../src/core/ViewBase";
 import {TestView} from "./test-views";
 import {TestViewTransclude} from "./test-views";
+import {TestComp} from "./test-views";
+import {TestViewWithStates} from "./test-views";
 
 describe('ViewBase Spec', () => {
 
@@ -18,7 +18,7 @@ describe('ViewBase Spec', () => {
             {
 
 
-                protected render():VNode {
+                render():VNode {
                     return null;
                 }
             }
@@ -32,7 +32,7 @@ describe('ViewBase Spec', () => {
             class TestViewUndefinedRender extends ViewBase
             {
 
-                protected render():VNode {
+                render():VNode {
                     return undefined;
                 }
             }
@@ -47,22 +47,27 @@ describe('ViewBase Spec', () => {
             var view:ViewBase = new TestView();
             view.initialize();
             expect(view.getChildren()).toBeDefined();
-            expect(view.getChildren().length).toEqual(1);
+            expect(view.getChildren().length).toEqual(2);
 
         });
 
         it("should create the custom element",()=>{
 
-            var view:ViewBase = document.createElement("x-comp-correct-renderer") as ViewBase;
+            var view:ViewBase = new TestView();
+
             view.initialize();
+
+            expect(view.getChildren()[1] instanceof TestComp).toBe(true);
 
         });
 
         it("should transclude content",()=>{
 
 
-            var view:ViewBase = new TestViewTransclude();
+            var view:TestViewTransclude = new TestViewTransclude();
             view.initialize();
+            expect(view.testComp.customElements.length).toEqual(1);
+            expect(view.testComp.customElements[0].getElementRef() instanceof HTMLDivElement).toBe(true);
         });
 
     });
@@ -71,36 +76,38 @@ describe('ViewBase Spec', () => {
 
         it("should  apply state change to properties successfully",()=>{
 
-            var testView:ViewBase = document.createElement("test-view-with-states") as ViewBase;
+            var testView:TestViewWithStates = new TestViewWithStates();
             testView.initialize();
 
             testView.setCurrentState("state1");
 
-            //var xComp:Component = testView.children.item(0) as Component;
-            //expect(xComp.getAttribute("my-attr")).toEqual("what1");
+            var testComp:TestComp = testView.getChildren()[0] as TestComp;
+            var div1:UIElement = testView.getChildren()[1];
 
-            //var div1:HTMLDivElement = testView.children.item(1) as HTMLDivElement;
+            expect(testComp.getAttribute("my-attr")).toEqual("what1");
+
+
             testView.setCurrentState("state2");
 
-            //expect(xComp.getAttribute("my-attr")).toEqual("what");
-            //expect(div1.getAttribute("class")).toEqual("humm");
+            expect(testComp.getAttribute("my-attr")).toEqual("what");
+            expect(div1.getAttribute("class")).toEqual("humm");
 
             testView.setCurrentState("state1");
 
-            //expect(div1.getAttribute("class")).toEqual("")
+            expect(div1.getAttribute("class")).toEqual("")
 
 
         });
 
         it("should apply state change to state groups successfully",()=>{
 
-            var testView:ViewBase = document.createElement("test-view-with-states") as ViewBase;
+            var testView:TestViewWithStates = new TestViewWithStates();
             testView.initialize();
 
             testView.setCurrentState("state2");
 
-            var div1:HTMLDivElement = testView.getChildren()[2] as HTMLDivElement;
-            var div2:HTMLDivElement = (testView.getChildren()[3] as HTMLElement).children.item(0) as HTMLDivElement;
+            var div1:UIElement = testView.getChildren()[2];
+            var div2:UIElement = (testView.getChildren()[3]).getChildren()[0];
 
             expect(div1.getAttribute("class")).toEqual("group1");
             expect(div2.getAttribute("class")).toEqual("group2");

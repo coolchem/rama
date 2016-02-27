@@ -1,10 +1,4 @@
 
-
-
-
-
 import {createVNode as createElementFunction} from "./utils/dom";
 
-var rama:{createElement:Function} = {createElement:createElementFunction};
-
-export var rama;
+export var rama:{createElement:Function} = {createElement:createElementFunction};;

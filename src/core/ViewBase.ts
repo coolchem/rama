@@ -54,6 +54,9 @@ export abstract class ViewBase extends UIElement
         var tempVNode:VNode = this.render();
         var statesVNode:VNode;
 
+        if(tempVNode === null || tempVNode === undefined)
+            return;
+
         if(tempVNode.children)
         {
 
@@ -65,6 +68,22 @@ export abstract class ViewBase extends UIElement
                     statesVNode = childNode;
                     tempVNode.children.splice(i, 1);
                     break;
+                }
+            }
+        }
+
+        if(statesVNode && statesVNode.children)
+        {
+            for (var j = 0; j < statesVNode.children.length; j++)
+            {
+                var stateNode:VNode = statesVNode.children[j] as VNode;
+                if (typeof stateNode === "string")
+                    return;
+
+                if(stateNode.props && stateNode.props["name"] !== null && stateNode.props["name"] !== undefined)
+                {
+                    var state:State = new State(stateNode.props["name"], stateNode.props["stateGroups"]);
+                    this._viewStates.push(state);
                 }
             }
         }
@@ -177,6 +196,6 @@ export abstract class ViewBase extends UIElement
             "' being set on the component is not found in the skin");
     }
 
-    protected abstract render():VNode;
+   abstract render():VNode;
 
 }

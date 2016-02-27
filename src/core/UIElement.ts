@@ -188,7 +188,7 @@ export class UIElement extends EventDispatcher
 
     protected createChildren():void
     {
-        if(this._children)
+        if(this._children && this._children.length > 0)
         {
             var docFragment:DocumentFragment = document.createDocumentFragment();
 

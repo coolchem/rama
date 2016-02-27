@@ -96,13 +96,11 @@ export function createElement(tag:VNode|string,refs?:any,stateManagedProperties?
             var childElement:UIElement = createElement(children[i],refs,stateManagedProperties);
 
             if (childElement) {
-                var childNode:VNode;
+                var childNode:VNode|string = children[i];
 
-                if(typeof children[i] !== "string")
+                if(typeof children[i] !== "string" && typeof (childNode as VNode).type === "string")
                 {
-                    childNode = children[i] as VNode;
-
-                    var functionName:string = "set" + titleCase(childNode.type);
+                    var functionName:string = "set" + titleCase((childNode as VNode).type);
 
                     if(element[functionName]) //checking if we need to transclude content
                     {
