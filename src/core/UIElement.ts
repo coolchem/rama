@@ -8,7 +8,7 @@ export class UIElement extends EventDispatcher
 
     protected _initialized:boolean;
 
-    protected _children:ArrayList<UIElement>;
+    private _children:ArrayList<UIElement>;
 
     public parentElement:UIElement;
 
@@ -46,17 +46,6 @@ export class UIElement extends EventDispatcher
         this.initialized();
     }
 
-    protected createChildren():void
-    {
-
-    }
-
-    protected childrenCreated():void
-    {
-
-    }
-
-
     /*
     * Life cycle methods
     *
@@ -72,22 +61,22 @@ export class UIElement extends EventDispatcher
 
     }
 
-    protected preAttach():void
+    preAttach():void
     {
 
     }
 
-    protected attached():void
+    attached():void
     {
 
     }
 
-    protected preDetach():void
+    preDetach():void
     {
 
     }
 
-    protected detached():void
+    detached():void
     {
 
     }
@@ -98,16 +87,24 @@ export class UIElement extends EventDispatcher
     *
     * */
 
-    getElementRef():Node {
+
+    __setElementRef(node:Element){
+        this._element = node;
+    }
+    getElementRef():Node|Element {
         return this._element;
     }
 
     setChildren(elements:UIElement[]):void
     {
         this._children = new ArrayList(elements);
+        if (this._initialized) {
+            this.removeAllChildren();
+            this.createChildren();
+        }
     }
 
-    getChildren():UIElement[]
+    getChildren():Array<UIElement>
     {
         return this._children.getSource();
     }
@@ -123,8 +120,8 @@ export class UIElement extends EventDispatcher
             index = 0;
         }
 
-
-
+        element.parentElement = this;
+        element.initialize();
 
         element.preAttach();
 
@@ -138,9 +135,6 @@ export class UIElement extends EventDispatcher
             this._element.insertBefore(element.getElementRef(), refChild)
         }
 
-
-        element.parentElement = this;
-        element.initialize();
         element.attached();
 
         this._children.addItemAt(element,index);
@@ -160,5 +154,60 @@ export class UIElement extends EventDispatcher
             this.removeChild(this._children.getItemAt(0));
         }
     }
+
+    setAttribute(name?: string, value?: string): void{
+        //finding and calling set function which matches attribute-name
+        var functionName = "set" + titleCase(name);
+
+        if(this[functionName])
+        {
+            this[functionName](value);
+        }
+
+        if(this._element instanceof Element)
+        {
+            (this._element as Element).setAttribute(name, value);
+        }
+
+    }
+
+    getAttribute(name: string): string{
+
+        if(this._element instanceof Element)
+        {
+            return (this._element as Element).getAttribute(name);
+        }
+        return null;
+    }
+
+
+    protected createChildren():void
+    {
+        if(this._children)
+        {
+            var docFragment:DocumentFragment = document.createDocumentFragment();
+
+
+            for(var i=0; i<this._children.length; i++)
+            {
+                var element:UIElement = this._children.getItemAt(i);
+
+                element.parentElement = this;
+                element.initialize();
+
+                element.preAttach();
+                docFragment.appendChild(element.getElementRef());
+                element.attached();
+            }
+
+            this._element.appendChild(docFragment);
+        }
+    }
+
+    protected childrenCreated():void
+    {
+
+    }
+
 
 }

@@ -1,10 +1,10 @@
 
 
-function createElementFn():void
-{
-
-}
 
 
 
-export var rama:{createElement:Function} = {createElement:createElementFn};
+import {createVNode as createElementFunction} from "./utils/dom";
+
+var rama:{createElement:Function} = {createElement:createElementFunction};
+
+export default rama;

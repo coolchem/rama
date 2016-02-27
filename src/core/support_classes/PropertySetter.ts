@@ -1,8 +1,9 @@
 
 
+import {UIElement} from "../UIElement";
 export class PropertySetter
 {
-    private _target:Element = null;
+    private _target:UIElement = null;
     private _name:string = null;
     private _value:string = null;
 
@@ -21,7 +22,7 @@ export class PropertySetter
         return this._value;
     }
 
-    constructor(target:Element, name:string, value:any) {
+    constructor(target:UIElement, name:string, value:any) {
 
         this._target = target;
         this._name = name;

@@ -92,6 +92,20 @@ describe('UIElement Spec', () => {
 
             expect(el.getChildren().length).toEqual(0);
         });
+
+        it("should create children set from setChildren",()=>{
+            var childEl1:UIElement = new UIElement(document.createElement("div"));
+            var childEl2:UIElement = new UIElement(document.createElement("div"));
+
+            var children:UIElement[] = [childEl1,childEl2];
+
+            el.setChildren(children);
+
+            el.initialize();
+
+            expect(el.getElementRef().childNodes.item(0) === childEl1.getElementRef()).toBe(true);
+            expect(el.getElementRef().childNodes.item(1) === childEl2.getElementRef()).toBe(true);
+        });
     });
 
     describe("Lifecycle methods",()=>{
@@ -181,14 +195,14 @@ describe('UIElement Spec', () => {
 
                 preAttachCalled:boolean;
 
-                protected preAttach():void {
+                preAttach():void {
                     super.preAttach();
                     this.preAttachCalled = true;
 
                 }
 
 
-                protected attached():void {
+                attached():void {
                     super.attached();
                     expect(this.preAttachCalled).toBe(true);
                     done();
@@ -208,13 +222,13 @@ describe('UIElement Spec', () => {
 
                 preDetachCalled:boolean;
 
-                protected preDetach():void {
+                preDetach():void {
                     this.preDetachCalled = true;
 
                 }
 
 
-                protected detached():void {
+                detached():void {
                     expect(this.preDetachCalled).toBe(true);
                     done();
                 }
