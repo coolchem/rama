@@ -13,7 +13,7 @@ export declare interface VNode
     text?:string;
 }
 
-export function createVNode(ele:string|Function, props:any, ...args):VNode
+export function createVNode(ele:string|Function, props?:any, ...args):VNode
 {
 
     var elementProps:any = {};
