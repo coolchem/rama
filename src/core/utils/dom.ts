@@ -25,7 +25,7 @@ export function createVNode(ele:string|Function, props?:any, ...args):VNode
 
         if(nameAndState.length == 2)
         {
-            var stateName:string = nameAndState[1].toLowerCase();
+            var stateName:string = nameAndState[1];
             if(stateManagedProperties[stateName] === undefined)
             {
                 stateManagedProperties[stateName] = {};
@@ -70,7 +70,6 @@ export function createElement(tag:VNode|string,refs?:any,stateManagedProperties?
         if(rootElement)
         {
             element = rootElement;
-
             element.__setElementRef(htmlNode)
         }
         else
@@ -96,35 +95,47 @@ export function createElement(tag:VNode|string,refs?:any,stateManagedProperties?
     if(children)
     {
         for (var i = 0; i < children.length; i++) {
-            var childNode:UIElement = createElement(children[i],refs,stateManagedProperties);
-            if (childNode) {
 
-                var functionName:string = "set" + titleCase(childNode.getElementRef().nodeName.toLowerCase());
+            var childElement:UIElement = createElement(children[i],refs,stateManagedProperties);
 
-                if(element[functionName]) //checking if we need to transclude content
+            if (childElement) {
+                var childNode:VNode;
+
+                if(typeof children[i] !== "string")
                 {
-                    element[functionName](childNode.getChildren());
+                    childNode = children[i] as VNode;
+
+                    var functionName:string = "set" + titleCase(childNode.type);
+
+                    if(element[functionName]) //checking if we need to transclude content
+                    {
+                        element[functionName](childElement.getChildren());
+                    }
+                    else
+                    {
+                        element.appendChild(childElement);
+                    }
                 }
                 else
                 {
-                    element.appendChild(childNode);
+                    element.appendChild(childElement);
                 }
 
             }
         }
     }
 
-    registerRefs(refs,vnode,element);
+    registerRefs(refs,vnode.props,element);
 
     registerStateManagedComponent(element,stateManagedProperties,vnode.stateManagedProps);
 
     return element;
 }
 
-function registerRefs(refs:any,vnode:VNode,element:UIElement)
+function registerRefs(refs:any,props:any,element:UIElement)
 {
-    if(refs && vnode.props.id){
-        refs[vnode.props.id] = element;
+    if(refs && props.id){
+        refs[props.id] = element;
     }
 }
 

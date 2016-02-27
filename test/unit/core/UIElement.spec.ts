@@ -43,6 +43,7 @@ describe('UIElement Spec', () => {
 
         beforeEach(()=>{
             el = new UIElement(document.createElement("div"));
+            el.initialize();
         });
 
         it("should return the reference to html node",()=>{
@@ -114,6 +115,7 @@ describe('UIElement Spec', () => {
 
         beforeEach(()=>{
             el = new UIElement(document.createElement("div"));
+            el.initialize();
         });
 
 
@@ -184,6 +186,7 @@ describe('UIElement Spec', () => {
 
             var parentElement:UIElement = new UIElement(document.createElement("div"));
             parentElement.appendChild(el);
+            parentElement.initialize();
 
         });
 
@@ -212,6 +215,7 @@ describe('UIElement Spec', () => {
 
             var parentElement:UIElement = new UIElement(document.createElement("div"));
             parentElement.appendChild(el);
+            parentElement.initialize();
 
         });
 
@@ -237,7 +241,7 @@ describe('UIElement Spec', () => {
 
             var parentElement:UIElement = new UIElement(document.createElement("div"));
             parentElement.appendChild(el);
-
+            parentElement.initialize();
             parentElement.removeChild(el);
         });
 

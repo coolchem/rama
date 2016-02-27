@@ -97,11 +97,15 @@ export class UIElement extends EventDispatcher
 
     setChildren(elements:UIElement[]):void
     {
-        this._children = new ArrayList(elements);
+
         if (this._initialized) {
             this.removeAllChildren();
+            this._children = new ArrayList(elements);
             this.createChildren();
+            return;
         }
+
+        this._children = new ArrayList(elements);
     }
 
     getChildren():Array<UIElement>
@@ -120,24 +124,29 @@ export class UIElement extends EventDispatcher
             index = 0;
         }
 
-        element.parentElement = this;
-        element.initialize();
 
-        element.preAttach();
-
-        if(this._children.length <= 0 || index > this._children.length-1)
+        if(this._initialized)
         {
-            this._element.appendChild(element.getElementRef())
-        }
-        else
-        {
-            var refChild = this._children.getSource()[index].getElementRef();
-            this._element.insertBefore(element.getElementRef(), refChild)
-        }
+            element.parentElement = this;
+            element.initialize();
 
-        element.attached();
+            element.preAttach();
+
+            if(this._children.length <= 0 || index > this._children.length-1)
+            {
+                this._element.appendChild(element.getElementRef())
+            }
+            else
+            {
+                var refChild = this._children.getSource()[index].getElementRef();
+                this._element.insertBefore(element.getElementRef(), refChild)
+            }
+
+            element.attached();
+        }
 
         this._children.addItemAt(element,index);
+
     }
 
     removeChild(element:UIElement) {

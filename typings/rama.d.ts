@@ -1,9 +1,6 @@
 
 declare namespace JSX {
 
-    interface ElementAttributesProperty {
-        props; // specify the property name to use
-    }
 
     interface ElementClass {
         render: any;
