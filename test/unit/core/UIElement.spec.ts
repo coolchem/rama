@@ -7,32 +7,11 @@ describe('UIElement Spec', () => {
 
     describe("UIElement constructor",()=>{
 
-        it("should throw error if UIElement is constructed with null or undefined element",()=>{
 
-            function throws(){
-                var UiElement:any = UIElement;
+        it("should create element is node type is passed during construction",()=>{
 
-                var el = new UiElement();
-            }
-
-            function throws1(){
-                var UiElement:any = UIElement;
-
-                var el = new UiElement(null);
-            }
-
-            expect(throws).toThrowError();
-            expect(throws1).toThrowError()
-        });
-
-        it("should throw error if UIElement is constructed element not instance of Node",()=>{
-
-            function throws(){
-                var UiElement:any = UIElement;
-
-                var el = new UiElement("asdasd");
-            }
-            expect(throws).toThrowError();
+            var el = new UIElement("div");
+            expect(el.getElementRef() instanceof HTMLDivElement).toBe(true);
         });
 
     });
@@ -42,7 +21,7 @@ describe('UIElement Spec', () => {
         var el:UIElement;
 
         beforeEach(()=>{
-            el = new UIElement(document.createElement("div"));
+            el = new UIElement("div");
             el.initialize();
         });
 

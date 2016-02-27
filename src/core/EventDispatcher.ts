@@ -9,10 +9,6 @@ export abstract class EventDispatcher implements EventTarget
     constructor(element?:Node)
     {
         this._element = element;
-        if(!element || !(element instanceof Node))
-        {
-            this._element = document.createElement("event-dispatcher");
-        }
     }
 
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void

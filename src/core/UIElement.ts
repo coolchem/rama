@@ -12,19 +12,15 @@ export class UIElement extends EventDispatcher
 
     public parentElement:UIElement;
 
-    constructor(element:Node)
+    constructor(element?:Node|string)
     {
-        if(!element)
-        {
-            throw new ReferenceError("Cannot create UIElement with null or undefined element ref")
-        }
 
-        if(!(element instanceof Node))
+        var el:Node = element as Node;
+        if(typeof element === "string")
         {
-            throw new ReferenceError("Element passed to UIElement must be an instance of Html Node")
+            el = document.createElement(element as string);
         }
-
-        super(element);
+        super(el);
 
         this._children = new ArrayList<UIElement>();
     }

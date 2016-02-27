@@ -42,8 +42,7 @@ export class ArrayList<T> extends EventDispatcher{
 
     constructor(source?:Array<T>) {
 
-        super();
-        this._element = document.createElement("array-list");
+        super(document.createElement("array-list"));
         this.disableEvents();
         this.setSource(source);
         this.enableEvents();

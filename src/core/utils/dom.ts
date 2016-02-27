@@ -4,14 +4,6 @@ import {UIElement} from "../UIElement";
 import {PropertySetter} from "../support_classes/PropertySetter";
 import {titleCase} from "./string-utils";
 
-export declare interface VNode
-{
-    type:string|Function;
-    children?:Array<VNode|string>;
-    props?:any;
-    stateManagedProps?:any;
-    text?:string;
-}
 
 export function createVNode(ele:string|Function, props?:any, ...args):VNode
 {
@@ -81,6 +73,11 @@ export function createElement(tag:VNode|string,refs?:any,stateManagedProperties?
     else
     {
         element = new (vnode.type as new()=>any)()
+    }
+
+    if(!(element instanceof UIElement))
+    {
+        throw TypeError("Custom Component Class must extend UIElement.\n" + element.toString())
     }
 
     if(vnode.props)

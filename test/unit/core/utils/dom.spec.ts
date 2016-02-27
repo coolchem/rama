@@ -4,8 +4,8 @@
 import {createVNode} from "../../../../src/core/utils/dom";
 import {createElement} from "../../../../src/core/utils/dom";
 import {UIElement} from "../../../../src/core/UIElement";
-import {VNode} from "../../../../src/core/utils/dom";
 import {PropertySetter} from "../../../../src/core/support_classes/PropertySetter";
+
 
 class TestComp extends UIElement
 {
@@ -114,7 +114,34 @@ describe("dom Spec",()=>{
             expect(el.getElementRef() instanceof HTMLLIElement).toBe(true)
         });
 
+        it("should wrap html node with rootElement if provided",()=>{
+
+            var rootElement:UIElement = new TestComp();
+
+            var vnode:VNode = {type:"div"};
+
+            var element:UIElement = createElement(vnode,null,null,rootElement);
+
+            expect(element === rootElement).toBe(true);
+            expect(rootElement.getElementRef() instanceof HTMLDivElement).toBe(true);
+
+
+
+        });
+
         it("should throw an error if custom component is not an instaince of UIElement",()=>{
+
+            class InvalidComponent{
+
+            }
+
+            var vnode:VNode = {type:InvalidComponent};
+
+            function throws(){
+                createElement(vnode);
+            }
+
+            expect(throws).toThrowError();
 
 
         });
