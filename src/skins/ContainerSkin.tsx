@@ -3,7 +3,7 @@
 import {Skin} from "../Skin";
 import {Group} from "../Group";
 
-import {rama} from "../rama"
+import {rama} from "../main"
 
 export class ContainerSkin extends Skin
 {

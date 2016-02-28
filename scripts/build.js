@@ -39,7 +39,7 @@ function build(isRelease){
         {
             if(isRelease)
             {
-                cpy(["**/*.js","typings/**/*.d.ts","main.d.ts"],"../dist",{cwd:process.cwd()+"/src",parents: true, nodir: true}).then(function(){
+                cpy(["**/*.js","**/*.d.ts"],"../dist",{cwd:process.cwd()+"/src",parents: true, nodir: true}).then(function(){
 
                     process.exit(0);
 

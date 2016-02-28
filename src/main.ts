@@ -1,8 +1,9 @@
 
+import {createVNode as createElementFunction} from "./core/utils/dom";
 
 import "./pollyfills";
 
-export * from "./rama"
+export var rama:{createElement:Function} = {createElement:createElementFunction};
 export * from "./decorators"
 
 export * from "./View"
