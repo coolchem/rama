@@ -1,14 +1,13 @@
 
 import {titleCase} from "./utils/string-utils";
 import {EventDispatcher} from "./EventDispatcher";
-import {ArrayList} from "./collections/ArrayList";
 
 export class UIElement extends EventDispatcher
 {
 
     protected _initialized:boolean;
 
-    private _children:ArrayList<UIElement>;
+    private _children:Array<UIElement>;
 
     public parentElement:UIElement;
 
@@ -38,7 +37,7 @@ export class UIElement extends EventDispatcher
         }
         super(el);
 
-        this._children = new ArrayList<UIElement>();
+        this._children = [];
         this._currentState = "";
     }
 
@@ -120,17 +119,17 @@ export class UIElement extends EventDispatcher
 
         if (this._initialized) {
             this.removeAllChildren();
-            this._children = new ArrayList(elements);
+            this._children = elements;
             this.createChildren();
             return;
         }
 
-        this._children = new ArrayList(elements);
+        this._children = elements
     }
 
     getChildren():Array<UIElement>
     {
-        return this._children.getSource();
+        return this._children
     }
 
     appendChild(element:UIElement):void {
@@ -154,19 +153,18 @@ export class UIElement extends EventDispatcher
         }
         else
         {
-            var refChild = this._children.getSource()[index].getElementRef();
+            var refChild = this._children[index].getElementRef();
             this._element.insertBefore(element.getElementRef(), refChild)
         }
 
         element.attached();
-        this._children.addItemAt(element,index);
-
+        this._children.splice(index, 0, element);
     }
 
     removeChild(element:UIElement) {
 
         element.preDetach();
-        this._children.removeItem(element);
+        this._children.splice(this._children.indexOf(element), 1);
         this._element.removeChild(element.getElementRef());
         element.detached();
     };
@@ -174,7 +172,7 @@ export class UIElement extends EventDispatcher
     removeAllChildren():void {
 
         while (this._children.length > 0) {
-            this.removeChild(this._children.getItemAt(0));
+            this.removeChild(this._children[0]);
         }
     }
 
@@ -213,7 +211,7 @@ export class UIElement extends EventDispatcher
 
             for(var i=0; i<this._children.length; i++)
             {
-                var element:UIElement = this._children.getItemAt(i);
+                var element:UIElement = this._children[i];
 
                 element.parentElement = this;
                 element.initialize();

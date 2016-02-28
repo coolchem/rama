@@ -126,7 +126,7 @@ export abstract class Component extends UIElement
     }
 
 
-    appendChild(newChild:UIElement):Element {
+    appendChild(newChild:UIElement):void {
         return null;
     }
 }

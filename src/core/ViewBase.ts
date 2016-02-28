@@ -4,10 +4,10 @@ import {createVNode} from "./utils/dom";
 import {State} from "./support_classes/State";
 import {PropertySetter} from "./support_classes/PropertySetter";
 import {UIElement} from "./UIElement";
+import {GroupBase} from "./GroupBase";
 
-export abstract class ViewBase extends UIElement
+export abstract class ViewBase extends GroupBase
 {
-
 
     private _viewStates:State[];
 
