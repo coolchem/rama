@@ -1,5 +1,5 @@
 
-import {rama} from "../../../src/main"
+import {rama} from "../../../src/index"
 
 import {ViewBase} from "../../../src/core/ViewBase";
 import {UIElement} from "../../../src/core/UIElement";

@@ -1,6 +1,6 @@
 
 
-import {rama} from "../../src/main"
+import {rama} from "../../src/index"
 import {Skin} from "../../src/Skin";
 import {VNode} from "../../src/core/utils/dom";
 
