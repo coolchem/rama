@@ -1,6 +1,6 @@
 {
   "name": "ramajs",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": {
     "name": ""
   },
@@ -36,7 +36,7 @@
   "homepage": "",
   "keywords": [],
   "licenses": [],
-  "typings":"./dist/typings/rama.d.ts",
+  "typings": "./dist/typings/rama.d.ts",
   "optionalDependencies": {},
   "readme": "",
   "readmeFilename": "",
