@@ -2,7 +2,7 @@
 import {createVNode as createElementFunction} from "./core/utils/dom";
 import {VNode} from "./core/utils/dom";
 
-declare namespace JSX {
+export declare namespace JSX {
 
     interface ElementClass {
         render?():VNode
@@ -11,6 +11,9 @@ declare namespace JSX {
         [elemName: string]: any;
     }
 }
+
+export * from "./core/utils/dom"
+export * from "./core/UIElement"
 
 export var rama:{createElement:Function} = {createElement:createElementFunction};
 export * from "./decorators"
