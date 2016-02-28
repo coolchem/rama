@@ -9,7 +9,6 @@ var paths = del.sync(['coverage',
     '**/*.map',
     '!node_modules/**/*.map',
     'src/**/*.d.ts',
-    '!src/typings/rama.d.ts',
     'test/**/*.d.ts'
     ]);
 

@@ -1,5 +1,16 @@
 
 import {createVNode as createElementFunction} from "./core/utils/dom";
+import {VNode} from "./core/utils/dom";
+
+declare namespace JSX {
+
+    interface ElementClass {
+        render?():VNode
+    }
+    interface IntrinsicElements {
+        [elemName: string]: any;
+    }
+}
 
 export var rama:{createElement:Function} = {createElement:createElementFunction};
 export * from "./decorators"
