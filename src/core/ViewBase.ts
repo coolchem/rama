@@ -13,7 +13,6 @@ export abstract class ViewBase extends UIElement
 
     private _stateManagedProperties;
 
-    private _currentState:string;
     protected _tempCurrentState:string;
 
 
@@ -21,7 +20,6 @@ export abstract class ViewBase extends UIElement
         super();
         this._viewStates = [];
         this._stateManagedProperties = {};
-        this._currentState = "";
 
     }
 
@@ -119,6 +117,7 @@ export abstract class ViewBase extends UIElement
 
         return this._currentState;
     }
+
     setCurrentState(stateName:string):void {
 
         var oldState = this.getState(this._currentState);

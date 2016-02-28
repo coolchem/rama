@@ -9,6 +9,9 @@ export class TestSkin extends Skin
 
     render():VNode {
         return <div>
+            <states>
+                <state name="testState"/>
+            </states>
             <div id="humm"></div>
         </div>;
     }

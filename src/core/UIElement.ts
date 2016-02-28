@@ -12,6 +12,22 @@ export class UIElement extends EventDispatcher
 
     public parentElement:UIElement;
 
+    protected _currentState:string;
+
+    getCurrentState():string
+    {
+        return this._currentState
+    }
+
+    setCurrentState(value:string):void
+    {
+        if(this._currentState !== value)
+        {
+            this._currentState = value;
+            this.validateState();
+        }
+    }
+
     constructor(element?:Node|string)
     {
 
@@ -23,6 +39,7 @@ export class UIElement extends EventDispatcher
         super(el);
 
         this._children = new ArrayList<UIElement>();
+        this._currentState = "";
     }
 
 
@@ -211,6 +228,11 @@ export class UIElement extends EventDispatcher
     }
 
     protected childrenCreated():void
+    {
+
+    }
+
+    protected validateState():void
     {
 
     }

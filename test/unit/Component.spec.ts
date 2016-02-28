@@ -87,6 +87,23 @@ describe('Component Spec', () => {
         });
     });
 
+    describe("setCurrentState",()=>{
+
+
+        it("should pass the component state to skin state",()=>{
+
+            var testComp:Component = new TestComp();
+            testComp.setSkinClass(TestSkin);
+            testComp.initialize();
+
+            expect(testComp.getCurrentState()).toEqual("");
+            testComp.setCurrentState("testState");
+
+            expect(testComp.getChildren()[0].getCurrentState()).toEqual("testState");
+
+        });
+    });
+
     describe("attachSkin",()=>{
 
         it("should throw error if required skin parts not found",()=>{

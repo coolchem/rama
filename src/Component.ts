@@ -6,8 +6,6 @@ import {UIElement} from "./core/UIElement";
 export abstract class Component extends UIElement
 {
 
-
-
     private _skinClass:new()=>any;
     private _skinElement:Skin;
 
@@ -71,8 +69,17 @@ export abstract class Component extends UIElement
         }
     }
 
+
+    protected validateState():void {
+        this.validateSkinState();
+    }
+
     protected validateSkinState(){
 
+        if(this._skinElement)
+        {
+            this._skinElement.setCurrentState(this.getCurrentState());
+        }
     }
 
     private detachSkin():void {
