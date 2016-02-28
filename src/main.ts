@@ -1,6 +1,5 @@
 
 import {createVNode as createElementFunction} from "./core/utils/dom";
-import {VNode} from "./core/utils/dom";
 
 export * from "./core/utils/dom"
 export * from "./core/UIElement"
