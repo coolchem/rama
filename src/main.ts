@@ -2,16 +2,6 @@
 import {createVNode as createElementFunction} from "./core/utils/dom";
 import {VNode} from "./core/utils/dom";
 
-export declare namespace JSX {
-
-    interface ElementClass {
-        render?():VNode
-    }
-    interface IntrinsicElements {
-        [elemName: string]: any;
-    }
-}
-
 export * from "./core/utils/dom"
 export * from "./core/UIElement"
 
