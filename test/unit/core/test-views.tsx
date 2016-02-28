@@ -38,6 +38,14 @@ export class TestView extends ViewBase
     }
 }
 
+export class TestCustomElementRootNodeView extends ViewBase
+{
+
+    render():VNode {
+        return <TestComp />;
+    }
+}
+
 export class TestViewTransclude extends ViewBase
 {
 

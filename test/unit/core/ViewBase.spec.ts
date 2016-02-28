@@ -6,6 +6,7 @@ import {TestView} from "./test-views";
 import {TestViewTransclude} from "./test-views";
 import {TestComp} from "./test-views";
 import {TestViewWithStates} from "./test-views";
+import {TestCustomElementRootNodeView} from "./test-views";
 
 describe('ViewBase Spec', () => {
 
@@ -39,6 +40,18 @@ describe('ViewBase Spec', () => {
             var view:ViewBase = new TestViewUndefinedRender();
             view.initialize();
             expect(view.getChildren().length).toEqual(0);
+        });
+
+        it("should throw error is Custom element set as root node",()=>{
+
+
+            function throwsError():void
+            {
+                var view:ViewBase = new TestCustomElementRootNodeView();
+                view.initialize();
+            }
+
+            expect(throwsError).toThrowError();
         });
 
 

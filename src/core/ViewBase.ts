@@ -60,6 +60,12 @@ export abstract class ViewBase extends UIElement
         if(tempVNode === null || tempVNode === undefined)
             return;
 
+        if(typeof tempVNode.type !== "string")
+        {
+            throw TypeError("Custom Element cannot be the root node of a view.\n" +
+                " Please make sure root node is html node, for example 'div','section' etc.")
+        }
+
         if(tempVNode.children)
         {
 
