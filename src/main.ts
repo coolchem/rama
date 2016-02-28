@@ -1,10 +1,12 @@
 
 import {createVNode as createElementFunction} from "./core/utils/dom";
 
+
+export var rama:{createElement:Function} = {createElement:createElementFunction};
+
 export * from "./core/utils/dom"
 export * from "./core/UIElement"
 
-export var rama:{createElement:Function} = {createElement:createElementFunction};
 export * from "./decorators"
 
 export * from "./View"

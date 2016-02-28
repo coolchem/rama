@@ -37,6 +37,7 @@
   "keywords": [],
   "licenses": [],
   "main": "./dist/main.js",
+  "typings": "./dist/main.d.ts",
   "optionalDependencies": {},
   "readme": "",
   "readmeFilename": "",
