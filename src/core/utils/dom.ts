@@ -91,6 +91,8 @@ export function createElement(tag:VNode|string,refs?:any,stateManagedProperties?
 
     if(children)
     {
+
+        var childElements:UIElement[] = [];
         for (var i = 0; i < children.length; i++) {
 
             var childElement:UIElement = createElement(children[i],refs,stateManagedProperties);
@@ -108,16 +110,18 @@ export function createElement(tag:VNode|string,refs?:any,stateManagedProperties?
                     }
                     else
                     {
-                        element.appendChild(childElement);
+                        childElements.push(childElement);
                     }
                 }
                 else
                 {
-                    element.appendChild(childElement);
+                    childElements.push(childElement);
                 }
 
             }
         }
+
+        element.setChildren(childElements);
     }
 
     registerRefs(refs,vnode.props,element);

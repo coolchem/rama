@@ -3,6 +3,7 @@ import {rama} from "../../../src/main"
 
 import {ViewBase} from "../../../src/core/ViewBase";
 import {UIElement} from "../../../src/core/UIElement";
+import {Skin} from "../../../src/Skin";
 
 
 export class TestComp extends UIElement

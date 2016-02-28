@@ -34,12 +34,19 @@ export class UIElement extends EventDispatcher
 
         this.preInitialize();
 
+        this.__preInitialize();
+
         this.createChildren();
         this.childrenCreated();
 
         this._initialized = true;
 
         this.initialized();
+    }
+
+    protected __preInitialize():void
+    {
+
     }
 
     /*
@@ -119,28 +126,22 @@ export class UIElement extends EventDispatcher
         {
             index = 0;
         }
+        element.parentElement = this;
+        element.initialize();
 
+        element.preAttach();
 
-        if(this._initialized)
+        if(this._children.length <= 0 || index > this._children.length-1)
         {
-            element.parentElement = this;
-            element.initialize();
-
-            element.preAttach();
-
-            if(this._children.length <= 0 || index > this._children.length-1)
-            {
-                this._element.appendChild(element.getElementRef())
-            }
-            else
-            {
-                var refChild = this._children.getSource()[index].getElementRef();
-                this._element.insertBefore(element.getElementRef(), refChild)
-            }
-
-            element.attached();
+            this._element.appendChild(element.getElementRef())
+        }
+        else
+        {
+            var refChild = this._children.getSource()[index].getElementRef();
+            this._element.insertBefore(element.getElementRef(), refChild)
         }
 
+        element.attached();
         this._children.addItemAt(element,index);
 
     }

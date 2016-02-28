@@ -23,6 +23,11 @@ export abstract class ViewBase extends UIElement
         this._stateManagedProperties = {};
         this._currentState = "";
 
+    }
+
+
+    protected __preInitialize():void {
+
         this.parse();
 
         this._viewStates.forEach((state:State)=>{
@@ -40,8 +45,6 @@ export abstract class ViewBase extends UIElement
 
         })
     }
-
-
 
     initialized():void {
 
