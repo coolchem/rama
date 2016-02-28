@@ -5,6 +5,7 @@ import {State} from "./support_classes/State";
 import {PropertySetter} from "./support_classes/PropertySetter";
 import {UIElement} from "./UIElement";
 import {GroupBase} from "./GroupBase";
+import {VNode} from "./utils/dom";
 
 export abstract class ViewBase extends GroupBase
 {

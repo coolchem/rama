@@ -1,12 +1,5 @@
 
-declare interface VNode
-{
-    type:string|Function;
-    children?:Array<VNode|string>;
-    props?:any;
-    stateManagedProps?:any;
-    text?:string;
-}
+import {VNode} from "../core/utils/dom";
 
 declare namespace JSX {
 

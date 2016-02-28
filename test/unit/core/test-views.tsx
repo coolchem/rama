@@ -4,6 +4,7 @@ import {rama} from "../../../src/main"
 import {ViewBase} from "../../../src/core/ViewBase";
 import {UIElement} from "../../../src/core/UIElement";
 import {Skin} from "../../../src/Skin";
+import {VNode} from "../../../src/core/utils/dom";
 
 
 export class TestComp extends UIElement

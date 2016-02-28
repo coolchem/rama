@@ -36,7 +36,7 @@
   "homepage": "",
   "keywords": [],
   "licenses": [],
-  "main": "dist/main.js",
+  "typings":"./dist/typings/rama.d.ts",
   "optionalDependencies": {},
   "readme": "",
   "readmeFilename": "",

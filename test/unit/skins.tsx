@@ -2,6 +2,7 @@
 
 import {rama} from "../../src/main"
 import {Skin} from "../../src/Skin";
+import {VNode} from "../../src/core/utils/dom";
 
 
 export class TestSkin extends Skin

@@ -1,6 +1,8 @@
 
+import "./pollyfills";
 import {titleCase} from "./utils/string-utils";
 import {EventDispatcher} from "./EventDispatcher";
+
 
 export class UIElement extends EventDispatcher
 {

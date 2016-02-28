@@ -5,6 +5,7 @@ import {createVNode} from "../../../../src/core/utils/dom";
 import {createElement} from "../../../../src/core/utils/dom";
 import {UIElement} from "../../../../src/core/UIElement";
 import {PropertySetter} from "../../../../src/core/support_classes/PropertySetter";
+import {VNode} from "../../../../src/core/utils/dom";
 
 
 class TestComp extends UIElement

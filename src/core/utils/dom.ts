@@ -4,7 +4,14 @@ import {UIElement} from "../UIElement";
 import {PropertySetter} from "../support_classes/PropertySetter";
 import {titleCase} from "./string-utils";
 
-
+export declare interface VNode
+{
+    type:string|Function;
+    children?:Array<VNode|string>;
+    props?:any;
+    stateManagedProps?:any;
+    text?:string;
+}
 export function createVNode(ele:string|Function, props?:any, ...args):VNode
 {
 
