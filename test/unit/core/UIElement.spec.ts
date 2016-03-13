@@ -1,5 +1,6 @@
 
 import {UIElement} from "../../../src/core/UIElement";
+import {DOMElement} from "../../../src/core/DOMElement";
 
 
 describe('UIElement Spec', () => {
@@ -10,7 +11,7 @@ describe('UIElement Spec', () => {
 
         it("should create element is node type is passed during construction",()=>{
 
-            var el = new UIElement("div");
+            var el = new DOMElement("div");
             expect(el.getElementRef() instanceof HTMLDivElement).toBe(true);
         });
 
@@ -21,20 +22,20 @@ describe('UIElement Spec', () => {
         var el:UIElement;
 
         beforeEach(()=>{
-            el = new UIElement("div");
+            el = new DOMElement("div");
             el.initialize();
         });
 
         it("should return the reference to html node",()=>{
             var node:Node = document.createElement("div");
-            el = new UIElement(node);
+            el = new DOMElement(node);
             expect(el.getElementRef() === node).toBe(true);
         });
 
         it("should be able to append UIElement",()=>{
 
             var node:Node = document.createElement("div");
-            el.appendChild(new UIElement(node));
+            el.appendChild(new DOMElement(node));
             expect(el.getChildren().length).toEqual(1);
             expect(el.getChildren()[0].getElementRef() === node).toBe(true);
             expect(el.getElementRef().childNodes.item(0) === node).toBe(true);
@@ -43,8 +44,8 @@ describe('UIElement Spec', () => {
         it("should be able to append UIElement at a given position",()=>{
 
             var node:Node = document.createElement("div");
-            el.appendChild(new UIElement(document.createElement("div")));
-            el.appendChildAt(new UIElement(node),0);
+            el.appendChild(new DOMElement(document.createElement("div")));
+            el.appendChildAt(new DOMElement(node),0);
 
             expect(el.getChildren().length).toEqual(2);
             expect(el.getChildren()[0].getElementRef() === node).toBe(true);
@@ -53,7 +54,7 @@ describe('UIElement Spec', () => {
 
         it("should be able to remove an element",()=>{
 
-            var childEl1:UIElement = new UIElement(document.createElement("div"));
+            var childEl1:UIElement = new DOMElement(document.createElement("div"));
 
             el.appendChild(childEl1);
 
@@ -64,7 +65,7 @@ describe('UIElement Spec', () => {
         });
 
         it("should be able to remove all Children",()=>{
-            var childEl1:UIElement = new UIElement(document.createElement("div"));
+            var childEl1:UIElement = new DOMElement(document.createElement("div"));
 
             el.appendChild(childEl1);
 
@@ -74,8 +75,8 @@ describe('UIElement Spec', () => {
         });
 
         it("should create children set from setChildren",()=>{
-            var childEl1:UIElement = new UIElement(document.createElement("div"));
-            var childEl2:UIElement = new UIElement(document.createElement("div"));
+            var childEl1:UIElement = new DOMElement(document.createElement("div"));
+            var childEl2:UIElement = new DOMElement(document.createElement("div"));
 
             var children:UIElement[] = [childEl1,childEl2];
 
@@ -93,7 +94,7 @@ describe('UIElement Spec', () => {
         var el:UIElement;
 
         beforeEach(()=>{
-            el = new UIElement(document.createElement("div"));
+            el = new DOMElement(document.createElement("div"));
             el.initialize();
         });
 
@@ -163,7 +164,7 @@ describe('UIElement Spec', () => {
             }
             var el:TestElement2 = new TestElement2(document.createElement("div"));
 
-            var parentElement:UIElement = new UIElement(document.createElement("div"));
+            var parentElement:UIElement = new DOMElement(document.createElement("div"));
             parentElement.appendChild(el);
             parentElement.initialize();
 
@@ -192,7 +193,7 @@ describe('UIElement Spec', () => {
             }
             var el:TestElement3 = new TestElement3(document.createElement("div"));
 
-            var parentElement:UIElement = new UIElement(document.createElement("div"));
+            var parentElement:UIElement = new DOMElement(document.createElement("div"));
             parentElement.appendChild(el);
             parentElement.initialize();
 
@@ -218,7 +219,7 @@ describe('UIElement Spec', () => {
             }
             var el:TestElement4 = new TestElement4(document.createElement("div"));
 
-            var parentElement:UIElement = new UIElement(document.createElement("div"));
+            var parentElement:UIElement = new DOMElement(document.createElement("div"));
             parentElement.appendChild(el);
             parentElement.initialize();
             parentElement.removeChild(el);

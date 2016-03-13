@@ -1,15 +1,15 @@
 
 import "./pollyfills";
 import {titleCase} from "./utils/string-utils";
-import {EventDispatcher} from "./EventDispatcher";
+import {UIEventDispatcher} from "./UIEventDispatcher";
 
 
-export class UIElement extends EventDispatcher
+export abstract class UIElement extends UIEventDispatcher
 {
 
     protected _initialized:boolean;
 
-    private _children:Array<UIElement>;
+    protected _children:Array<UIElement>;
 
     public parentElement:UIElement;
 
@@ -119,14 +119,7 @@ export class UIElement extends EventDispatcher
     setChildren(elements:UIElement[]):void
     {
 
-        if (this._initialized) {
-            this.removeAllChildren();
-            this._children = elements;
-            this.createChildren();
-            return;
-        }
-
-        this._children = elements
+        //abstract implemneted in child classes
     }
 
     getChildren():Array<UIElement>
@@ -206,25 +199,7 @@ export class UIElement extends EventDispatcher
 
     protected createChildren():void
     {
-        if(this._children && this._children.length > 0)
-        {
-            var docFragment:DocumentFragment = document.createDocumentFragment();
-
-
-            for(var i=0; i<this._children.length; i++)
-            {
-                var element:UIElement = this._children[i];
-
-                element.parentElement = this;
-                element.initialize();
-
-                element.preAttach();
-                docFragment.appendChild(element.getElementRef());
-                element.attached();
-            }
-
-            this._element.appendChild(docFragment);
-        }
+       //abstract
     }
 
     protected childrenCreated():void

@@ -1,8 +1,8 @@
 
 
-import {EventDispatcher} from "../../../src/core/EventDispatcher";
+import {UIEventDispatcher} from "../../../src/core/UIEventDispatcher";
 
-class TestEventDispatcher extends EventDispatcher
+class TestEventDispatcher extends UIEventDispatcher
 {
 
     constructor() {
@@ -11,7 +11,7 @@ class TestEventDispatcher extends EventDispatcher
 }
 describe('EventDispatcher Spec', () => {
 
-    var ed:EventDispatcher;
+    var ed:UIEventDispatcher;
     beforeEach(()=>{
 
         ed = new TestEventDispatcher();

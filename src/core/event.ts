@@ -14,3 +14,19 @@ export class EventInit<D> implements CustomEventInit
         this.detail = detail;
     }
 }
+
+export class REvent
+{
+    private _type:string;
+
+
+    get type():string {
+        return this._type;
+    }
+
+    constructor(eventName:string){
+
+        this._type = eventName;
+    }
+
+}

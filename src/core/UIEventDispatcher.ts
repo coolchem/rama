@@ -1,6 +1,6 @@
 
 
-export abstract class EventDispatcher implements EventTarget
+export abstract class UIEventDispatcher implements EventTarget
 {
     private eventListenersDictionary = {};
 

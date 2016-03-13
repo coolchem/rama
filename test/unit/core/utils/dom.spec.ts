@@ -6,9 +6,10 @@ import {createElement} from "../../../../src/core/utils/dom";
 import {UIElement} from "../../../../src/core/UIElement";
 import {PropertySetter} from "../../../../src/core/support_classes/PropertySetter";
 import {VNode} from "../../../../src/core/utils/dom";
+import {GroupBase} from "../../../../src/core/GroupBase";
 
 
-class TestComp extends UIElement
+class TestComp extends GroupBase
 {
 
     attributes:any = {};

@@ -3,6 +3,7 @@
 import {UIElement} from "../UIElement";
 import {PropertySetter} from "../support_classes/PropertySetter";
 import {titleCase} from "./string-utils";
+import {DOMElement} from "../DOMElement";
 
 export declare interface VNode
 {
@@ -59,7 +60,7 @@ export function createElement(tag:VNode|string,refs?:any,stateManagedProperties?
     if(vnode.type =="text")
     {
         var textNode:Text = document.createTextNode(vnode.text);
-        return new UIElement(textNode);
+        return new DOMElement(textNode);
     }
 
 
@@ -73,7 +74,7 @@ export function createElement(tag:VNode|string,refs?:any,stateManagedProperties?
         }
         else
         {
-            element = new UIElement(htmlNode);
+            element = new DOMElement(htmlNode);
         }
 
     }

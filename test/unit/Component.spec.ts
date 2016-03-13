@@ -7,6 +7,7 @@ import {skinPart} from "../../src/decorators";
 import {UIElement} from "../../src/core/UIElement";
 import {TestSkin} from "./skins";
 import {TestSkin2} from "./skins";
+import {DOMElement} from "../../src/core/DOMElement";
 
 
 class TestComp extends Component
@@ -61,7 +62,7 @@ describe('Component Spec', () => {
             var testComp:Component = new TestComp();
             testComp.setSkinClass(TestSkin);
 
-            var divContainer:UIElement = new UIElement("div");
+            var divContainer:UIElement = new DOMElement("div");
             divContainer.appendChild(testComp);
             divContainer.initialize();
             divContainer.removeChild(testComp);
@@ -167,7 +168,7 @@ describe('Component Spec', () => {
             var testComp:Component = new TestPartRemoved();
             testComp.setSkinClass(TestSkin2);
 
-            var divContainer:UIElement = new UIElement("div");
+            var divContainer:UIElement = new DOMElement("div");
             divContainer.appendChild(testComp);
             divContainer.initialize();
 
