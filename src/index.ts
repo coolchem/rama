@@ -1,6 +1,7 @@
 
 import {createVNode as createElementFunction} from "./core/utils/dom";
 import {UIElement} from "./core/UIElement";
+import {DOMElement} from "./core/DOMElement";
 
 
 export var rama:{createElement:Function} = {createElement:createElementFunction};
@@ -10,7 +11,9 @@ export var render = function (elementClass:new()=>any, node:HTMLElement) {
     node.innerHTML = "";
     var element:UIElement =  new elementClass() as UIElement;
     element.initialize();
-    node.appendChild(element.getElementRef())
+
+    var domElement:DOMElement = new DOMElement(node);
+    domElement.appendChild(element);
 };
 
 export * from "./core/utils/dom"
