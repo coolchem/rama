@@ -1,7 +1,7 @@
 
 import {ModelEventDispatcher} from "../../../src/core/ModelEventDispatcher";
 import {REvent} from "../../../src/core/event";
-describe('EventStream Spec', ()=> {
+describe('ModelEventDispatcher Spec', ()=> {
 
     var eventEmitter:ModelEventDispatcher;
     var throws;

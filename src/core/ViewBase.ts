@@ -1,11 +1,7 @@
 
-import {createElement} from "./utils/dom";
-import {createVNode} from "./utils/dom";
+import {createElement, VNode} from "./utils/dom";
 import {State} from "./support_classes/State";
-import {PropertySetter} from "./support_classes/PropertySetter";
-import {UIElement} from "./UIElement";
 import {GroupBase} from "./GroupBase";
-import {VNode} from "./utils/dom";
 
 export abstract class ViewBase extends GroupBase
 {
@@ -123,7 +119,7 @@ export abstract class ViewBase extends GroupBase
 
         var oldState = this.getState(this._currentState);
 
-        if (this.initialized) {
+        if (this._initialized) {
 
             if(this.isBaseState(stateName))
             {
@@ -205,6 +201,6 @@ export abstract class ViewBase extends GroupBase
             "' being set on the component is not found in the skin");
     }
 
-   abstract render():VNode;
+   abstract render()
 
 }

@@ -50,9 +50,10 @@ export abstract class UIElement extends UIEventDispatcher
         if (this._initialized)
             return;
 
-        this.preInitialize();
 
         this.__preInitialize();
+
+        this.preInitialize();
 
         this.createChildren();
         this.childrenCreated();

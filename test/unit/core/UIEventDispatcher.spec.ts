@@ -9,7 +9,7 @@ class TestEventDispatcher extends UIEventDispatcher
         super(document.createElement("event-dispatcher"));
     }
 }
-describe('EventDispatcher Spec', () => {
+describe('UIEventDispatcher Spec', () => {
 
     var ed:UIEventDispatcher;
     beforeEach(()=>{
