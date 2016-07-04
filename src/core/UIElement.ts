@@ -14,6 +14,8 @@ export abstract class UIElement extends UIEventDispatcher
     public parentElement:UIElement;
 
     protected _currentState:string;
+    
+    eventHandlers;
 
     getCurrentState():string
     {

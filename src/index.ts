@@ -18,6 +18,9 @@ export var render = function (elementClass:new()=>any, node:HTMLElement) {
 
 export * from "./core/utils/dom"
 export * from "./core/UIElement"
+export * from "./core/collections/ArrayCollection";
+export * from "./core/collections/ArrayList";
+export * from "./core/collections/Dictionary";
 
 export * from "./decorators"
 

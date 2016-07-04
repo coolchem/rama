@@ -1,5 +1,5 @@
 
-import {EventInit} from "../../event";
+import {REventInit} from "../../event";
 import {REvent} from "../../event";
 export const CollectionEventKind = {
     ADD:"add",

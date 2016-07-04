@@ -7,7 +7,6 @@ import {TestViewTransclude} from "./test-views";
 import {TestComp} from "./test-views";
 import {TestViewWithStates} from "./test-views";
 import {TestCustomElementRootNodeView} from "./test-views";
-import {VNode} from "../../../src/core/utils/dom";
 
 describe('ViewBase Spec', () => {
 
@@ -18,9 +17,8 @@ describe('ViewBase Spec', () => {
 
             class TestViewNullRender extends ViewBase
             {
-
-
-                render():VNode {
+                
+                render() {
                     return null;
                 }
             }
@@ -34,7 +32,7 @@ describe('ViewBase Spec', () => {
             class TestViewUndefinedRender extends ViewBase
             {
 
-                render():VNode {
+                render() {
                     return undefined;
                 }
             }

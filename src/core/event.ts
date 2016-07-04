@@ -1,6 +1,6 @@
 
 
-export class EventInit<D> implements CustomEventInit
+export class REventInit<D> implements CustomEventInit
 {
 
     bubbles:boolean;

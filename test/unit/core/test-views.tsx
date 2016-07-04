@@ -5,6 +5,8 @@ import {ViewBase} from "../../../src/core/ViewBase";
 import {UIElement} from "../../../src/core/UIElement";
 import {Skin} from "../../../src/Skin";
 import {VNode} from "../../../src/core/utils/dom";
+import {DataGroup} from "../../../src/DataGroup";
+import {ArrayCollection} from "../../../src/core/collections/ArrayCollection";
 
 
 export class TestComp extends UIElement
@@ -82,5 +84,35 @@ export class TestViewWithStates extends ViewBase
                 <div id="4" class="group" class__group2="group2"></div>
             </r-group>
         </div>;
+    }
+}
+
+export class TestItemRenderer extends UIElement
+{
+
+    constructor() {
+        super("a");
+    }
+    
+    setData(data:any):void
+    {
+        console.log("yay Data: " + data);
+    }
+}
+export class TestDataGroup extends ViewBase
+{
+
+    dataGroup:DataGroup;
+    
+    protected dataProvider:ArrayCollection<string> = new ArrayCollection(["test1","test2"]);
+
+    attached():void {
+        super.attached();
+    }
+
+    render(){
+        return <div>
+                <DataGroup id="dataGroup" itemRenderer={TestItemRenderer} dataProvider={this.dataProvider} />
+            </div> 
     }
 }
