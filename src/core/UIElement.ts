@@ -182,6 +182,10 @@ export abstract class UIElement extends UIEventDispatcher
         {
             this[functionName](value);
         }
+        else 
+        {
+            this[name] = value;
+        }
 
         if(this._element instanceof Element)
         {
@@ -197,6 +201,11 @@ export abstract class UIElement extends UIEventDispatcher
             return (this._element as Element).getAttribute(name);
         }
         return null;
+    }
+    
+    isInitialized():boolean
+    {
+        return this._initialized;
     }
 
 

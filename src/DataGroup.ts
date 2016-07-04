@@ -11,8 +11,9 @@ import {CollectionEventKind, CollectionEvent} from "./core/collections/events/Co
 @event("rendererRemoved")
 export class DataGroup extends GroupBase
 {
-    constructor() {
-        super("div");
+    constructor(element?:Node|string)
+    {
+        super(!element?'div':element);
     }
     
     private indexToRenderer = [];
