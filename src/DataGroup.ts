@@ -6,6 +6,7 @@ import {ClassFactory} from "./core/ClassFactory";
 import {ArrayCollection} from "./core/collections/ArrayCollection";
 import {DataGroupEventInit} from "./events/DataGroupEvent";
 import {CollectionEventKind, CollectionEvent} from "./core/collections/events/CollectionEvent";
+import {UIElement} from "./core/UIElement";
 
 @event("rendererAdded")
 @event("rendererRemoved")
@@ -62,7 +63,7 @@ export class DataGroup extends GroupBase
         this.setDataProviderFn();
     }
 
-    getItemRendererAtIndex(index){
+    getItemRendererAtIndex(index):UIElement{
 
         return this._children[index];
     }
