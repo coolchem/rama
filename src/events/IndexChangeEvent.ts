@@ -21,8 +21,8 @@ export class IndexChangeEventInit extends REventInit<IndexChangeEventDetail>
     static CHANGED:string = 'changed';
 
 
-    constructor( bubbles:Boolean = false,
-                 cancelable:Boolean = false,
+    constructor( bubbles:boolean = false,
+                 cancelable:boolean = false,
                  oldIndex:number = -1,
                  newIndex:number = -1) {
         

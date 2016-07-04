@@ -69,6 +69,7 @@ export class ViewStack extends GroupBase
 
         if(this.creationPolicy == ViewStack.ALL)
         {
+            this._children = this._tempChildren;
             super.createChildren();
             return;
         }
@@ -79,6 +80,32 @@ export class ViewStack extends GroupBase
             
         }
 
+    }
+
+    appendChild(element:UIElement)
+    {
+        if(!(this.creationPolicy == ViewStack.ALL))
+        {
+            this.appendChildAt(element, this._tempChildren.length)
+        }
+        else
+        {
+            super.appendChild(element);
+        }
+
+    }
+    
+    appendChildAt(element:UIElement,index:number)
+    {
+        if(!(this.creationPolicy == ViewStack.ALL))
+        {
+            this._tempChildren.splice(index, 0, element);
+        }
+        else 
+        {
+            super.appendChildAt(element,index);
+        }
+       
     }
     
     protected updateViewStack(newIndex:number):void
@@ -100,7 +127,33 @@ export class ViewStack extends GroupBase
             
             if(oldChild)
             {
-                
+                if(this.hideClass)
+                {
+                    oldChild.toggleClasses([this.hideClass])
+                }
+                else
+                {
+                    (oldChild.getElementRef() as HTMLElement).style.display = "none";
+                }
+            }
+
+            if(newChild)
+            {
+                if(newChild.isInitialized())
+                {
+                    if(this.hideClass)
+                    {
+                        newChild.toggleClasses([this.hideClass])
+                    }
+                    else
+                    {
+                        (newChild.getElementRef() as HTMLElement).style.display = "";
+                    }
+                }
+                else
+                {
+                    super.appendChildAt(newChild, newIndex);
+                }
             }
         }
     }

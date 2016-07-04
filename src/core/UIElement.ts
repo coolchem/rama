@@ -41,6 +41,7 @@ export abstract class UIElement extends UIEventDispatcher
         }
         super(el);
 
+        this._initialized = false;
         this._children = [];
         this._currentState = "";
     }
@@ -222,6 +223,61 @@ export abstract class UIElement extends UIEventDispatcher
     protected validateState():void
     {
 
+    }
+
+    hasClass(name:string):boolean {
+        if (!this.getAttribute) return false;
+        return ((" " + (this.getAttribute('class') || '') + " ").replace(/[\n\t]/g, " ").
+        indexOf( " " + name + " " ) > -1);
+    }
+
+    removeClasses(names:string[]) {
+
+        if (names) {
+            names.forEach((cssClass)=> {
+                this.setAttribute('class', this.trim(
+                    (" " + (this.getAttribute('class') || '') + " ")
+                        .replace(/[\n\t]/g, " ")
+                        .replace(" " + this.trim(cssClass) + " ", " "))
+                );
+            }, this);
+        }
+    }
+
+    addClasses(names:string[]) {
+
+        if (names) {
+            var existingClasses = (' ' + (this.getAttribute('class') || '') + ' ')
+                .replace(/[\n\t]/g, " ");
+
+            names.forEach((cssClass)=> {
+                cssClass = this.trim(cssClass);
+                if (existingClasses.indexOf(' ' + cssClass + ' ') === -1) {
+                    existingClasses += cssClass + ' ';
+                }
+            });
+
+            this[0].setAttribute('class', this.trim(existingClasses));
+        }
+    }
+
+    toggleClasses(names:string[]) {
+
+        if (names) {
+            names.forEach((className:string)=>{
+                var classCondition = !this.hasClass(className);
+                if(classCondition)
+                    this.addClasses([className]);
+                else
+                    this.removeClasses([className])
+            });
+        }
+    }
+
+    protected trim( text ) {
+        return text == null ?
+            "" :
+            ( text + "" ).replace( /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, "" );
     }
 
 
