@@ -173,7 +173,7 @@ export abstract class UIElement extends UIEventDispatcher
         }
     }
 
-    setAttribute(name?: string, value?: string): void{
+    setAttribute(name?: string, value?: any): void{
         //finding and calling set function which matches attribute-name
         var functionName = "set" + titleCase(name);
 
@@ -186,7 +186,7 @@ export abstract class UIElement extends UIEventDispatcher
             this[name] = value;
         }
 
-        if(this._element instanceof Element)
+        if(this._element instanceof Element && (typeof value === 'string'))
         {
             (this._element as Element).setAttribute(name, value);
         }

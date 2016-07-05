@@ -4,6 +4,9 @@ import {UIElement} from "../UIElement";
 import {PropertySetter} from "../support_classes/PropertySetter";
 import {titleCase} from "./string-utils";
 import {DOMElement} from "../DOMElement";
+import {Dictionary} from "../collections/Dictionary";
+
+export var eventMetadata:Dictionary<Function,string[]> = new Dictionary<Function,string[]>();
 
 export declare interface VNode
 {
@@ -136,9 +139,27 @@ export function createElement(tag:VNode|string,refs?:any,stateManagedProperties?
 
     registerStateManagedComponent(element,stateManagedProperties,vnode.stateManagedProps);
 
+    registerEvents(element,vnode.props);
+    
     return element;
 }
 
+
+function registerEvents(element:UIElement,props:any):void
+{
+    var events:string[] = eventMetadata.get(element.constructor);
+    
+    if(events)
+    {
+        events.forEach((eventName:string)=>{
+            
+            if(props[eventName])
+            {
+                element.addEventListener(eventName,props[eventName]);
+            }
+        })
+    }
+}
 function registerRefs(refs:any,props:any,element:UIElement)
 {
     if(refs && props.id){

@@ -7,7 +7,10 @@ import {ItemRendererEventInit} from "./events/ItemRendererEvent";
 import {CollectionEventKind, CollectionEvent} from "./core/collections/events/CollectionEvent";
 import {UIElement} from "./core/UIElement";
 import {REvent} from "./core/event";
+import {event} from "./decorators";
 
+@event("rendererAdded")
+@event("rendererRemoved")
 export class DataGroup extends GroupBase
 {
     constructor(element?:Node|string)
