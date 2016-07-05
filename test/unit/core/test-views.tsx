@@ -7,6 +7,7 @@ import {Skin} from "../../../src/Skin";
 import {VNode} from "../../../src/core/utils/dom";
 import {DataGroup} from "../../../src/DataGroup";
 import {ArrayCollection} from "../../../src/core/collections/ArrayCollection";
+import {DOMElement} from "../../../src/core/DOMElement";
 
 
 export class TestComp extends UIElement
@@ -29,6 +30,23 @@ export class TestComp extends UIElement
 
 }
 
+export class MyTestView extends ViewBase
+{
+
+    myDiv:DOMElement;
+
+    handleClick():void
+    {
+        console.log("hahahahahaha");
+        this.dispatchEvent(new Event("yay"));
+    }
+    render() {
+        return <div>
+            <div  onclick={(event:Event)=>{this.handleClick()}} id="myDiv"></div>
+            <TestComp />
+        </div>;
+    }
+}
 
 export class TestView extends ViewBase
 {

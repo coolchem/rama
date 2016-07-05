@@ -186,6 +186,14 @@ export abstract class UIElement extends UIEventDispatcher
             this[name] = value;
         }
 
+        //adding eventListener if the attributename starts with on
+
+        var searchPattern = new RegExp('^on');
+        if (searchPattern.test(name)) {
+
+            this.addEventListener(name.substring(2),value);
+        }
+
         if(this._element instanceof Element && (typeof value === 'string'))
         {
             (this._element as Element).setAttribute(name, value);

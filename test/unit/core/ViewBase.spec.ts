@@ -1,12 +1,14 @@
 
 import {UIElement} from "../../../src/core/UIElement";
-
 import {ViewBase} from "../../../src/core/ViewBase";
-import {TestView} from "./test-views";
-import {TestViewTransclude} from "./test-views";
-import {TestComp} from "./test-views";
-import {TestViewWithStates} from "./test-views";
-import {TestCustomElementRootNodeView} from "./test-views";
+import {
+    TestView,
+    MyTestView,
+    TestViewTransclude,
+    TestComp,
+    TestViewWithStates,
+    TestCustomElementRootNodeView
+} from "./test-views";
 
 describe('ViewBase Spec', () => {
 
@@ -80,6 +82,21 @@ describe('ViewBase Spec', () => {
             view.initialize();
             expect(view.testComp.customElements.length).toEqual(1);
             expect(view.testComp.customElements[0].getElementRef() instanceof HTMLDivElement).toBe(true);
+        });
+
+        it("should parse dom events and attach event listeners",(done)=>{
+
+            
+            var view:MyTestView = new MyTestView();
+            view.initialize();
+
+
+            view.addEventListener("yay",(event:Event)=>{
+                done();
+            });
+            
+            view.myDiv.dispatchEvent(new CustomEvent("click"));
+
         });
 
     });
