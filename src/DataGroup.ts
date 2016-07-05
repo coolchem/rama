@@ -1,15 +1,13 @@
 
 
 import {GroupBase} from "./core/GroupBase";
-import {event} from "./decorators";
 import {ClassFactory} from "./core/ClassFactory";
 import {ArrayCollection} from "./core/collections/ArrayCollection";
-import {DataGroupEventInit} from "./events/DataGroupEvent";
+import {ItemRendererEventInit} from "./events/ItemRendererEvent";
 import {CollectionEventKind, CollectionEvent} from "./core/collections/events/CollectionEvent";
 import {UIElement} from "./core/UIElement";
+import {REvent} from "./core/event";
 
-@event("rendererAdded")
-@event("rendererRemoved")
 export class DataGroup extends GroupBase
 {
     constructor(element?:Node|string)
@@ -92,14 +90,18 @@ export class DataGroup extends GroupBase
 
     }
 
+    private collectionChangeListener:(event:REvent)=>any = (event:CollectionEvent)=>{
+        this.dataProvider_collectionChangeHandler(event);
+    };
+
     private addDataProviderListener() {
         if (this._dataProvider)
-            this._dataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE, this.dataProvider_collectionChangeHandler);
+            this._dataProvider.addEventListener(CollectionEvent.COLLECTION_CHANGE, this.collectionChangeListener);
     }
 
     private removeDataProviderListener() {
         if (this._dataProvider)
-            this._dataProvider.removeEventListener(CollectionEvent.COLLECTION_CHANGE, this.dataProvider_collectionChangeHandler);
+            this._dataProvider.removeEventListener(CollectionEvent.COLLECTION_CHANGE, this.collectionChangeListener);
     }
 
     protected dataProvider_collectionChangeHandler(event) {
@@ -196,7 +198,7 @@ export class DataGroup extends GroupBase
         if (child)
         {
             this.removeChild(child);
-            var evt = new CustomEvent(DataGroupEventInit.ITEM_RENDERER_REMOVED, new DataGroupEventInit(child, index));
+            var evt = new CustomEvent(ItemRendererEventInit.ITEM_RENDERER_REMOVED, new ItemRendererEventInit(child, index));
             this.dispatchEvent(evt);
         }
 
@@ -247,7 +249,7 @@ export class DataGroup extends GroupBase
         var myItemRenderer = this.createRendererForItem(item);
         this.indexToRenderer.splice(index, 0, myItemRenderer);
         this.appendChildAt(myItemRenderer, index);
-        var evt = new CustomEvent(DataGroupEventInit.ITEM_RENDERER_ADDED, new DataGroupEventInit(myItemRenderer,index));
+        var evt = new CustomEvent(ItemRendererEventInit.ITEM_RENDERER_ADDED, new ItemRendererEventInit(myItemRenderer,index));
         this.dispatchEvent(evt);
     }
     
