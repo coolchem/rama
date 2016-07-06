@@ -127,7 +127,7 @@ describe("dom Spec",()=>{
             expect(element === rootElement).toBe(true);
             expect(rootElement.getElementRef() instanceof HTMLDivElement).toBe(true);
 
-
+            expect(rootElement[0] instanceof HTMLDivElement).toBe(true);
 
         });
 

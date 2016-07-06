@@ -30,6 +30,7 @@ describe('UIElement Spec', () => {
             var node:Node = document.createElement("div");
             el = new DOMElement(node);
             expect(el.getElementRef() === node).toBe(true);
+            expect(el[0] === node).toBe(true);
         });
 
         it("should be able to append UIElement",()=>{

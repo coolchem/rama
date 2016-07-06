@@ -8,7 +8,12 @@ export abstract class UIEventDispatcher implements EventTarget
 
     constructor(element?:Node)
     {
-        this._element = element;
+        this.__setElementRef(element)
+    }
+
+    __setElementRef(node:Node){
+        this._element = node;
+        this[0] = node;
     }
 
     addEventListener(type: string, listener: EventListenerOrEventListenerObject, useCapture?: boolean): void
