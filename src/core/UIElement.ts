@@ -113,6 +113,7 @@ export abstract class UIElement extends UIEventDispatcher
 
     __setElementRef(node:Element){
         this._element = node;
+        this[0] = node;
     }
     getElementRef():Node|Element {
         return this._element;
