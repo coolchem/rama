@@ -24,11 +24,20 @@ export class ModelEventDispatcher
 
     protected handlers:any = {};
 
-    dispatchEvent(event:REvent):void {
+    dispatchEvent(event:string, ...args):void;
+    dispatchEvent(event:REvent):void;
+
+    dispatchEvent(event:REvent|string, ...args):void {
 
         let handlers:Array<HandlerObject>;
+        let eventType:string;
 
-        handlers = this.getHandlers(event.type);
+        if(typeof event == "string")
+            eventType = event as string;
+        else
+            eventType = (event as REvent).type;
+
+        handlers = this.getHandlers(eventType);
 
         if(handlers)
         {
@@ -36,19 +45,30 @@ export class ModelEventDispatcher
             {
                 var handler:HandlerObject = handlers[i];
 
-                handler.handler.call(handler.context,event);
+                if(typeof event == "string")
+                    handler.handler.call(handler.context,...args);
+                else
+                    handler.handler.call(handler.context,event);
+
+
             }
 
         }
 
     }
 
-    addEventListener(eventName:string, callback:(p1:REvent)=>any, context?:any):void {
+    addEventListener(eventName:string, callback:(...args)=>any, context?:any):void;
+    addEventListener(eventName:string, callback:(p1:REvent)=>any, context?:any):void;
+
+    addEventListener(eventName:string, callback:Function, context?:any):void {
 
         this.toggleSubscription(eventName,callback,true,context);
     }
 
-    removeEventListener(eventName:string, callback:(p1:REvent)=>any):void {
+    removeEventListener(eventName:string, callback:(...args)=>any):void
+    removeEventListener(eventName:string, callback:(p1:REvent)=>any):void
+
+    removeEventListener(eventName:string, callback:Function):void {
 
         this.toggleSubscription(eventName,callback,false);
 
@@ -60,7 +80,7 @@ export class ModelEventDispatcher
         this.handlers[eventName] = [];
     }
 
-    private toggleSubscription(eventName:string,callback:(p1:REvent)=>any,subscribe:boolean,context?:any):void
+    private toggleSubscription(eventName:string,callback:Function,subscribe:boolean,context?:any):void
     {
         let handlers:Array<HandlerObject> = this.getHandlers(eventName);
 

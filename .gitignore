@@ -12,3 +12,4 @@ coverage
 dist
 npm-debug.log
 .env
+docs

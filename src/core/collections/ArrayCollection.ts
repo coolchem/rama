@@ -4,6 +4,12 @@ import {ArrayList} from "./ArrayList";
 import {CollectionEvent} from "./events/CollectionEvent";
 import {CollectionEventKind} from "./events/CollectionEvent";
 
+
+/**
+ * ArrayCollection is one of two collection types which is used as a model.
+ * 
+ * it Dispatches events based on type of action being taken on the collection.
+ */
 export class ArrayCollection<T> extends ModelEventDispatcher
 {
 
@@ -12,7 +18,10 @@ export class ArrayCollection<T> extends ModelEventDispatcher
     private _filterFunction:(item:T)=>boolean;
 
 
-
+    /**
+     * 
+     * @param value
+     */
     set sortFunction(value:(item1:T,item2:T)=>number)
     {
         this._sortFunction = value;

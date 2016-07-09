@@ -76,6 +76,20 @@ describe('ModelEventDispatcher Spec', ()=> {
 
         });
 
+        it('it should successfully call all the handlers with correct arguments is event is dispatched with parameters', function(done) {
+            
+            eventEmitter.addEventListener("event", function(data:string,value:number){
+
+                expect(data === "4").toBe(true);
+                expect(value === 5).toBe(true);
+                done();
+
+            });
+
+            eventEmitter.dispatchEvent("event","4",5);
+
+        });
+
         it('should call the handler with right context if the context is passed while registering', function(done) {
 
             var handlerContext ={};
