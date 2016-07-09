@@ -269,7 +269,7 @@ export class ArrayCollection<T> extends ModelEventDispatcher
         this.internalRefresh(true);
     };
 
-    forEach(fn:(item:T)=>void,context){
+    forEach(fn:(item:T)=>void,context?:any){
 
         for(var i = 0; i < this.length; i++)
         {
