@@ -127,7 +127,7 @@ describe('Component Spec', () => {
                 testComp:HTMLDivElement;
 
 
-                partAdded(id:string, instance:any):void {
+                protected partAdded(id:string, instance:any):void {
                     super.partAdded(id, instance);
 
                     expect(this.testComp === instance).toBe(true);
@@ -154,7 +154,7 @@ describe('Component Spec', () => {
                 testComp:HTMLDivElement;
 
 
-                partRemoved(id:string, instance:any):void {
+                protected partRemoved(id:string, instance:any):void {
                     super.partRemoved(id, instance);
 
 

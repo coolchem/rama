@@ -31,7 +31,7 @@ export abstract class Container extends Component
     }
 
 
-    partAdded(id:string, instance:any):void {
+    protected partAdded(id:string, instance:any):void {
         super.partAdded(id, instance);
 
         if(instance === this.contentGroup)

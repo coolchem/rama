@@ -37,11 +37,11 @@ export abstract class Component extends UIElement
         }
     }
 
-    partAdded(id:string, instance:any):void {
+    protected partAdded(id:string, instance:any):void {
         //Override this method to add functionality to various skin component
     };
 
-    partRemoved(id:string, instance:any):void {
+    protected partRemoved(id:string, instance:any):void {
         //Override this method to add functionality to various skin component
     };
 

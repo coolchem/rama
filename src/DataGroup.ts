@@ -194,7 +194,7 @@ export class DataGroup extends GroupBase
         /*        dispatchEvent(new RendererExistenceEvent(
          RendererExistenceEvent.RENDERER_REMOVE, false, false, oldRenderer, index, item));*/
 
-        if (oldRenderer.data && oldRenderer !== item)
+        if (oldRenderer && oldRenderer.data && oldRenderer !== item)
             oldRenderer.data = null;
 
         var child = oldRenderer;
