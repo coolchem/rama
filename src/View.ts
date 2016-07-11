@@ -5,5 +5,5 @@ import {VNode} from "./core/utils/dom";
 
 export abstract class View extends ViewBase
 {
-    abstract render():VNode;
+    abstract render();
 }

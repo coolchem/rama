@@ -25,8 +25,8 @@ function build(isRelease){
 
     if(isRelease)
         cmd = cmd + " --declaration";
-    else
-        cmd = cmd + " --inlineSourceMap --inlineSources";
+/*    else
+        cmd = cmd + " --inlineSourceMap --inlineSources";*/
 
     util.series(["npm run clean",cmd], function (err) {
 

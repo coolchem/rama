@@ -63,7 +63,7 @@ export abstract class Component extends UIElement
         if(this._skinClass)
         {
             this._skinElement = new this._skinClass() as Skin;
-            super.appendChild(this._skinElement);
+            this.initializeAndAppendElement(this._skinElement,0);
             this.findSkinParts();
             this.validateSkinState();
         }
@@ -74,7 +74,7 @@ export abstract class Component extends UIElement
         this.validateSkinState();
     }
 
-    protected validateSkinState(){
+    protected validateSkinState():void{
 
         if(this._skinElement)
         {
@@ -90,7 +90,7 @@ export abstract class Component extends UIElement
         }
     }
 
-    protected findSkinParts() {
+    protected findSkinParts():void {
         if (this._skinElement) {
             for (var id in this.skinParts) {
                 var skinPart = this.skinParts[id];
@@ -111,7 +111,7 @@ export abstract class Component extends UIElement
         }
     }
 
-    protected clearSkinParts(){
+    protected clearSkinParts():void{
 
         if (this._skinElement) {
             for (var id in this.skinParts) {
@@ -127,6 +127,10 @@ export abstract class Component extends UIElement
 
 
     appendChild(newChild:UIElement):void {
-        return null;
+
+    }
+
+    appendChildAt(element:UIElement,index:number):void {
+
     }
 }

@@ -1,9 +1,9 @@
 
 import {createElement, VNode} from "./utils/dom";
 import {State} from "./support_classes/State";
-import {GroupBase} from "./GroupBase";
+import {UIElement} from "./UIElement";
 
-export abstract class ViewBase extends GroupBase
+export abstract class ViewBase extends UIElement
 {
 
     private _viewStates:State[];
@@ -13,13 +13,14 @@ export abstract class ViewBase extends GroupBase
     protected _tempCurrentState:string;
 
 
+    protected rootElement:UIElement;
+
     constructor() {
         super();
         this._viewStates = [];
         this._stateManagedProperties = {};
 
     }
-
 
     protected __preInitialize():void {
 
@@ -41,9 +42,40 @@ export abstract class ViewBase extends GroupBase
         })
     }
 
+
     initialized():void {
 
         this.setCurrentState(this._tempCurrentState);
+    }
+
+
+    setChildren(elements:UIElement[]):void
+    {
+        this.rootElement.setChildren(elements);
+    }
+    
+    getChildren():Array<UIElement> {
+        return this.rootElement.getChildren();
+    }
+
+    removeChild(element:UIElement):void {
+        this.rootElement.removeChild(element);
+    }
+
+    removeAllChildren():void {
+        this.rootElement.removeAllChildren();
+    }
+
+    appendChildAt(element:UIElement, index:number):void {
+        this.rootElement.appendChildAt(element, index);
+    }
+
+    appendChild(newChild:UIElement):void {
+        this.rootElement.appendChild(newChild);
+    }
+    
+    protected createChildren():void {
+        this.rootElement.initialize();
     }
 
     private parse():void
@@ -53,13 +85,17 @@ export abstract class ViewBase extends GroupBase
         var statesVNode:VNode;
 
         if(tempVNode === null || tempVNode === undefined)
-            return;
+        {
+            tempVNode = {type:"div"};
+        }
 
-        if(typeof tempVNode.type !== "string")
+
+
+/*        if(typeof tempVNode.type !== "string")
         {
             throw TypeError("Custom Element cannot be the root node of a view.\n" +
                 " Please make sure root node is html node, for example 'div','section' etc.")
-        }
+        }*/
 
         if(tempVNode.children)
         {
@@ -92,8 +128,9 @@ export abstract class ViewBase extends GroupBase
             }
         }
 
-        createElement(tempVNode,this,this._stateManagedProperties,this)
+        this.rootElement = createElement(tempVNode,this,this._stateManagedProperties);
 
+        this.__setElementRef(this.rootElement.getElementRef());
     }
 
     hasState(stateName):boolean

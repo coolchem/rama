@@ -135,6 +135,12 @@ export abstract class UIElement extends UIEventDispatcher
         {
             index = 0;
         }
+
+        this.initializeAndAppendElement(element,index);
+    }
+    
+    protected initializeAndAppendElement(element:UIElement,index:number):void
+    {
         element.parentElement = this;
         element.initialize();
 
@@ -154,7 +160,7 @@ export abstract class UIElement extends UIEventDispatcher
         this._children.splice(index, 0, element);
     }
 
-    removeChild(element:UIElement) {
+    removeChild(element:UIElement):void {
 
         element.preDetach();
         this._children.splice(this._children.indexOf(element), 1);

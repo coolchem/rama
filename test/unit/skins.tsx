@@ -8,7 +8,7 @@ import {VNode} from "../../src/core/utils/dom";
 export class TestSkin extends Skin
 {
 
-    render():VNode {
+    render() {
         return <div>
             <states>
                 <state name="testState"/>
@@ -22,7 +22,7 @@ export class TestSkin2 extends Skin
 {
 
 
-    render():VNode {
+    render() {
 
         return <div id="testComp"></div>;
     }

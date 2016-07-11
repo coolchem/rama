@@ -42,20 +42,7 @@ describe('ViewBase Spec', () => {
             view.initialize();
             expect(view.getChildren().length).toEqual(0);
         });
-
-        it("should throw error is Custom element set as root node",()=>{
-
-
-            function throwsError():void
-            {
-                var view:ViewBase = new TestCustomElementRootNodeView();
-                view.initialize();
-            }
-
-            expect(throwsError).toThrowError();
-        });
-
-
+        
         it("should create child elements",()=>{
 
             var view:ViewBase = new TestView();

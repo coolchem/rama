@@ -40,14 +40,20 @@ export abstract class Container extends Component
         }
     }
 
+
+    removeChild(element:UIElement):void {
+        if(this.contentGroup)
+            this.contentGroup.removeChild(element);
+    }
+
     removeAllChildren():void {
         if(this.contentGroup)
-            return this.contentGroup.removeAllChildren();
+            this.contentGroup.removeAllChildren();
     }
 
     appendChildAt(element:UIElement, index:number):void {
         if(this.contentGroup)
-            return this.contentGroup.appendChildAt(element, index);
+            this.contentGroup.appendChildAt(element, index);
     }
 
     appendChild(newChild:UIElement):void {

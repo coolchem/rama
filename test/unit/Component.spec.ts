@@ -8,6 +8,7 @@ import {UIElement} from "../../src/core/UIElement";
 import {TestSkin} from "./skins";
 import {TestSkin2} from "./skins";
 import {DOMElement} from "../../src/core/DOMElement";
+import {TestComponentAsRootNode, TestViewWithComponentAsRoot} from "./test-components";
 
 
 class TestComp extends Component
@@ -101,6 +102,18 @@ describe('Component Spec', () => {
             testComp.setCurrentState("testState");
 
             expect(testComp.getChildren()[0].getCurrentState()).toEqual("testState");
+
+        });
+
+        it("should not affect the state of skin when the component is root node in a view",()=>{
+
+            var testView:TestViewWithComponentAsRoot = new TestViewWithComponentAsRoot();
+            testView.initialize();
+
+            testView.setCurrentState("testViewState");
+
+            expect(testView.testRootNodeComp.getCurrentState()).toEqual("testState");
+            expect(testView.testRootNodeComp.getCurrentSkinState()).toEqual("testState");
 
         });
     });

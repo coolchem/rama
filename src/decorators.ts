@@ -8,7 +8,7 @@ export function skinPart(required:boolean = false):PropertyDecorator{
         if(!target.skinParts)
             target.skinParts = {};
 
-        target.skinParts[key] = {required:true};
+        target.skinParts[key] = {required:required};
     }
 }
 

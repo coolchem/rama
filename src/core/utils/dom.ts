@@ -46,7 +46,7 @@ export function createVNode(ele:string|Function, props?:any, ...args):VNode
 
 }
 
-export function createElement(tag:VNode|string,refs?:any,stateManagedProperties?:any,rootElement?:UIElement):UIElement
+export function createElement(tag:VNode|string,refs?:any,stateManagedProperties?:any):UIElement
 {
     var element:UIElement;
 
@@ -70,16 +70,7 @@ export function createElement(tag:VNode|string,refs?:any,stateManagedProperties?
     if(typeof vnode.type === "string")
     {
         var htmlNode:Element = document.createElement(vnode.type as string);
-        if(rootElement)
-        {
-            element = rootElement;
-            element.__setElementRef(htmlNode)
-        }
-        else
-        {
-            element = new DOMElement(htmlNode);
-        }
-
+        element = new DOMElement(htmlNode);
     }
     else
     {
@@ -162,7 +153,7 @@ function registerEvents(element:UIElement,props:any):void
 }
 function registerRefs(refs:any,props:any,element:UIElement)
 {
-    if(refs && props.id){
+    if(refs && props && props.id){
         refs[props.id] = element;
     }
 }
