@@ -1342,7 +1342,12 @@ define('dist/core/ViewBase', function (require, exports, module) {
             this.setCurrentState(this._tempCurrentState);
         };
         ViewBase.prototype.setChildren = function (elements) {
-            this.rootElement.setChildren(elements);
+            if (this._initialized) {
+                this._children = elements;
+                this.createChildren();
+                return;
+            }
+            this._children = elements;
         };
         ViewBase.prototype.getChildren = function () {
             return this.rootElement.getChildren();
@@ -1360,6 +1365,9 @@ define('dist/core/ViewBase', function (require, exports, module) {
             this.rootElement.appendChild(newChild);
         };
         ViewBase.prototype.createChildren = function () {
+            if (this._children && this._children.length > 0) {
+                this.rootElement.setChildren(this._children);
+            }
             this.rootElement.initialize();
         };
         ViewBase.prototype.parse = function () {
