@@ -134,3 +134,27 @@ export class TestDataGroup extends ViewBase
             </div> 
     }
 }
+
+export class TestChildView extends ViewBase
+{
+
+    render(){
+
+        return <button>Hello There</button>
+    }
+}
+
+export class TestParentView extends ViewBase
+{
+    testChildView:TestChildView;
+    render(){
+
+        return <div>
+            <TestChildView id="testChildView">
+                <div id="test1"></div>
+                <div id="test2"></div>
+            </TestChildView>
+            <button>Hi There</button>
+        </div>
+    }
+}

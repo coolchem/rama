@@ -7,7 +7,7 @@ import {
     TestViewTransclude,
     TestComp,
     TestViewWithStates,
-    TestCustomElementRootNodeView
+    TestCustomElementRootNodeView, TestParentView
 } from "./test-views";
 
 describe('ViewBase Spec', () => {
@@ -85,6 +85,30 @@ describe('ViewBase Spec', () => {
             view.myDiv.dispatchEvent(new CustomEvent("click"));
 
         });
+
+        it("should not throw error if one view is child of another view",()=>{
+
+
+            function throws(){
+                var view:TestParentView = new TestParentView();
+                view.initialize(); 
+            }
+            expect(throws).not.toThrowError();
+
+        });
+
+        it("should children set from outside should override the child views children",()=>{
+
+
+            var view:TestParentView = new TestParentView();
+            view.initialize();
+
+            expect(view.testChildView.getChildren().length).toEqual(2);
+            expect(view.testChildView.getChildren()[0].getElementRef() instanceof HTMLDivElement).toBe(true);
+
+
+        });
+
 
     });
 

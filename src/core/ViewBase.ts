@@ -19,7 +19,6 @@ export abstract class ViewBase extends UIElement
         super();
         this._viewStates = [];
         this._stateManagedProperties = {};
-
     }
 
     protected __preInitialize():void {
@@ -39,7 +38,8 @@ export abstract class ViewBase extends UIElement
                 }
             })
 
-        })
+        });
+
     }
 
 
@@ -51,7 +51,14 @@ export abstract class ViewBase extends UIElement
 
     setChildren(elements:UIElement[]):void
     {
-        this.rootElement.setChildren(elements);
+        
+        if (this._initialized) {
+            this._children = elements;
+            this.createChildren();
+            return;
+        }
+        
+        this._children = elements
     }
     
     getChildren():Array<UIElement> {
@@ -75,6 +82,12 @@ export abstract class ViewBase extends UIElement
     }
     
     protected createChildren():void {
+        //cheking for elements lengh here because this will ensure the children of this view are overriden, only if
+        // developer has explicitly set children on this view
+        if(this._children && this._children.length > 0)
+        {
+            this.rootElement.setChildren(this._children);
+        }
         this.rootElement.initialize();
     }
 
@@ -88,14 +101,6 @@ export abstract class ViewBase extends UIElement
         {
             tempVNode = {type:"div"};
         }
-
-
-
-/*        if(typeof tempVNode.type !== "string")
-        {
-            throw TypeError("Custom Element cannot be the root node of a view.\n" +
-                " Please make sure root node is html node, for example 'div','section' etc.")
-        }*/
 
         if(tempVNode.children)
         {
