@@ -26,13 +26,12 @@ function bundleFiles(cb){
     var stealTools = require("steal-tools");
 
     stealTools.build({
-            main: "src/index",
             bundlesPath:path.resolve("./tmp"),
             config: path.resolve("./")+"/package.json!npm"
         },
         {
             minify: true,
-            debug: false,
+            debug: true,
             bundleSteal: true
         }
     ).then(function(){
@@ -48,7 +47,7 @@ function bundleFiles(cb){
             //continue
         }
         
-        fs.copy(path.resolve("./tmp/src/index.js"), path.resolve("./standalone")+"/rama.js", function (err) {
+        fs.copy(path.resolve("./tmp/dist/index.js"), path.resolve("./standalone")+"/rama.js", function (err) {
             if (err) 
                 return cb(err);
             else 
