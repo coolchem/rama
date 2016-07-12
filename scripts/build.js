@@ -25,37 +25,29 @@ function bundleFiles(cb){
 
     var stealTools = require("steal-tools");
 
-    stealTools.build({
-            bundlesPath:path.resolve("./tmp"),
-            config: path.resolve("./")+"/package.json!npm"
+    json = JSON.parse(fs.readFileSync(path.resolve("./package.json"), 'utf8'));
+    var version = json.version;
+
+    try {
+        fs.lstatSync(path.resolve("./standalone/rama.js"));
+        fs.copySync(path.resolve("./standalone/rama.js"), path.resolve("./standalone") + "/rama"+version+".js");
+    }
+    catch (e) {
+        //continue
+    }
+
+    stealTools.export({
+        system: {
+            config:path.resolve("./")+"/package.json!npm"
         },
-        {
-            minify: true,
-            debug: true,
-            bundleSteal: true
-        }
-    ).then(function(){
-
-        json = JSON.parse(fs.readFileSync(path.resolve("./package.json"), 'utf8'));
-        var version = json.version;
-
-        try {
-            fs.lstatSync(path.resolve("./standalone/rama.js"));
-            fs.copySync(path.resolve("./standalone/rama.js"), path.resolve("./standalone") + "/rama"+version+".js");fs.removeSync(process.cwd()+"/myProject");
-        }
-        catch (e) {
-            //continue
-        }
-        
-        fs.copy(path.resolve("./tmp/dist/index.js"), path.resolve("./standalone")+"/rama.js", function (err) {
-            if (err) 
-                return cb(err);
-            else 
-            {
-                fs.removeSync(path.resolve("./tmp"));
-                cb()
+        outputs: {
+            "+standalone": {
+                dest: path.resolve("./standalone") + "/rama.js"
             }
-        })
+        }
+    }).then(function(){
+
+        cb();
 
     },function(err){
         cb(err)
