@@ -2,7 +2,7 @@
 var util = require('./util');
 
 util.series(["npm test",
-    "npm run build-release",
+    "npm run build release -- --deploy",
     "npm publish"],function(err){
     if(err)
     {

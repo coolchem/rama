@@ -15,10 +15,13 @@ export abstract class ViewBase extends UIElement
 
     protected rootElement:UIElement;
 
+    private _tempAttributes:any;
+
     constructor() {
         super();
         this._viewStates = [];
         this._stateManagedProperties = {};
+        this._tempAttributes = {};
     }
 
     protected __preInitialize():void {
@@ -80,6 +83,22 @@ export abstract class ViewBase extends UIElement
     appendChild(newChild:UIElement):void {
         this.rootElement.appendChild(newChild);
     }
+
+    setAttribute(name?: string, value?: any): void{
+
+        if(this.rootElement)
+        {
+            this.rootElement.setAttribute(name,value);
+            return;
+        }
+
+        this._tempAttributes[name] = value;
+    }
+
+    getAttribute(name: string):any
+    {
+        this.rootElement.getAttribute(name);
+    }
     
     protected createChildren():void {
         //cheking for elements lengh here because this will ensure the children of this view are overriden, only if
@@ -87,6 +106,11 @@ export abstract class ViewBase extends UIElement
         if(this._children && this._children.length > 0)
         {
             this.rootElement.setChildren(this._children);
+        }
+
+        for(var k in this._tempAttributes)
+        {
+            this.rootElement.setAttribute(k,this._tempAttributes[k]);
         }
         this.rootElement.initialize();
     }

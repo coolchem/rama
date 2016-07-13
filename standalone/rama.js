@@ -1323,6 +1323,7 @@ define('dist/core/ViewBase', function (require, exports, module) {
             _super.call(this);
             this._viewStates = [];
             this._stateManagedProperties = {};
+            this._tempAttributes = {};
         }
         ViewBase.prototype.__preInitialize = function () {
             var _this = this;
@@ -1364,9 +1365,22 @@ define('dist/core/ViewBase', function (require, exports, module) {
         ViewBase.prototype.appendChild = function (newChild) {
             this.rootElement.appendChild(newChild);
         };
+        ViewBase.prototype.setAttribute = function (name, value) {
+            if (this.rootElement) {
+                this.rootElement.setAttribute(name, value);
+                return;
+            }
+            this._tempAttributes[name] = value;
+        };
+        ViewBase.prototype.getAttribute = function (name) {
+            this.rootElement.getAttribute(name);
+        };
         ViewBase.prototype.createChildren = function () {
             if (this._children && this._children.length > 0) {
                 this.rootElement.setChildren(this._children);
+            }
+            for (var k in this._tempAttributes) {
+                this.rootElement.setAttribute(k, this._tempAttributes[k]);
             }
             this.rootElement.initialize();
         };
