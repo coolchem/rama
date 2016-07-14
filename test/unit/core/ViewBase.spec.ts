@@ -97,7 +97,7 @@ describe('ViewBase Spec', () => {
 
         });
 
-        it("should children set from outside should override the child views children",()=>{
+        it("should let children set from outside should override the child views children",()=>{
 
 
             var view:TestParentView = new TestParentView();
@@ -105,6 +105,17 @@ describe('ViewBase Spec', () => {
 
             expect(view.testChildView.getChildren().length).toEqual(2);
             expect(view.testChildView.getChildren()[0].getElementRef() instanceof HTMLDivElement).toBe(true);
+
+
+        });
+
+        it("should set the attributes set from outside onto the root element",()=>{
+
+
+            var view:TestParentView = new TestParentView();
+            view.initialize();
+
+            expect(view.testChildView.getAttribute("class")).toEqual("testClass");
 
 
         });

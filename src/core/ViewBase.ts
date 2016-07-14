@@ -97,7 +97,7 @@ export abstract class ViewBase extends UIElement
 
     getAttribute(name: string):any
     {
-        this.rootElement.getAttribute(name);
+        return this.rootElement.getAttribute(name);
     }
     
     protected createChildren():void {

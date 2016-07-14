@@ -154,7 +154,7 @@ export class TestParentView extends ViewBase
     render(){
 
         return <div>
-            <TestChildView onclick={this.onClickHandler} id="testChildView">
+            <TestChildView onclick={this.onClickHandler} class="testClass" id="testChildView">
                 <div id="test1"></div>
                 <div id="test2"></div>
             </TestChildView>

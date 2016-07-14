@@ -1373,7 +1373,7 @@ define('dist/core/ViewBase', function (require, exports, module) {
             this._tempAttributes[name] = value;
         };
         ViewBase.prototype.getAttribute = function (name) {
-            return this.rootElement.getAttribute(name);
+            this.rootElement.getAttribute(name);
         };
         ViewBase.prototype.createChildren = function () {
             if (this._children && this._children.length > 0) {
