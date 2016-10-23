@@ -79,7 +79,7 @@ export function createElement(tag:VNode|string,refs?:any,stateManagedProperties?
 
     if(!(element instanceof UIElement))
     {
-        throw TypeError("Custom Component Class must extend UIElement.\n" + element.toString())
+        throw TypeError("Custom Component Class must extend UIElement.\n" + (element as Object).toString())
     }
 
     if(vnode.props)

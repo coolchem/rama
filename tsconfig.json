@@ -9,9 +9,7 @@
     "emitDecoratorMetadata":true,
     "experimentalDecorators":true,
     "noEmitOnError":true,
+    "skipLibCheck":true,
     "moduleResolution":"node"
-  },
-  "exclude": [
-    "node_modules"
-  ]
+  }
 }
