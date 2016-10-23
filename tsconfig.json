@@ -11,5 +11,9 @@
     "noEmitOnError":true,
     "skipLibCheck":true,
     "moduleResolution":"node"
-  }
+  },
+  "exclude": [
+    "node_modules",
+    ".c9"
+  ]
 }
