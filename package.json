@@ -5,7 +5,8 @@
     "name": ""
   },
   "files": [
-    "dist"
+    "dist",
+    "standalone"
   ],
   "dependencies": {},
   "description": "",
